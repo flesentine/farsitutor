@@ -40,3 +40,5 @@ jobs:
           fi
           git commit -m "Build 1000-word Persian frequency curriculum"
           git push
+
+# Updated through a normal merge so the push workflow runs.
