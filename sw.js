@@ -1,11 +1,11 @@
-const CACHE = 'farsi-daily-cache-v3';
+const CACHE = 'farsi-daily-cache-v4';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
   './words.js',
   './app.js',
-  './speech-fix.js',
+  './speech-fix.js?v=4',
   './manifest.json',
   './icon.svg'
 ];
@@ -30,7 +30,7 @@ self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
 
   event.respondWith(
-    fetch(event.request)
+    fetch(event.request, { cache: 'no-store' })
       .then(response => {
         if (response.ok && event.request.url.startsWith(self.location.origin)) {
           const copy = response.clone();
