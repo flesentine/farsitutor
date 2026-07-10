@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#5b4bdb" />
+  <meta name="description" content="Learn one useful Persian (Farsi) word every day and review it with smart flashcards." />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Farsi Daily</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="brand-mark" aria-hidden="true">ف</div>
+        <div>
+          <h1>Farsi Daily</h1>
+          <p>One word a day. Remember it for good.</p>
+        </div>
+      </div>
+      <button id="installBtn" class="ghost-btn hidden" type="button">Install app</button>
+    </header>
+
+    <main>
+      <section class="stats-grid" aria-label="Learning statistics">
+        <article class="stat-card"><span id="streakStat">0</span><small>day streak</small></article>
+        <article class="stat-card"><span id="learnedStat">0</span><small>words learned</small></article>
+        <article class="stat-card"><span id="dueStat">0</span><small>due now</small></article>
+        <article class="stat-card"><span id="accuracyStat">—</span><small>accuracy</small></article>
+      </section>
+
+      <nav class="tabbar" aria-label="Main navigation">
+        <button class="tab active" data-view="today" type="button">Today</button>
+        <button class="tab" data-view="review" type="button">Review <span id="reviewBadge" class="badge">0</span></button>
+        <button class="tab" data-view="deck" type="button">My words</button>
+      </nav>
+
+      <section id="todayView" class="view active">
+        <div class="hero-copy">
+          <p class="eyebrow">TODAY'S WORD</p>
+          <h2>Build your Persian one word at a time.</h2>
+        </div>
+
+        <article class="word-card" id="todayCard">
+          <div class="word-topline">
+            <span id="wordCategory" class="chip">Everyday</span>
+            <span id="wordDay" class="muted"></span>
+          </div>
+          <div class="farsi-word" id="todayFarsi" lang="fa" dir="rtl">سلام</div>
+          <div class="transliteration" id="todayLatin">salâm</div>
+          <div class="meaning" id="todayMeaning">hello</div>
+          <button id="speakTodayBtn" class="speak-btn" type="button" aria-label="Speak today's Persian word">
+            <span aria-hidden="true">🔊</span> Hear it
+          </button>
+          <div class="example-box">
+            <p id="todayExampleFa" lang="fa" dir="rtl">سلام، حالت چطوره؟</p>
+            <p id="todayExampleLatin">Salâm, hâlet chetore?</p>
+            <p id="todayExampleEn">Hello, how are you?</p>
+          </div>
+          <div class="today-actions">
+            <button id="addTodayBtn" class="primary-btn" type="button">Add to my words</button>
+            <button id="practiceTodayBtn" class="secondary-btn" type="button">Practice now</button>
+          </div>
+        </article>
+      </section>
+
+      <section id="reviewView" class="view">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">SMART REVIEW</p>
+            <h2>Practice what needs attention.</h2>
+          </div>
+          <button id="restartReviewBtn" class="ghost-btn" type="button">Restart session</button>
+        </div>
+
+        <div id="reviewEmpty" class="empty-state hidden">
+          <div class="empty-icon">✓</div>
+          <h3>You're caught up</h3>
+          <p>No cards are due right now. Missed words will return sooner, and strong words will wait longer.</p>
+          <button id="reviewAnyBtn" class="secondary-btn" type="button">Practice any word</button>
+        </div>
+
+        <article id="reviewCard" class="flashcard hidden" tabindex="0" aria-live="polite">
+          <div class="flash-progress"><span id="reviewProgressFill"></span></div>
+          <div class="flash-meta">
+            <span id="reviewCounter">1 of 1</span>
+            <button id="speakReviewBtn" class="icon-btn" type="button" aria-label="Speak review word">🔊</button>
+          </div>
+          <div id="reviewPrompt" class="flash-prompt" lang="fa" dir="rtl">سلام</div>
+          <button id="revealBtn" class="primary-btn wide" type="button">Show answer</button>
+          <div id="reviewAnswer" class="review-answer hidden">
+            <div id="reviewLatin" class="transliteration">salâm</div>
+            <div id="reviewMeaning" class="meaning">hello</div>
+            <div class="rating-row">
+              <button id="againBtn" class="rating-btn again" type="button"><strong>Missed</strong><span>Review again soon</span></button>
+              <button id="goodBtn" class="rating-btn good" type="button"><strong>Got it</strong><span>Increase the gap</span></button>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="deckView" class="view">
+        <div class="section-heading deck-heading">
+          <div>
+            <p class="eyebrow">YOUR FLASHCARDS</p>
+            <h2>Every word you've collected.</h2>
+          </div>
+          <label class="search-wrap">
+            <span aria-hidden="true">⌕</span>
+            <input id="searchInput" type="search" placeholder="Search words" />
+          </label>
+        </div>
+        <div class="filter-row" role="group" aria-label="Deck filters">
+          <button class="filter active" data-filter="all" type="button">All</button>
+          <button class="filter" data-filter="learning" type="button">Learning</button>
+          <button class="filter" data-filter="strong" type="button">Strong</button>
+          <button class="filter" data-filter="missed" type="button">Needs work</button>
+        </div>
+        <div id="deckList" class="deck-list"></div>
+        <div id="deckEmpty" class="empty-state hidden">
+          <div class="empty-icon">ف</div>
+          <h3>No words yet</h3>
+          <p>Add today's word and it will appear here.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Your progress stays private in this browser.</p>
+      <button id="resetBtn" class="text-btn" type="button">Reset progress</button>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
