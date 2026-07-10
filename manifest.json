@@ -1,0 +1,12 @@
+{
+  "name": "Farsi Daily",
+  "short_name": "Farsi Daily",
+  "description": "Learn one Persian word every day and remember it with smart flashcards.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f6f5fb",
+  "theme_color": "#5b4bdb",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
