@@ -36,3 +36,5 @@ jobs:
           git add -A
           git commit -m "Add 1000-word daily curriculum and verb conjugations"
           git push
+
+# Updated through a normal merge so the push workflow runs.
