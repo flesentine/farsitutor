@@ -1,5 +1,14 @@
-const CACHE = 'farsi-daily-cache-v2';
-const ASSETS = ['./', './index.html', './styles.css', './words.js', './app.js', './manifest.json', './icon.svg'];
+const CACHE = 'farsi-daily-cache-v3';
+const ASSETS = [
+  './',
+  './index.html',
+  './styles.css',
+  './words.js',
+  './app.js',
+  './speech-fix.js',
+  './manifest.json',
+  './icon.svg'
+];
 
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -18,7 +27,7 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  if (event.request.method !== 'GET' || event.request.url.includes('translate.google')) return;
+  if (event.request.method !== 'GET') return;
 
   event.respondWith(
     fetch(event.request)
