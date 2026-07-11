@@ -1,5 +1,33 @@
-const CACHE='farsi-daily-cache-v7';
-const ASSETS=['./','./index.html','./styles.css','./verb-upgrade.css','./words.js','./words-part-01.js','./words-part-02.js','./words-part-03.js','./words-part-04.js','./words-part-05.js','./words-part-06.js','./words-part-07.js','./words-part-08.js','./words-part-09.js','./words-order.js','./verbs.js','./app-core.js','./app-ui.js','./app-main.js','./speech-fix.js?v=5','./manifest.json','./icon.svg'];
-self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
-self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
-self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(fetch(e.request,{cache:'no-store'}).then(r=>{if(r.ok&&e.request.url.startsWith(self.location.origin)){const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy))}return r}).catch(async()=>{const cached=await caches.match(e.request);if(cached)return cached;if(e.request.mode==='navigate')return caches.match('./index.html');throw new Error('Network and cache unavailable')}))});
+const CACHE = 'farsi-daily-cache-v8';
+const ASSETS = [
+  './', './index.html', './styles.css', './verb-upgrade.css', './learning-upgrade.css',
+  './words.js', './words-part-01.js', './words-part-02.js', './words-part-03.js',
+  './words-part-04.js', './words-part-05.js', './words-part-06.js', './words-part-07.js',
+  './words-part-08.js', './words-part-09.js', './words-order.js', './verbs.js',
+  './script-lessons.js', './app-core.js', './app-ui.js', './app-main.js',
+  './speech-fix.js?v=6', './learning-upgrade.js?v=1', './manifest.json', './icon.svg'
+];
+self.addEventListener('install', event => event.waitUntil(
+  caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting())
+));
+self.addEventListener('activate', event => event.waitUntil(
+  caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key))))
+    .then(() => self.clients.claim())
+));
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+  event.respondWith(
+    fetch(event.request, { cache: 'no-store' }).then(response => {
+      if (response.ok && event.request.url.startsWith(self.location.origin)) {
+        const copy = response.clone();
+        caches.open(CACHE).then(cache => cache.put(event.request, copy));
+      }
+      return response;
+    }).catch(async () => {
+      const cached = await caches.match(event.request);
+      if (cached) return cached;
+      if (event.request.mode === 'navigate') return caches.match('./index.html');
+      throw new Error('Network and cache unavailable');
+    })
+  );
+});

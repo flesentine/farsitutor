@@ -1,0 +1,106 @@
+.sentence-speak-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 12px;
+  padding: 9px 13px;
+  border: 1px solid rgba(91,75,219,.18);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--primary-dark);
+  font-weight: 800;
+}
+.sentence-speak-btn:hover { transform: translateY(-1px); }
+.review-direction {
+  width: fit-content;
+  margin: 22px auto 0;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: .04em;
+}
+.flash-prompt-english {
+  font-family: inherit;
+  font-size: clamp(38px, 8vw, 68px);
+  line-height: 1.08;
+  direction: ltr;
+}
+.flash-prompt-latin {
+  font-family: inherit;
+  color: var(--primary-dark);
+  font-size: clamp(36px, 8vw, 64px);
+  direction: ltr;
+}
+.review-answer-farsi {
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: clamp(52px, 10vw, 82px);
+  line-height: 1.25;
+  font-weight: 850;
+}
+.review-example-box {
+  max-width: 560px;
+  margin: 24px auto 0;
+  padding: 17px;
+  border-radius: 16px;
+  background: var(--surface-2);
+}
+.review-example-box p { margin-bottom: 6px; }
+.review-example-box p:first-child { font-family: Tahoma, Arial, sans-serif; font-size: 22px; font-weight: 750; }
+.review-example-box p:nth-child(2) { color: var(--primary-dark); font-weight: 700; }
+.review-example-box p:nth-child(3) { margin-bottom: 0; color: var(--muted); }
+.script-layout { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr); gap: 18px; align-items: start; }
+.script-card, .script-quiz-card {
+  padding: clamp(24px, 4vw, 38px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.script-card { text-align: center; }
+.script-letter {
+  margin: 16px 0 0;
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: clamp(96px, 18vw, 156px);
+  line-height: 1.08;
+  font-weight: 850;
+}
+.script-card h3 { margin-bottom: 4px; font-size: 28px; }
+.script-sound { color: var(--primary-dark); font-weight: 800; }
+.script-forms { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin: 24px 0; }
+.script-forms div { padding: 13px 8px; border-radius: 14px; background: var(--surface-2); }
+.script-forms small, .script-example small { display: block; color: var(--muted); font-weight: 700; }
+.script-forms strong { display: block; margin-top: 8px; font-family: Tahoma, Arial, sans-serif; font-size: 31px; }
+.script-example { padding: 18px; border-radius: 16px; background: #f9f8fd; }
+.script-example strong, .script-example span { display: block; }
+.script-example strong { margin-top: 5px; font-family: Tahoma, Arial, sans-serif; font-size: 35px; }
+.script-example span:nth-of-type(1) { color: var(--primary-dark); font-weight: 800; }
+.script-example span:nth-of-type(2) { color: var(--muted); }
+.script-quiz-card h3 { margin-bottom: 20px; font-size: 25px; line-height: 1.25; }
+.script-quiz-choices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.script-choice {
+  min-height: 82px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 850;
+}
+.script-choice:hover { border-color: #aaa2eb; transform: translateY(-1px); }
+.script-choice.correct { border-color: var(--success); background: var(--success-soft); color: var(--success); }
+.script-choice.wrong { border-color: var(--danger); background: var(--danger-soft); color: var(--danger); }
+.script-choice:disabled { cursor: default; }
+.script-quiz-result { min-height: 25px; margin: 16px 0 12px; font-weight: 800; }
+.script-quiz-result.good { color: var(--success); }
+.script-quiz-result.bad { color: var(--danger); }
+.script-score { margin: 16px 0 0; }
+@media (max-width: 760px) {
+  .tabbar { width: 100%; overflow-x: auto; }
+  .tab { flex: 0 0 auto; }
+  .script-layout { grid-template-columns: 1fr; }
+  .script-forms { grid-template-columns: repeat(2, 1fr); }
+}
