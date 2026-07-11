@@ -1,0 +1,75 @@
+/* Final usability polish for guided learning and audio feedback. */
+.daily-task.next {
+  border-color: rgba(91, 75, 219, .42);
+  background: linear-gradient(145deg, rgba(244, 241, 255, .96), rgba(255,255,255,.92));
+  box-shadow: 0 8px 22px rgba(91, 75, 219, .10);
+}
+.daily-task.next .daily-task-check {
+  background: var(--primary);
+  color: #fff;
+}
+.daily-guide.complete .daily-task-list { margin-bottom: 8px; }
+.daily-guide.complete .daily-task.done { min-height: 46px; }
+.daily-guide.complete .daily-task.done .daily-task-copy small { display: none; }
+.speech-playing {
+  position: relative;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.speech-spinner {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: speechSpin .75s linear infinite;
+}
+@keyframes speechSpin { to { transform: rotate(360deg); } }
+.speech-status {
+  min-height: 18px;
+  margin: 10px 2px 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+}
+.speech-status.error { color: var(--danger); }
+#speakReviewBtn.hidden { display: none !important; }
+#revealBtn { transition: transform .16s ease, background .16s ease; }
+.pronunciation-actions button:focus-visible,
+.daily-task:focus-visible {
+  outline: 3px solid rgba(91,75,219,.24);
+  outline-offset: 2px;
+}
+@media (max-width: 640px) {
+  .daily-task.done {
+    min-height: 46px;
+    padding-block: 7px;
+  }
+  .daily-task.done .daily-task-copy small { display: none; }
+  .daily-task.next {
+    min-height: 62px;
+  }
+  .daily-guide.complete .daily-task-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .daily-guide.complete .daily-task.done {
+    grid-template-columns: 30px 1fr;
+    gap: 7px;
+    min-width: 0;
+  }
+  .daily-guide.complete .daily-task-arrow { display: none; }
+  .daily-guide.complete .daily-task-copy strong {
+    overflow: hidden;
+    font-size: 11px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .speech-status { text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .speech-spinner { animation-duration: 1.6s; }
+}
