@@ -1,11 +1,14 @@
 {
-  "name": "Farsi Daily",
+  "name": "Farsi Daily — Spoken Persian & Script",
   "short_name": "Farsi Daily",
-  "description": "Learn one Persian word every day and remember it with smart flashcards.",
+  "description": "Learn one useful Persian word and one script lesson each day with audio, smart review, and verb conjugations.",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#f6f5fb",
+  "orientation": "portrait-primary",
+  "background_color": "#f7f7fc",
   "theme_color": "#5b4bdb",
+  "categories": ["education", "utilities"],
   "icons": [
     { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
   ]
