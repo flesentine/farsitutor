@@ -1,30 +1,54 @@
 # Farsi Daily
 
-A private, browser-based Persian vocabulary trainer.
+A browser-based Persian vocabulary trainer that introduces **one new headword per day** and reviews saved words with spaced repetition.
 
-## Features
+## Curriculum
 
-- One automatically selected Farsi word each day
-- Reliable Persian pronunciation using streamed audio with the browser speech engine as a fallback
-- Daily words automatically added to the flashcard deck
-- Tracks correct and missed answers in local browser storage
-- Missed cards repeat in the current session and become due again sooner
-- Correct cards use increasing review intervals: 1, 3, 7, 14, 30, 60, and 120 days
-- Search and filter the deck by learning strength
-- Installable PWA and offline cache when served from a web server
+- 1,000 frequency-informed Persian headwords
+- Conversational words are prioritized over duplicate inflected forms
+- Common conjugated verb forms are normalized to the infinitive, so a verb counts as one daily word
+- Existing user progress remains compatible because the original 84 storage positions stay fixed
+- Each word has Persian script, an English meaning, a Latin pronunciation guide, and a frequency rank
 
-## Run it
+The frequency foundation comes from [`m3hrdadfi/persian-words-frequency`](https://github.com/m3hrdadfi/persian-words-frequency), an Apache-2.0 dataset built from large Persian corpora. The app applies additional conversational prioritization and lemma cleanup, so its order is designed for learners rather than presented as a mathematically exact ranking of spoken conversation.
 
-Open `index.html` through a web server or deploy the repository with GitHub Pages. From this folder on a Mac or PC with Python installed:
+## Verb conjugations
+
+Recognized verbs include interactive tables for:
+
+- Present
+- Simple past
+- Present subjunctive
+- Future
+
+Each table includes all six persons and pronunciation buttons. Compound verbs such as `کار کردن`, `تصمیم گرفتن`, and `دوست داشتن` are conjugated through their helper verb.
+
+## Learning system
+
+- Today’s word is automatically added to the flashcard deck
+- Missed cards return during the same session and are due again sooner
+- Correct cards progress through 1, 3, 7, 14, 30, 60, and 120-day intervals
+- Progress is stored in the browser with `localStorage`
+
+## Pronunciation
+
+The app tries pronunciation in this order:
+
+1. Bundled Persian MP3
+2. Streamed Persian speech
+3. A Persian system voice
+4. A phonetic English-voice fallback
+
+## Run locally
 
 ```bash
 python3 -m http.server 8080
 ```
 
-Then visit `http://localhost:8080`.
+Then open `http://localhost:8080`.
 
-Progress is stored in that browser using `localStorage`. Clearing browser site data or pressing **Reset progress** removes it.
+## Data and generated assets
 
-## Pronunciation
-
-The **Hear it** button first streams a short Persian pronunciation from Google Translate TTS. If that request is unavailable, the app falls back to a Persian voice installed in the browser or operating system. Only the displayed Persian word or phrase is sent for pronunciation; learning progress stays in local browser storage.
+- The checked-in curriculum is split across `words-part-*.js`; `words-order.js` contains the one-word-per-day order.
+- `tools/generate_audio.py` creates missing Persian pronunciation clips in stable storage order.
+- The audio workflow can add pronunciation files for newly added words.

@@ -1,35 +1,32 @@
 name: Generate bundled Persian audio
-
 on:
   push:
     branches: [main]
     paths:
       - words.js
+      - words-part-*.js
+      - words-order.js
       - tools/generate_audio.py
       - .github/workflows/generate-audio.yml
   workflow_dispatch:
-
 permissions:
   contents: write
-
 jobs:
   build-audio:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-
+    timeout-minutes: 60
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-
+        with:
+          ref: main
       - name: Install audio tools
         run: |
           sudo apt-get update
           sudo apt-get install -y espeak ffmpeg
           python -m pip install --upgrade edge-tts
-
-      - name: Generate all pronunciations
+      - name: Generate missing pronunciations
         run: python tools/generate_audio.py
-
       - name: Commit generated audio
         run: |
           git config user.name "github-actions[bot]"
@@ -39,5 +36,6 @@ jobs:
             echo "Audio files are already current."
             exit 0
           fi
-          git commit -m "Add bundled Persian pronunciation audio"
+          git commit -m "Add pronunciation audio for 1000-word curriculum"
+          git pull --rebase origin main
           git push
