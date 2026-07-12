@@ -1,9 +1,34 @@
 let reviewRetryCounts = new Map();
 let reviewRatingLocked = false;
 
+function readStoredObject(key, fallback = {}) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || '{}');
+    return value && typeof value === 'object' && !Array.isArray(value)
+      ? { ...fallback, ...value }
+      : { ...fallback };
+  } catch {
+    return { ...fallback };
+  }
+}
+
+function localDateKey(date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+function practiceSentence(word) {
+  if (word?.exFa) return { fa: word.exFa, latin: word.exLatin || '', en: word.exEn || '' };
+  return {
+    fa: `من کلمهٔ «${word.fa}» را یاد می‌گیرم.`,
+    latin: `Man kalame-ye “${word.latin}” râ yâd migiram.`,
+    en: `I am learning the Persian word for “${word.en}.”`
+  };
+}
+
 function renderToday() {
   const index = todaysWordIndex();
   const word = getWord(index);
+  const sentence = practiceSentence(word);
   $('todayFarsi').textContent = word.fa;
   $('todayLatin').textContent = word.latin;
   $('todayMeaning').textContent = word.en;
@@ -13,11 +38,10 @@ function renderToday() {
   }).format(new Date());
   $('wordDay').textContent = `Frequency #${word.rank || index + 1} of ${typeof DAILY_ORDER !== 'undefined' ? DAILY_ORDER.length : WORDS.length} · ${dateText}`;
   const box = $('todayExampleFa').closest('.example-box');
-  const has = Boolean(word.exFa || word.exLatin || word.exEn);
-  box.classList.toggle('hidden', !has);
-  $('todayExampleFa').textContent = word.exFa || '';
-  $('todayExampleLatin').textContent = word.exLatin || '';
-  $('todayExampleEn').textContent = word.exEn || '';
+  box.classList.remove('hidden');
+  $('todayExampleFa').textContent = sentence.fa;
+  $('todayExampleLatin').textContent = sentence.latin;
+  $('todayExampleEn').textContent = sentence.en;
   renderVerbDetails('todayVerbPanel', word);
   const added = Boolean(state.cards[index]);
   $('addTodayBtn').disabled = added;
@@ -38,14 +62,21 @@ function statusFor(card) {
 }
 
 function streakDays() {
+  const guided = readStoredObject('farsi-guided-today-v2', { days: {} });
+  const script = readStoredObject('farsi-script-v1', { completed: {} });
   let count = 0;
-  let cursor = new Date();
+  const cursor = new Date();
   cursor.setHours(0, 0, 0, 0);
-  for (let index = 0; index < 3650; index += 1) {
-    const key = cursor.toISOString().slice(0, 10);
-    if (state.history[key]) count += 1;
-    else if (index !== 0) break;
-    cursor = new Date(cursor.getTime() - DAY_MS);
+  for (let offset = 0; offset < 3650; offset += 1) {
+    const key = localDateKey(cursor);
+    const practiced = Boolean(
+      guided.days?.[key]?.completedAt
+      || Number(state.history?.[key]?.reviewed || 0) > 0
+      || script.completed?.[key]
+    );
+    if (practiced) count += 1;
+    else if (offset !== 0) break;
+    cursor.setDate(cursor.getDate() - 1);
   }
   return count;
 }
@@ -127,21 +158,62 @@ function buildReviewQueue(forceAny = false, singleIndex = null) {
   renderReviewCard();
 }
 
+function reviewStage(card) {
+  if ((card?.good || 0) < 3) return 'english';
+  if ((card?.good || 0) < 6) return 'latin';
+  return 'script';
+}
+
 function renderReviewCard() {
-  const has = sanitizeReviewQueue();
-  $('reviewEmpty').classList.toggle('hidden', has);
-  $('reviewCard').classList.toggle('hidden', !has);
-  if (!has) return;
+  const hasCard = sanitizeReviewQueue();
+  $('reviewEmpty').classList.toggle('hidden', hasCard);
+  $('reviewCard').classList.toggle('hidden', !hasCard);
+  if (!hasCard) return;
+
   const index = reviewQueue[reviewIndex];
   const word = getWord(index);
-  $('reviewPrompt').textContent = word.fa;
+  const card = state.cards[index];
+  const stage = reviewStage(card);
+  const prompt = $('reviewPrompt');
+  prompt.classList.remove('flash-prompt-english', 'flash-prompt-latin');
+  prompt.removeAttribute('lang');
+  prompt.removeAttribute('dir');
+
+  if (stage === 'english') {
+    $('reviewDirection').textContent = 'English → spoken Persian';
+    prompt.textContent = word.en;
+    prompt.classList.add('flash-prompt-english');
+  } else if (stage === 'latin') {
+    $('reviewDirection').textContent = 'Pronunciation → Persian script';
+    prompt.textContent = word.latin;
+    prompt.classList.add('flash-prompt-latin');
+  } else {
+    $('reviewDirection').textContent = 'Persian script → meaning';
+    prompt.textContent = word.fa;
+    prompt.lang = 'fa';
+    prompt.dir = 'rtl';
+  }
+
+  const sentence = practiceSentence(word);
+  $('reviewAnswerFarsi').textContent = word.fa;
   $('reviewLatin').textContent = word.latin;
   $('reviewMeaning').textContent = word.en;
+  $('reviewExampleBox').classList.remove('hidden');
+  $('reviewExampleFa').textContent = sentence.fa;
+  $('reviewExampleLatin').textContent = sentence.latin;
+  $('reviewExampleEn').textContent = sentence.en;
   renderVerbDetails('reviewVerbPanel', word);
   $('reviewCounter').textContent = `${reviewIndex + 1} of ${reviewQueue.length}`;
   $('reviewProgressFill').style.width = `${((reviewIndex + 1) / reviewQueue.length) * 100}%`;
   $('reviewAnswer').classList.add('hidden');
   $('revealBtn').classList.remove('hidden');
+  $('revealBtn').textContent = stage === 'script' ? 'Show meaning' : 'Show Persian';
+  $('speakReviewBtn').classList.add('hidden');
+  const status = $('reviewSpeechStatus');
+  if (status) {
+    status.textContent = '';
+    status.classList.remove('error');
+  }
 }
 
 function rateCard(result) {
@@ -203,7 +275,7 @@ function rateCard(result) {
 function showView(name) {
   document.querySelectorAll('.view').forEach(element => element.classList.toggle('active', element.id === `${name}View`));
   document.querySelectorAll('.tab').forEach(element => element.classList.toggle('active', element.dataset.view === name));
-  if (name === 'review') buildReviewQueue(false);
+  if (name === 'review' && !sanitizeReviewQueue()) buildReviewQueue(false);
   if (name === 'deck') renderDeck();
 }
 
