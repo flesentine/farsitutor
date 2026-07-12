@@ -250,16 +250,21 @@
     if (runId !== operationId) throw cancelledError();
     stopAllSpeech();
     const requestId = directRequest;
+    const hasDeviceVoice = Boolean(findPersianVoiceStrict());
+
+    if (hasDeviceVoice) {
+      try {
+        return await speakWithPersianVoice(item, speed, requestId, runId);
+      } catch (voiceError) {
+        if (runId !== operationId || voiceError?.name === 'AbortError') throw cancelledError();
+      }
+    }
+
     try {
       return await playRemoteSentence(item, speed, requestId, runId);
     } catch (remoteError) {
       if (runId !== operationId || remoteError?.name === 'AbortError') throw cancelledError();
-      try {
-        return await speakWithPersianVoice(item, speed, requestId, runId);
-      } catch (voiceError) {
-        if (runId !== operationId) throw cancelledError();
-        return baseSpeakPractice([item], null, { speed });
-      }
+      return baseSpeakPractice([item], null, { speed });
     }
   }
 
@@ -308,6 +313,7 @@
   };
 
   function primeCurrentSentence() {
+    if (findPersianVoiceStrict()) return;
     const text = document.querySelector('#todayView.active .guided-sentence')?.textContent?.trim();
     if (text && !isHeadword(text)) getAudio(text, 'normal', true);
   }
@@ -318,6 +324,7 @@
     observer.observe(todayView, { childList: true, subtree: true, characterData: true });
   }
   window.setTimeout(primeCurrentSentence, 50);
+  window.speechSynthesis?.addEventListener?.('voiceschanged', primeCurrentSentence);
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       operationId += 1;

@@ -18,6 +18,11 @@
     }
   }
 
+  function refreshReviewState() {
+    reviewState = loadReviewState();
+    return reviewState;
+  }
+
   function loadScriptState() {
     try {
       return { completed: {}, ...JSON.parse(localStorage.getItem(SCRIPT_KEY) || '{}') };
@@ -104,6 +109,7 @@
   }
 
   function chooseLetter() {
+    refreshReviewState();
     const ranked = studiedCandidates().map(candidate => {
       const stats = letterStats(candidate.index);
       return {
@@ -246,6 +252,7 @@
 
   function answer(button) {
     if (activeIndex === null) return;
+    refreshReviewState();
     const selected = Number(button.dataset.pastScriptChoice);
     const correct = selected === activeIndex;
     const stats = letterStats(activeIndex);
@@ -279,6 +286,7 @@
   }
 
   function renderScore() {
+    refreshReviewState();
     const daily = { attempts: 0, correct: 0, ...(reviewState.daily[todayKey()] || {}) };
     const score = document.getElementById('pastScriptScore');
     if (!score) return;
