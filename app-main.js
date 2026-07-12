@@ -1,3 +1,13 @@
+function clearLearningData() {
+  const keys = [];
+  for (let index = 0; index < localStorage.length; index += 1) {
+    const key = localStorage.key(index);
+    if (key?.startsWith('farsi-')) keys.push(key);
+  }
+  keys.forEach(key => localStorage.removeItem(key));
+  window.location.reload();
+}
+
 function bindEvents() {
   bindVerbPanel('todayVerbPanel');
   bindVerbPanel('reviewVerbPanel');
@@ -52,7 +62,8 @@ function bindEvents() {
     }
     if (button.dataset.remove !== undefined) {
       const index = Number(button.dataset.remove);
-      if (confirm(`Remove “${getWord(index).fa}” from your flashcards?`)) {
+      const word = getWord(index);
+      if (word && confirm(`Remove “${word.fa}” from your flashcards?`)) {
         delete state.cards[index];
         saveState();
         sanitizeReviewQueue();
@@ -63,14 +74,8 @@ function bindEvents() {
   });
 
   $('resetBtn').addEventListener('click', () => {
-    if (confirm('Reset all saved words and learning history?')) {
-      state = defaultState();
-      saveState();
-      reviewQueue = [];
-      reviewIndex = 0;
-      renderAll();
-      showView('today');
-      toast('Progress reset');
+    if (confirm('Reset all saved words, lesson progress, script progress, and review history?')) {
+      clearLearningData();
     }
   });
 
