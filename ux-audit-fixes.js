@@ -236,6 +236,12 @@
     const button = event.detail?.button;
     const action = button?.dataset?.action;
     if (!['repeat-sentence', 'word-sentence'].includes(action)) return;
+    if (action === 'repeat-sentence') {
+      const completedRepeats = Number(button.dataset.uxCompletedRepeats || 0) + 1;
+      button.dataset.uxCompletedRepeats = String(completedRepeats);
+      if (completedRepeats < 3) return;
+      delete button.dataset.uxCompletedRepeats;
+    }
     const guided = read(GUIDED_KEY, { days: {} });
     const day = guided.days?.[currentDay()];
     if (day) {
