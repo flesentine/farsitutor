@@ -1,11 +1,11 @@
 // Bounded, gesture-first sentence audio for mobile browsers and installed PWAs.
 (() => {
   const baseSpeakPractice = window.speakPractice;
-  const baseSpeak = window.speak;
   const CACHE_LIMIT = 8;
   const audioCache = new Map();
   let currentAudio = null;
   let directRequest = 0;
+  let operationId = 0;
 
   function normalizeItems(items) {
     return (Array.isArray(items) ? items : [items])
@@ -19,12 +19,14 @@
     return Array.isArray(WORDS) && WORDS.some(word => word.fa === text);
   }
 
-  function emit(name, detail = {}) {
-    document.dispatchEvent(new CustomEvent(`farsi:speech-${name}`, { detail }));
+  function cancelledError() {
+    const error = new Error('Speech request cancelled');
+    error.name = 'AbortError';
+    return error;
   }
 
-  function audioKey(text, speed) {
-    return `${speed}:${text}`;
+  function emit(name, detail = {}) {
+    document.dispatchEvent(new CustomEvent(`farsi:speech-${name}`, { detail }));
   }
 
   function sourceUrls(text, speed) {
@@ -35,6 +37,8 @@
       `https://translate.googleapis.com/translate_tts?ie=UTF-8&client=gtx&tl=fa&ttsspeed=${ttsSpeed}&q=${encoded}`
     ];
   }
+
+  const audioKey = (text, speed) => `${speed}:${text}`;
 
   function removeAudio(key, audio) {
     if (audioCache.get(key) === audio) audioCache.delete(key);
@@ -48,16 +52,18 @@
   }
 
   function enforceCacheLimit() {
-    while (audioCache.size > CACHE_LIMIT) {
+    let attempts = 0;
+    while (audioCache.size > CACHE_LIMIT && attempts <= audioCache.size) {
+      attempts += 1;
       const oldest = audioCache.entries().next().value;
       if (!oldest) break;
       const [key, audio] = oldest;
       if (audio === currentAudio) {
         audioCache.delete(key);
         audioCache.set(key, audio);
-        continue;
+      } else {
+        removeAudio(key, audio);
       }
-      removeAudio(key, audio);
     }
   }
 
@@ -75,7 +81,7 @@
     audio.playsInline = true;
     audio.setAttribute('playsinline', '');
     audio.setAttribute('webkit-playsinline', '');
-    audio.style.display = 'none';
+    audio.hidden = true;
     audio.dataset.farsiSentenceAudio = key;
     sourceUrls(text, speed).forEach(url => {
       const source = document.createElement('source');
@@ -92,17 +98,19 @@
     return audio;
   }
 
-  function stopDirectAudio() {
+  function stopAllSpeech() {
     directRequest += 1;
-    if (!currentAudio) return;
-    try {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-    } catch {}
-    currentAudio = null;
+    if (currentAudio) {
+      try {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      } catch {}
+      currentAudio = null;
+    }
+    if (typeof stopSpeech === 'function') stopSpeech();
   }
 
-  function playRemoteSentence(item, speed, requestId) {
+  function playRemoteSentence(item, speed, requestId, runId) {
     const key = audioKey(item.text, speed);
     const audio = getAudio(item.text, speed, false);
     return new Promise((resolve, reject) => {
@@ -122,7 +130,6 @@
         window.clearInterval(cancelTimer);
         if (currentAudio === audio) currentAudio = null;
       };
-
       const finish = (ok, error = null) => {
         if (settled) return;
         settled = true;
@@ -133,7 +140,6 @@
           reject(error || new Error('Sentence audio failed'));
         }
       };
-
       const onPlaying = () => {
         started = true;
         window.clearTimeout(startTimer);
@@ -152,7 +158,7 @@
       audio.addEventListener('abort', onError, { once: true });
       currentAudio = audio;
       cancelTimer = window.setInterval(() => {
-        if (requestId !== directRequest) finish(false, new Error('Sentence audio cancelled'));
+        if (requestId !== directRequest || runId !== operationId) finish(false, cancelledError());
       }, 100);
 
       try {
@@ -178,15 +184,11 @@
       || null;
   }
 
-  function speakWithPersianVoice(item, speed, requestId) {
+  function speakWithPersianVoice(item, speed, requestId, runId) {
     return new Promise((resolve, reject) => {
-      if (!('speechSynthesis' in window) || requestId !== directRequest) {
-        reject(new Error('Persian device speech unavailable'));
-        return;
-      }
       const voice = findPersianVoiceStrict();
-      if (!voice) {
-        reject(new Error('No Persian device voice installed'));
+      if (!voice || !('speechSynthesis' in window) || requestId !== directRequest || runId !== operationId) {
+        reject(new Error('Persian device speech unavailable'));
         return;
       }
 
@@ -197,7 +199,6 @@
       let startTimer;
       let maxTimer;
       let cancelTimer;
-
       const finish = ok => {
         if (settled) return;
         settled = true;
@@ -229,7 +230,7 @@
       synthesis.cancel();
       synthesis.resume();
       cancelTimer = window.setInterval(() => {
-        if (requestId !== directRequest) {
+        if (requestId !== directRequest || runId !== operationId) {
           synthesis.cancel();
           finish(false);
         }
@@ -240,23 +241,23 @@
           finish(false);
         }
       }, 4000);
-
       try { synthesis.speak(utterance); }
       catch { finish(false); }
     });
   }
 
-  async function playSentence(item, speed) {
-    stopDirectAudio();
+  async function playSentence(item, speed, runId) {
+    if (runId !== operationId) throw cancelledError();
+    stopAllSpeech();
     const requestId = directRequest;
     try {
-      return await playRemoteSentence(item, speed, requestId);
+      return await playRemoteSentence(item, speed, requestId, runId);
     } catch (remoteError) {
-      if (requestId !== directRequest) throw remoteError;
+      if (runId !== operationId || remoteError?.name === 'AbortError') throw cancelledError();
       try {
-        return await speakWithPersianVoice(item, speed, requestId);
+        return await speakWithPersianVoice(item, speed, requestId, runId);
       } catch (voiceError) {
-        if (requestId !== directRequest) throw voiceError;
+        if (runId !== operationId) throw cancelledError();
         return baseSpeakPractice([item], null, { speed });
       }
     }
@@ -265,11 +266,10 @@
   window.speakPractice = async function speakPracticeV3(items, button = null, options = {}) {
     const normalized = normalizeItems(items);
     if (!normalized.length) return false;
+    const runId = ++operationId;
+    stopAllSpeech();
     const containsSentence = normalized.some(item => !isHeadword(item.text));
-    if (!containsSentence) {
-      stopDirectAudio();
-      return baseSpeakPractice(items, button, options);
-    }
+    if (!containsSentence) return baseSpeakPractice(items, button, options);
 
     const speed = options.speed === 'slow' ? 'slow' : 'normal';
     const repeat = Math.max(1, Math.min(5, Number(options.repeat || 1)));
@@ -281,17 +281,20 @@
       for (let itemIndex = 0; itemIndex < normalized.length; itemIndex += 1) {
         const item = normalized[itemIndex];
         for (let repetition = 0; repetition < repeat; repetition += 1) {
+          if (runId !== operationId) throw cancelledError();
           const ok = isHeadword(item.text)
             ? await baseSpeakPractice([item], null, { speed })
-            : await playSentence(item, speed);
+            : await playSentence(item, speed, runId);
           if (!ok) throw new Error('Audio failed');
           const hasMore = repetition < repeat - 1 || itemIndex < normalized.length - 1;
           if (hasMore) await new Promise(resolve => window.setTimeout(resolve, pauseMs));
         }
       }
+      if (runId !== operationId) throw cancelledError();
       emit('complete', { button, items: normalized, speed, repeat });
       return true;
     } catch (error) {
+      if (runId !== operationId || error?.name === 'AbortError') return false;
       emit('error', { button, items: normalized, speed, repeat, error });
       toast('Sentence audio could not play. Check media volume and internet connection.');
       return false;
@@ -301,16 +304,11 @@
   };
 
   speak = function speakV3(text, button = null, phoneticHint = '') {
-    if (isHeadword(text)) {
-      stopDirectAudio();
-      return baseSpeak(text, button, phoneticHint);
-    }
     return window.speakPractice([{ text, phoneticHint }], button);
   };
 
   function primeCurrentSentence() {
-    const element = document.querySelector('#todayView.active .guided-sentence');
-    const text = element?.textContent?.trim();
+    const text = document.querySelector('#todayView.active .guided-sentence')?.textContent?.trim();
     if (text && !isHeadword(text)) getAudio(text, 'normal', true);
   }
 
@@ -321,6 +319,9 @@
   }
   window.setTimeout(primeCurrentSentence, 50);
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stopDirectAudio();
+    if (document.hidden) {
+      operationId += 1;
+      stopAllSpeech();
+    }
   });
 })();
