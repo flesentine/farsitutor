@@ -16,8 +16,8 @@ const reviewKey = 'farsi-script-review-v1';
 const guided = {
   days: {
     [today]: {
-      step: 5,
-      done: { word: true, sentence: true, recall: true, script: true, reviews: false },
+      step: 'broken',
+      done: { word: true, sentence: true, recall: true, script: true, reviews: true },
       script: {
         studyComplete: true,
         phase: 'past',
@@ -97,8 +97,11 @@ if (sanitized.reviews.queue.length !== 1 || sanitized.reviews.queue[0] !== 0) {
 if (sanitized.reviews.position !== 0 || sanitized.reviews.revealed !== false) {
   throw new Error('Malformed review position or stale revealed answer was not reset.');
 }
+if (sanitized.done.reviews !== false) {
+  throw new Error('A saved review-complete flag survived with an unreviewed valid card.');
+}
 if (sanitized.done.script !== false || sanitized.step !== 3 || sanitized.completedAt !== null) {
-  throw new Error('A wrong older-letter attempt incorrectly completed Script.');
+  throw new Error('A wrong older-letter attempt or malformed step incorrectly completed Script.');
 }
 if (api.retryKind() !== 'past') throw new Error('Wrong older letter was not identified for retry.');
 if (!api.resetLetterForRetry('past')) throw new Error('Older-letter retry reset failed.');
