@@ -72,6 +72,7 @@ const state = {
 };
 
 const listeners = {};
+let reloads = 0;
 const context = {
   console,
   Date,
@@ -113,7 +114,7 @@ const context = {
   MutationObserver: class { observe() {} },
   window: {
     __FARSI_TEST__: true,
-    location: { reload() {} },
+    location: { reload() { reloads += 1; } },
     addEventListener(name, handler) { listeners[`window:${name}`] = handler; },
     setInterval() { return 1; }
   }
@@ -152,6 +153,12 @@ if (synced.reviews.queue.length !== 1 || synced.reviews.queue[0] !== 1 || synced
 }
 if (synced.reviews.revealed !== false) {
   throw new Error('A changed review card kept a stale revealed answer.');
+}
+
+listeners['window:storage']({ key: 'farsi-guided-today-v2' });
+context.showView('today');
+if (reloads !== 1) {
+  throw new Error('Returning to Today did not reload guided state changed in another tab.');
 }
 
 console.log('Runtime coordination behavior passed.');
