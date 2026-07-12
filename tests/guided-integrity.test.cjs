@@ -42,13 +42,11 @@ const storage = new MemoryStorage({
   [reviewKey]: JSON.stringify({ daily: { [today]: { attempts: 1, correct: 0 } } })
 });
 const timers = [];
-const listeners = {};
 let saveCount = 0;
-const state = {
-  cards: {
-    0: { dueAt: 0 },
-    99: { dueAt: 0 }
-  }
+const state = { cards: { 0: { dueAt: 0 }, 99: { dueAt: 0 } } };
+const windowObject = {
+  __FARSI_TEST__: true,
+  setTimeout(callback) { timers.push(callback); return timers.length; }
 };
 
 const context = {
@@ -67,31 +65,18 @@ const context = {
   SCRIPT_LESSONS: Array.from({ length: 32 }, (_, index) => ({ letter: String(index) })),
   todayKey: () => today,
   dayNumber: () => 12,
-  todaysWordIndex: () => 0,
   getWord: index => index === 0 ? { fa: 'سلام', latin: 'salâm' } : undefined,
-  escapeHTML: value => String(value),
   saveState: () => { saveCount += 1; },
-  document: {
-    head: { appendChild() {} },
-    addEventListener(name, handler) { listeners[name] = handler; },
-    getElementById() { return null; },
-    querySelector() { return null; },
-    createElement() { return { dataset: {} }; }
-  },
-  MutationObserver: class { observe() {} },
-  window: {
-    __FARSI_TEST__: true,
-    setTimeout(callback) { timers.push(callback); return timers.length; },
-    location: { reload() {} }
-  }
+  window: windowObject
 };
-context.window.window = context.window;
+windowObject.window = windowObject;
 
 vm.createContext(context);
-const source = fs.readFileSync(path.join(__dirname, '..', 'guided-integrity-v1.js'), 'utf8');
+const source = fs.readFileSync(path.join(__dirname, '..', 'guided-integrity-v2.js'), 'utf8');
 vm.runInContext(source, context);
 const api = context.window.__FARSI_GUIDED_INTEGRITY_TEST__;
 if (!api) throw new Error('Guided integrity test API was not exposed.');
+if (context.window.FarsiGuidedIntegrity !== api) throw new Error('Production integrity API was not exposed.');
 
 if (state.cards[99]) throw new Error('Invalid card was not removed before guided render.');
 if (saveCount !== 1) throw new Error('Sanitized card state was not saved exactly once.');
@@ -113,6 +98,7 @@ if (sanitized.done.script !== false || sanitized.completedAt !== null) {
   throw new Error('A wrong older-letter attempt incorrectly completed Script.');
 }
 if (api.retryKind() !== 'past') throw new Error('Wrong older letter was not identified for retry.');
+
 if (!api.resetRecallForRetry()) throw new Error('Meaning-check retry reset failed.');
 const recallReset = JSON.parse(storage.getItem(guidedKey)).days[today];
 if (recallReset.recall.answered || recallReset.step !== 2 || recallReset.done.recall) {
