@@ -1,4 +1,4 @@
-const CACHE = 'farsi-daily-cache-v14';
+const CACHE = 'farsi-daily-cache-v15';
 const ASSETS = [
   './', './index.html', './styles.css', './verb-upgrade.css', './learning-upgrade.css',
   './mobile-experience.css?v=1', './guided-learning.css?v=1', './ux-polish.css?v=1',
@@ -8,8 +8,8 @@ const ASSETS = [
   './words-part-08.js', './words-part-09.js', './words-order.js', './verbs.js',
   './script-lessons.js', './app-core.js', './app-ui.js', './app-main.js',
   './speech-fix.js?v=8', './learning-upgrade.js?v=1', './guided-learning.js?v=2',
-  './sentence-audio-v2.js?v=1', './script-review.js?v=1', './guided-today-phase1.js?v=1',
-  './manifest.json', './icon.svg'
+  './sentence-audio-v2.js?v=2', './script-review.js?v=1', './ux-audit-fixes.js?v=1',
+  './guided-today-phase1.js?v=1', './manifest.json', './icon.svg'
 ];
 
 self.addEventListener('install', event => event.waitUntil(
