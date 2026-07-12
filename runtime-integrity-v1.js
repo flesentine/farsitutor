@@ -206,12 +206,7 @@
       window.location.reload();
       return;
     }
-    if (name === 'review' && typeof sanitizeReviewQueue === 'function') sanitizeReviewQueue();
     previousShowView(name);
-    if (name === 'review' && typeof sanitizeReviewQueue === 'function') {
-      sanitizeReviewQueue();
-      renderReviewCard();
-    }
     syncTabSemantics();
   };
 
@@ -243,7 +238,7 @@
     if (event.key === STORAGE_KEY) {
       state = loadState();
       sanitizeStoredCards();
-      if (typeof sanitizeReviewQueue === 'function') sanitizeReviewQueue();
+      sanitizeReviewQueue();
       renderAll();
       if (document.getElementById('reviewView')?.classList.contains('active')) renderReviewCard();
     }
