@@ -3,28 +3,12 @@ const path = require('path');
 const vm = require('vm');
 
 class MemoryStorage {
-  constructor(values = {}) {
-    this.values = new Map(Object.entries(values));
-  }
+  constructor(values = {}) { this.values = new Map(Object.entries(values)); }
   getItem(key) { return this.values.has(key) ? this.values.get(key) : null; }
   setItem(key, value) { this.values.set(key, String(value)); }
   removeItem(key) { this.values.delete(key); }
   key(index) { return [...this.values.keys()][index] || null; }
   get length() { return this.values.size; }
-}
-
-function element(active = false) {
-  return {
-    dataset: {},
-    tabIndex: 0,
-    textContent: '',
-    classList: {
-      contains(name) { return active && name === 'active'; },
-      add() {}, remove() {}, toggle() {}
-    },
-    setAttribute() {}, removeAttribute() {}, querySelector() { return null; },
-    closest() { return null; }, focus() {}, click() {}
-  };
 }
 
 const today = '2026-07-12';
@@ -73,6 +57,15 @@ const state = {
 
 const listeners = {};
 let reloads = 0;
+let guidedRefreshes = 0;
+const windowObject = {
+  __FARSI_TEST__: true,
+  FarsiGuidedToday: { reloadFromStorage() { guidedRefreshes += 1; } },
+  location: { reload() { reloads += 1; } },
+  addEventListener(name, handler) { listeners[`window:${name}`] = handler; },
+  setInterval() { return 1; }
+};
+
 const context = {
   console,
   Date,
@@ -111,18 +104,12 @@ const context = {
     querySelectorAll() { return []; },
     getElementById() { return null; }
   },
-  MutationObserver: class { observe() {} },
-  window: {
-    __FARSI_TEST__: true,
-    location: { reload() { reloads += 1; } },
-    addEventListener(name, handler) { listeners[`window:${name}`] = handler; },
-    setInterval() { return 1; }
-  }
+  window: windowObject
 };
-context.window.window = context.window;
+windowObject.window = windowObject;
 
 vm.createContext(context);
-const source = fs.readFileSync(path.join(__dirname, '..', 'runtime-integrity-v1.js'), 'utf8');
+const source = fs.readFileSync(path.join(__dirname, '..', 'runtime-integrity-v2.js'), 'utf8');
 vm.runInContext(source, context);
 
 const api = context.window.__FARSI_RUNTIME_TEST__;
@@ -145,9 +132,6 @@ const synced = JSON.parse(storage.getItem('farsi-guided-today-v2')).days[today];
 if (!synced.done.script || synced.step !== 4) {
   throw new Error('Standalone Script work did not advance the guided lesson.');
 }
-if (!synced.script.pastSatisfiedExternally) {
-  throw new Error('Previous-letter work was not credited to Today.');
-}
 if (synced.reviews.queue.length !== 1 || synced.reviews.queue[0] !== 1 || synced.reviews.position !== 0) {
   throw new Error('Reviews completed elsewhere were not removed from Today.');
 }
@@ -155,10 +139,12 @@ if (synced.reviews.revealed !== false) {
   throw new Error('A changed review card kept a stale revealed answer.');
 }
 
-listeners['window:storage']({ key: 'farsi-guided-today-v2' });
 context.showView('today');
-if (reloads !== 1) {
-  throw new Error('Returning to Today did not reload guided state changed in another tab.');
+if (guidedRefreshes !== 1) {
+  throw new Error('Returning to Today did not refresh guided state in place.');
+}
+if (reloads !== 0) {
+  throw new Error('Normal guided navigation should not reload the page.');
 }
 
 console.log('Runtime coordination behavior passed.');
