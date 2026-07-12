@@ -16,46 +16,7 @@
   const saveProgress = progress => localStorage.setItem(SCRIPT_KEY, JSON.stringify(progress));
   const currentIndex = () => dayNumber() % SCRIPT_LESSONS.length;
   const currentLesson = () => SCRIPT_LESSONS[currentIndex()];
-
-  function shuffle(values) {
-    const copy = [...values];
-    for (let index = copy.length - 1; index > 0; index -= 1) {
-      const next = Math.floor(Math.random() * (index + 1));
-      [copy[index], copy[next]] = [copy[next], copy[index]];
-    }
-    return copy;
-  }
-
-  function primarySound(sound) {
-    return String(sound || '').toLowerCase().split(/[\s/(,]/).filter(Boolean)[0] || '';
-  }
-
-  function hasUniqueSound(index) {
-    const sound = primarySound(SCRIPT_LESSONS[index]?.sound);
-    return SCRIPT_LESSONS.filter(lesson => primarySound(lesson.sound) === sound).length === 1;
-  }
-
-  function questionFor(index) {
-    const lesson = SCRIPT_LESSONS[index];
-    const mode = questionNumber % 3;
-    if (mode === 0 && hasUniqueSound(index)) {
-      return { type: 'sound', text: `Which letter makes the “${lesson.sound}” sound?` };
-    }
-    if (mode < 2) return { type: 'name', text: `Which letter is called “${lesson.name}”?` };
-    return {
-      type: 'example',
-      html: `Which letter appears in <span lang="fa" dir="rtl">${escapeHTML(lesson.exampleFa)}</span> (${escapeHTML(lesson.exampleLatin)}, ${escapeHTML(lesson.exampleEn)})?`
-    };
-  }
-
-  function validDistractor(index, targetIndex, type) {
-    if (index === targetIndex) return false;
-    const target = SCRIPT_LESSONS[targetIndex];
-    const candidate = SCRIPT_LESSONS[index];
-    if (type === 'sound') return primarySound(candidate.sound) !== primarySound(target.sound);
-    if (type === 'example') return !String(target.exampleFa || '').includes(candidate.letter);
-    return true;
-  }
+  const quiz = () => window.FarsiScriptQuiz;
 
   function renderScore() {
     const progress = loadProgress();
@@ -79,7 +40,7 @@
       start.type = 'button';
       start.className = 'primary-btn';
       start.dataset.scriptStart = 'true';
-      start.textContent = 'Start quiz without the answer showing';
+      start.textContent = 'Start quiz';
       quizCard.appendChild(start);
     }
     start.classList.remove('hidden');
@@ -92,9 +53,9 @@
     document.querySelector('[data-script-start]')?.classList.add('hidden');
   }
 
-  function renderQuiz() {
+  function renderQuiz(autoStart = false) {
     const targetIndex = currentIndex();
-    const question = questionFor(targetIndex);
+    const question = quiz().questionFor(targetIndex, questionNumber);
     const prompt = $('scriptQuizPrompt');
     if (question.html) prompt.innerHTML = question.html;
     else prompt.textContent = question.text;
@@ -102,12 +63,9 @@
     $('scriptQuizResult').className = 'script-quiz-result hidden';
     $('scriptNextQuizBtn').classList.add('hidden');
 
-    const candidates = SCRIPT_LESSONS.map((_, index) => index)
-      .filter(index => validDistractor(index, targetIndex, question.type));
-    const choices = shuffle([targetIndex, ...shuffle(candidates).slice(0, 3)]);
     const container = $('scriptQuizChoices');
     container.innerHTML = '';
-    choices.forEach(index => {
+    quiz().buildChoices(targetIndex, question).forEach(index => {
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'script-choice';
@@ -118,6 +76,7 @@
       container.appendChild(button);
     });
     setQuizReady();
+    if (autoStart) startQuiz();
   }
 
   function answerQuiz(button) {
@@ -144,7 +103,9 @@
     const result = $('scriptQuizResult');
     result.textContent = correct ? 'Correct — nice work.' : `Not quite. Today’s letter is ${lesson.letter} (${lesson.name}).`;
     result.className = `script-quiz-result ${correct ? 'good' : 'bad'}`;
-    $('scriptNextQuizBtn').classList.remove('hidden');
+    const next = $('scriptNextQuizBtn');
+    next.textContent = correct ? 'Practice this letter again' : 'Try this letter again';
+    next.classList.remove('hidden');
     document.querySelector('#scriptView .script-card')?.classList.remove('hidden');
     renderScore();
   }
@@ -188,7 +149,7 @@
   });
   $('scriptNextQuizBtn').addEventListener('click', () => {
     questionNumber += 1;
-    renderQuiz();
+    renderQuiz(true);
   });
 
   renderLesson();
