@@ -89,7 +89,9 @@ const context = {
   getWord: index => index === 0 || index === 1 ? { fa: `word-${index}` } : undefined,
   saveState() {},
   loadState: () => state,
-  showView() {},
+  showView(name) {
+    if (name === 'today') windowObject.FarsiGuidedToday.reloadFromStorage();
+  },
   sanitizeReviewQueue() { return true; },
   renderReviewCard() {},
   renderAll() {},
@@ -141,7 +143,7 @@ if (synced.reviews.revealed !== false) {
 
 context.showView('today');
 if (guidedRefreshes !== 1) {
-  throw new Error('Returning to Today did not refresh guided state in place.');
+  throw new Error('Returning to Today should refresh guided state exactly once.');
 }
 if (reloads !== 0) {
   throw new Error('Normal guided navigation should not reload the page.');
