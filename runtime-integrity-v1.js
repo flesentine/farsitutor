@@ -15,6 +15,19 @@
     return readGuided().days?.[todayKey()] || null;
   }
 
+  function sanitizeStoredCards() {
+    state.cards = state.cards || {};
+    let changed = false;
+    Object.keys(state.cards).forEach(key => {
+      const index = Number(key);
+      if (!Number.isInteger(index) || !getWord(index)) {
+        delete state.cards[key];
+        changed = true;
+      }
+    });
+    if (changed) saveState();
+  }
+
   function todayLetterNeedsRetry() {
     const script = dayState()?.script;
     return Boolean(script?.todayAnswered && script.todayCorrect === false);
@@ -59,6 +72,8 @@
     if (todayKey() !== bootDay) window.location.reload();
   }
 
+  sanitizeStoredCards();
+
   const previousShowView = showView;
   showView = function showViewWithQueueIntegrity(name) {
     if (name === 'review' && typeof sanitizeReviewQueue === 'function') sanitizeReviewQueue();
@@ -96,6 +111,7 @@
   window.addEventListener('storage', event => {
     if (event.key !== STORAGE_KEY) return;
     state = loadState();
+    sanitizeStoredCards();
     sanitizeReviewQueue();
     renderAll();
     if ($('reviewView').classList.contains('active')) renderReviewCard();
