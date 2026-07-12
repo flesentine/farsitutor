@@ -1,7 +1,6 @@
 (() => {
   const SCRIPT_KEY = 'farsi-script-v1';
   let questionNumber = 0;
-  let lastAnswerCorrect = null;
 
   function loadProgress() {
     try {
@@ -54,7 +53,7 @@
     document.querySelector('[data-script-start]')?.classList.add('hidden');
   }
 
-  function renderQuiz() {
+  function renderQuiz(autoStart = false) {
     const targetIndex = currentIndex();
     const question = quiz().questionFor(targetIndex, questionNumber);
     const prompt = $('scriptQuizPrompt');
@@ -63,7 +62,6 @@
     $('scriptQuizResult').textContent = '';
     $('scriptQuizResult').className = 'script-quiz-result hidden';
     $('scriptNextQuizBtn').classList.add('hidden');
-    lastAnswerCorrect = null;
 
     const container = $('scriptQuizChoices');
     container.innerHTML = '';
@@ -78,13 +76,13 @@
       container.appendChild(button);
     });
     setQuizReady();
+    if (autoStart) startQuiz();
   }
 
   function answerQuiz(button) {
     const selected = Number(button.dataset.scriptChoice);
     const correctIndex = currentIndex();
     const correct = selected === correctIndex;
-    lastAnswerCorrect = correct;
     const progress = loadProgress();
     progress.attempts = Number(progress.attempts || 0) + 1;
     if (correct) {
@@ -151,7 +149,7 @@
   });
   $('scriptNextQuizBtn').addEventListener('click', () => {
     questionNumber += 1;
-    renderQuiz();
+    renderQuiz(true);
   });
 
   renderLesson();
