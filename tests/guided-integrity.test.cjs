@@ -18,6 +18,7 @@ const guided = {
     [today]: {
       step: 'broken',
       done: { word: true, sentence: true, recall: true, script: true, reviews: true },
+      recall: { answered: true, selected: 4, correct: false },
       script: {
         studyComplete: true,
         phase: 'past',
@@ -66,11 +67,16 @@ const context = {
   SCRIPT_LESSONS: Array.from({ length: 32 }, (_, index) => ({ letter: String(index) })),
   todayKey: () => today,
   dayNumber: () => 12,
-  getWord: index => index === 0 ? { fa: 'سلام' } : undefined,
+  todaysWordIndex: () => 0,
+  getWord: index => index === 0 ? { fa: 'سلام', latin: 'salâm' } : undefined,
+  escapeHTML: value => String(value),
   saveState: () => { saveCount += 1; },
   document: {
+    head: { appendChild() {} },
     addEventListener(name, handler) { listeners[name] = handler; },
-    getElementById() { return null; }
+    getElementById() { return null; },
+    querySelector() { return null; },
+    createElement() { return { dataset: {} }; }
   },
   MutationObserver: class { observe() {} },
   window: {
@@ -100,10 +106,18 @@ if (sanitized.reviews.position !== 0 || sanitized.reviews.revealed !== false) {
 if (sanitized.done.reviews !== false) {
   throw new Error('A saved review-complete flag survived with an unreviewed valid card.');
 }
-if (sanitized.done.script !== false || sanitized.step !== 3 || sanitized.completedAt !== null) {
-  throw new Error('A wrong older-letter attempt or malformed step incorrectly completed Script.');
+if (sanitized.done.recall !== false || sanitized.step !== 2) {
+  throw new Error('A wrong meaning answer incorrectly completed the listening check.');
+}
+if (sanitized.done.script !== false || sanitized.completedAt !== null) {
+  throw new Error('A wrong older-letter attempt incorrectly completed Script.');
 }
 if (api.retryKind() !== 'past') throw new Error('Wrong older letter was not identified for retry.');
+if (!api.resetRecallForRetry()) throw new Error('Meaning-check retry reset failed.');
+const recallReset = JSON.parse(storage.getItem(guidedKey)).days[today];
+if (recallReset.recall.answered || recallReset.step !== 2 || recallReset.done.recall) {
+  throw new Error('Meaning-check retry did not clear the answer state.');
+}
 if (!api.resetLetterForRetry('past')) throw new Error('Older-letter retry reset failed.');
 const reset = JSON.parse(storage.getItem(guidedKey)).days[today];
 if (reset.script.pastAnswered || reset.script.phase !== 'past') {
