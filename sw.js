@@ -1,16 +1,14 @@
-const CACHE = 'farsi-daily-cache-v21';
+const CACHE = 'farsi-daily-cache-v22';
 const ASSETS = [
   './', './index.html', './styles.css', './verb-upgrade.css', './learning-upgrade.css',
-  './mobile-experience.css?v=1', './guided-learning.css?v=1', './ux-polish.css?v=1',
-  './script-review.css?v=1', './guided-today-v3.css?v=1',
-  './words.js', './words-part-01.js', './words-part-02.js', './words-part-03.js',
-  './words-part-04.js', './words-part-05.js', './words-part-06.js', './words-part-07.js',
-  './words-part-08.js', './words-part-09.js', './words-order.js', './verbs.js',
-  './script-lessons.js', './app-core.js', './app-ui.js', './app-main.js',
-  './speech-fix.js?v=8', './learning-upgrade.js?v=1', './guided-learning.js?v=2',
-  './sentence-audio-v3.js?v=2', './script-review-v2.js?v=2', './ux-safeguards-v2.js?v=1',
-  './guided-integrity-v1.js?v=1', './guided-today-v3.js?v=2', './runtime-integrity-v1.js?v=3',
-  './manifest.json', './icon.svg'
+  './guided-learning.css?v=1', './ux-polish.css?v=1', './script-review.css?v=1',
+  './guided-today-v3.css?v=1', './words.js', './words-part-01.js', './words-part-02.js',
+  './words-part-03.js', './words-part-04.js', './words-part-05.js', './words-part-06.js',
+  './words-part-07.js', './words-part-08.js', './words-part-09.js', './words-order.js',
+  './verbs.js', './script-lessons.js', './app-core.js', './app-ui.js?v=2', './app-main.js?v=2',
+  './speech-fix.js?v=8', './learning-upgrade.js?v=2', './guided-learning.js?v=3',
+  './sentence-audio-v3.js?v=2', './script-review-v2.js?v=2', './guided-integrity-v1.js?v=1',
+  './guided-today-v3.js?v=2', './runtime-integrity-v1.js?v=3', './manifest.json', './icon.svg'
 ];
 
 self.addEventListener('install', event => event.waitUntil(
@@ -36,12 +34,11 @@ self.addEventListener('fetch', event => {
     fetch(event.request, { cache: 'no-store' })
       .then(response => {
         if (
-          response.status === 200 &&
-          response.type === 'basic' &&
-          event.request.url.startsWith(self.location.origin)
+          response.status === 200
+          && response.type === 'basic'
+          && event.request.url.startsWith(self.location.origin)
         ) {
-          const copy = response.clone();
-          caches.open(CACHE).then(cache => cache.put(event.request, copy));
+          caches.open(CACHE).then(cache => cache.put(event.request, response.clone()));
         }
         return response;
       })
