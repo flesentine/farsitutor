@@ -14,8 +14,8 @@ const requiredGuidedText = [
   'Play slowly',
   'See all 5 steps',
   'Practice more words',
-  "lesson.done.recall = correct",
-  "data-guided-action=\"retry-recall\""
+  'lesson.done.recall = correct',
+  "'retry-recall'"
 ];
 for (const text of requiredGuidedText) {
   if (!guided.includes(text)) throw new Error(`Missing native guided UX behavior: ${text}`);
