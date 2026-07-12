@@ -1,0 +1,17 @@
+/* Previous-day Persian letter review */
+.script-review-card { grid-column: 1 / -1; }
+.script-review-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+.script-review-heading h3 { margin:2px 0 0; }
+.script-review-context { flex:0 0 auto; padding:7px 10px; border-radius:999px; background:var(--primary-soft); color:var(--primary-dark); font-size:11px; font-weight:850; }
+.script-review-prompt { margin:18px 0 14px; font-size:clamp(19px,3vw,24px); font-weight:800; line-height:1.35; }
+.script-review-answer-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:13px; }
+.script-review-answer-actions .sentence-speak-btn,
+.script-review-answer-actions .secondary-btn { width:100%; min-height:46px; margin:0; }
+.script-review-card .script-score { margin-top:13px; text-align:left; }
+@media (max-width:640px) {
+  .script-review-card { padding:18px 16px; }
+  .script-review-heading { gap:10px; }
+  .script-review-heading h3 { font-size:21px; }
+  .script-review-context { padding:6px 8px; font-size:10px; }
+  .script-review-answer-actions { grid-template-columns:1fr; }
+}
