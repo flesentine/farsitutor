@@ -1,194 +1,174 @@
 (() => {
   const SCRIPT_KEY = 'farsi-script-v1';
-  let scriptQuestionNumber = 0;
-  let scriptState = loadScriptState();
+  let questionNumber = 0;
 
-  function loadScriptState() {
+  function loadProgress() {
     try {
-      return { attempts: 0, correct: 0, completed: {}, ...JSON.parse(localStorage.getItem(SCRIPT_KEY) || '{}') };
+      const value = JSON.parse(localStorage.getItem(SCRIPT_KEY) || '{}');
+      return value && typeof value === 'object' && !Array.isArray(value)
+        ? { attempts: 0, correct: 0, completed: {}, ...value }
+        : { attempts: 0, correct: 0, completed: {} };
     } catch {
       return { attempts: 0, correct: 0, completed: {} };
     }
   }
 
-  function saveScriptState() {
-    localStorage.setItem(SCRIPT_KEY, JSON.stringify(scriptState));
-  }
-
-  function currentScriptIndex() {
-    return dayNumber() % SCRIPT_LESSONS.length;
-  }
-
-  function currentScriptLesson() {
-    return SCRIPT_LESSONS[currentScriptIndex()];
-  }
+  const saveProgress = progress => localStorage.setItem(SCRIPT_KEY, JSON.stringify(progress));
+  const currentIndex = () => dayNumber() % SCRIPT_LESSONS.length;
+  const currentLesson = () => SCRIPT_LESSONS[currentIndex()];
 
   function shuffle(values) {
     const copy = [...values];
-    for (let i = copy.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
+    for (let index = copy.length - 1; index > 0; index -= 1) {
+      const next = Math.floor(Math.random() * (index + 1));
+      [copy[index], copy[next]] = [copy[next], copy[index]];
     }
     return copy;
   }
 
-  function renderScriptLesson() {
-    const lesson = currentScriptLesson();
-    const index = currentScriptIndex();
+  function primarySound(sound) {
+    return String(sound || '').toLowerCase().split(/[\s/(,]/).filter(Boolean)[0] || '';
+  }
+
+  function hasUniqueSound(index) {
+    const sound = primarySound(SCRIPT_LESSONS[index]?.sound);
+    return SCRIPT_LESSONS.filter(lesson => primarySound(lesson.sound) === sound).length === 1;
+  }
+
+  function questionFor(index) {
+    const lesson = SCRIPT_LESSONS[index];
+    const mode = questionNumber % 3;
+    if (mode === 0 && hasUniqueSound(index)) {
+      return { type: 'sound', text: `Which letter makes the “${lesson.sound}” sound?` };
+    }
+    if (mode < 2) return { type: 'name', text: `Which letter is called “${lesson.name}”?` };
+    return {
+      type: 'example',
+      html: `Which letter appears in <span lang="fa" dir="rtl">${escapeHTML(lesson.exampleFa)}</span> (${escapeHTML(lesson.exampleLatin)}, ${escapeHTML(lesson.exampleEn)})?`
+    };
+  }
+
+  function validDistractor(index, targetIndex, type) {
+    if (index === targetIndex) return false;
+    const target = SCRIPT_LESSONS[targetIndex];
+    const candidate = SCRIPT_LESSONS[index];
+    if (type === 'sound') return primarySound(candidate.sound) !== primarySound(target.sound);
+    if (type === 'example') return !String(target.exampleFa || '').includes(candidate.letter);
+    return true;
+  }
+
+  function renderScore() {
+    const progress = loadProgress();
+    const attempts = Number(progress.attempts || 0);
+    const correct = Number(progress.correct || 0);
+    const accuracy = attempts ? Math.round(correct / attempts * 100) : 0;
+    const done = Boolean(progress.completed?.[todayKey()]);
+    $('scriptQuizScore').textContent = `${done ? 'Daily script quiz complete · ' : ''}${correct} correct of ${attempts} attempts${attempts ? ` · ${accuracy}%` : ''}`;
+  }
+
+  function setQuizReady() {
+    const lessonCard = document.querySelector('#scriptView .script-card');
+    const quizCard = document.querySelector('#scriptView .script-quiz-card:not(.script-review-card)');
+    if (!lessonCard || !quizCard) return;
+    lessonCard.classList.remove('hidden');
+    ['scriptQuizPrompt', 'scriptQuizChoices', 'scriptQuizResult', 'scriptNextQuizBtn']
+      .forEach(id => $(id)?.classList.add('hidden'));
+    let start = quizCard.querySelector('[data-script-start]');
+    if (!start) {
+      start = document.createElement('button');
+      start.type = 'button';
+      start.className = 'primary-btn';
+      start.dataset.scriptStart = 'true';
+      start.textContent = 'Start quiz without the answer showing';
+      quizCard.appendChild(start);
+    }
+    start.classList.remove('hidden');
+  }
+
+  function startQuiz() {
+    document.querySelector('#scriptView .script-card')?.classList.add('hidden');
+    $('scriptQuizPrompt')?.classList.remove('hidden');
+    $('scriptQuizChoices')?.classList.remove('hidden');
+    document.querySelector('[data-script-start]')?.classList.add('hidden');
+  }
+
+  function renderQuiz() {
+    const targetIndex = currentIndex();
+    const question = questionFor(targetIndex);
+    const prompt = $('scriptQuizPrompt');
+    if (question.html) prompt.innerHTML = question.html;
+    else prompt.textContent = question.text;
+    $('scriptQuizResult').textContent = '';
+    $('scriptQuizResult').className = 'script-quiz-result hidden';
+    $('scriptNextQuizBtn').classList.add('hidden');
+
+    const candidates = SCRIPT_LESSONS.map((_, index) => index)
+      .filter(index => validDistractor(index, targetIndex, question.type));
+    const choices = shuffle([targetIndex, ...shuffle(candidates).slice(0, 3)]);
+    const container = $('scriptQuizChoices');
+    container.innerHTML = '';
+    choices.forEach(index => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'script-choice';
+      button.textContent = SCRIPT_LESSONS[index].letter;
+      button.lang = 'fa';
+      button.dir = 'rtl';
+      button.dataset.scriptChoice = String(index);
+      container.appendChild(button);
+    });
+    setQuizReady();
+  }
+
+  function answerQuiz(button) {
+    const selected = Number(button.dataset.scriptChoice);
+    const correctIndex = currentIndex();
+    const correct = selected === correctIndex;
+    const progress = loadProgress();
+    progress.attempts = Number(progress.attempts || 0) + 1;
+    if (correct) {
+      progress.correct = Number(progress.correct || 0) + 1;
+      progress.completed = progress.completed || {};
+      progress.completed[todayKey()] = true;
+    }
+    saveProgress(progress);
+
+    document.querySelectorAll('#scriptQuizChoices [data-script-choice]').forEach(choice => {
+      choice.disabled = true;
+      const index = Number(choice.dataset.scriptChoice);
+      if (index === correctIndex) choice.classList.add('correct');
+      else if (choice === button) choice.classList.add('wrong');
+    });
+
+    const lesson = currentLesson();
+    const result = $('scriptQuizResult');
+    result.textContent = correct ? 'Correct — nice work.' : `Not quite. Today’s letter is ${lesson.letter} (${lesson.name}).`;
+    result.className = `script-quiz-result ${correct ? 'good' : 'bad'}`;
+    $('scriptNextQuizBtn').classList.remove('hidden');
+    document.querySelector('#scriptView .script-card')?.classList.remove('hidden');
+    renderScore();
+  }
+
+  function renderLesson() {
+    const lesson = currentLesson();
+    const index = currentIndex();
     $('scriptDay').textContent = `Letter ${index + 1} of ${SCRIPT_LESSONS.length}`;
     $('scriptLetter').textContent = lesson.letter;
     $('scriptName').textContent = `${lesson.name} · ${lesson.nameFa}`;
     $('scriptSound').textContent = `Sound: ${lesson.sound}`;
-    [$('scriptIsolated'), $('scriptInitial'), $('scriptMedial'), $('scriptFinal')].forEach((el, i) => { el.textContent = lesson.forms[i]; });
+    [$('scriptIsolated'), $('scriptInitial'), $('scriptMedial'), $('scriptFinal')]
+      .forEach((element, formIndex) => { element.textContent = lesson.forms[formIndex]; });
     $('scriptExampleFa').textContent = lesson.exampleFa;
     $('scriptExampleLatin').textContent = lesson.exampleLatin;
     $('scriptExampleEn').textContent = lesson.exampleEn;
-    renderScriptQuiz();
-    renderScriptScore();
+    renderQuiz();
+    renderScore();
   }
-
-  function quizMode() {
-    return scriptQuestionNumber % 3;
-  }
-
-  function renderScriptQuiz() {
-    const lesson = currentScriptLesson();
-    const index = currentScriptIndex();
-    const mode = quizMode();
-    const distractorIndexes = shuffle(SCRIPT_LESSONS.map((_, i) => i).filter(i => i !== index)).slice(0, 3);
-    const choices = shuffle([index, ...distractorIndexes]);
-    const prompt = mode === 0
-      ? `Which letter makes the “${lesson.sound}” sound?`
-      : mode === 1
-        ? `Which letter is called “${lesson.name}”?`
-        : `Which letter from today’s lesson appears in “${lesson.exampleLatin}” (${lesson.exampleEn})?`;
-    $('scriptQuizPrompt').textContent = prompt;
-    $('scriptQuizResult').textContent = '';
-    $('scriptQuizResult').className = 'script-quiz-result';
-    $('scriptNextQuizBtn').classList.add('hidden');
-    const container = $('scriptQuizChoices');
-    container.innerHTML = '';
-    choices.forEach(choiceIndex => {
-      const choice = SCRIPT_LESSONS[choiceIndex];
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'script-choice';
-      button.textContent = choice.letter;
-      button.dataset.scriptChoice = String(choiceIndex);
-      button.setAttribute('aria-label', choice.name);
-      container.appendChild(button);
-    });
-  }
-
-  function answerScriptQuiz(button) {
-    const selected = Number(button.dataset.scriptChoice);
-    const correctIndex = currentScriptIndex();
-    const correct = selected === correctIndex;
-    scriptState.attempts += 1;
-    if (correct) {
-      scriptState.correct += 1;
-      scriptState.completed[todayKey()] = true;
-    }
-    saveScriptState();
-    document.querySelectorAll('[data-script-choice]').forEach(choice => {
-      choice.disabled = true;
-      const choiceIndex = Number(choice.dataset.scriptChoice);
-      if (choiceIndex === correctIndex) choice.classList.add('correct');
-      else if (choice === button) choice.classList.add('wrong');
-    });
-    const result = $('scriptQuizResult');
-    result.textContent = correct ? 'Correct — nice work.' : `Not quite. Today’s letter is ${currentScriptLesson().letter} (${currentScriptLesson().name}).`;
-    result.classList.add(correct ? 'good' : 'bad');
-    $('scriptNextQuizBtn').classList.remove('hidden');
-    renderScriptScore();
-  }
-
-  function renderScriptScore() {
-    const accuracy = scriptState.attempts ? Math.round((scriptState.correct / scriptState.attempts) * 100) : 0;
-    const done = Boolean(scriptState.completed[todayKey()]);
-    $('scriptQuizScore').textContent = `${done ? 'Daily script quiz complete · ' : ''}${scriptState.correct} correct of ${scriptState.attempts} attempts${scriptState.attempts ? ` · ${accuracy}%` : ''}`;
-  }
-
-  function practiceSentence(word) {
-    if (word?.exFa) {
-      return { fa: word.exFa, latin: word.exLatin || '', en: word.exEn || '' };
-    }
-    return {
-      fa: `من کلمهٔ «${word.fa}» را یاد می‌گیرم.`,
-      latin: `Man kalame-ye “${word.latin}” râ yâd migiram.`,
-      en: `I am learning the Persian word for “${word.en}.”`
-    };
-  }
-
-  const originalRenderToday = renderToday;
-  renderToday = function renderTodayWithSentence() {
-    originalRenderToday();
-    const word = getWord(todaysWordIndex());
-    const sentence = practiceSentence(word);
-    const box = $('todayExampleFa').closest('.example-box');
-    box.classList.remove('hidden');
-    $('todayExampleFa').textContent = sentence.fa;
-    $('todayExampleLatin').textContent = sentence.latin;
-    $('todayExampleEn').textContent = sentence.en;
-  };
-
-  function reviewStage(card) {
-    if ((card?.good || 0) < 3) return 'english';
-    if ((card?.good || 0) < 6) return 'latin';
-    return 'script';
-  }
-
-  const originalRenderReviewCard = renderReviewCard;
-  renderReviewCard = function renderReviewCardEnglishFirst() {
-    const has = reviewQueue.length > 0 && reviewIndex < reviewQueue.length;
-    $('reviewEmpty').classList.toggle('hidden', has);
-    $('reviewCard').classList.toggle('hidden', !has);
-    if (!has) return;
-
-    const index = reviewQueue[reviewIndex];
-    const word = getWord(index);
-    const card = state.cards[index];
-    const stage = reviewStage(card);
-    const prompt = $('reviewPrompt');
-    prompt.classList.remove('flash-prompt-english', 'flash-prompt-latin');
-    prompt.removeAttribute('lang');
-    prompt.removeAttribute('dir');
-
-    if (stage === 'english') {
-      $('reviewDirection').textContent = 'English → spoken Persian';
-      prompt.textContent = word.en;
-      prompt.classList.add('flash-prompt-english');
-    } else if (stage === 'latin') {
-      $('reviewDirection').textContent = 'Pronunciation → Persian script';
-      prompt.textContent = word.latin;
-      prompt.classList.add('flash-prompt-latin');
-    } else {
-      $('reviewDirection').textContent = 'Persian script → meaning';
-      prompt.textContent = word.fa;
-      prompt.lang = 'fa';
-      prompt.dir = 'rtl';
-    }
-
-    $('reviewAnswerFarsi').textContent = word.fa;
-    $('reviewLatin').textContent = word.latin;
-    $('reviewMeaning').textContent = word.en;
-    const exampleBox = $('reviewExampleBox');
-    const sentence = practiceSentence(word);
-    exampleBox.classList.remove('hidden');
-    $('reviewExampleFa').textContent = sentence.fa;
-    $('reviewExampleLatin').textContent = sentence.latin;
-    $('reviewExampleEn').textContent = sentence.en;
-    renderVerbDetails('reviewVerbPanel', word);
-    $('reviewCounter').textContent = `${reviewIndex + 1} of ${reviewQueue.length}`;
-    $('reviewProgressFill').style.width = `${(reviewIndex / reviewQueue.length) * 100}%`;
-    $('reviewAnswer').classList.add('hidden');
-    $('revealBtn').classList.remove('hidden');
-  };
 
   function speakCurrentSentence(button, fromReview = false) {
-    const word = fromReview
-      ? getWord(reviewQueue[reviewIndex])
-      : getWord(todaysWordIndex());
+    const index = fromReview ? reviewQueue[reviewIndex] : todaysWordIndex();
+    const word = getWord(index);
+    if (!word) return;
     const sentence = practiceSentence(word);
     speak(sentence.fa, button, sentence.latin);
   }
@@ -196,19 +176,21 @@
   $('speakSentenceBtn').addEventListener('click', event => speakCurrentSentence(event.currentTarget));
   $('speakReviewSentenceBtn').addEventListener('click', event => speakCurrentSentence(event.currentTarget, true));
   $('speakScriptExampleBtn').addEventListener('click', event => {
-    const lesson = currentScriptLesson();
+    const lesson = currentLesson();
     speak(lesson.exampleFa, event.currentTarget, lesson.exampleLatin);
   });
   $('scriptQuizChoices').addEventListener('click', event => {
     const button = event.target.closest('[data-script-choice]');
-    if (button && !button.disabled) answerScriptQuiz(button);
+    if (button && !button.disabled) answerQuiz(button);
+  });
+  document.addEventListener('click', event => {
+    if (event.target.closest('[data-script-start]')) startQuiz();
   });
   $('scriptNextQuizBtn').addEventListener('click', () => {
-    scriptQuestionNumber += 1;
-    renderScriptQuiz();
+    questionNumber += 1;
+    renderQuiz();
   });
 
-  renderScriptLesson();
+  renderLesson();
   renderAll();
-  if (typeof originalRenderReviewCard !== 'function') console.warn('Review renderer was not available.');
 })();
