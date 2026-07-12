@@ -1,0 +1,66 @@
+name: Validate static app
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          find . -maxdepth 1 -type f -name '*.js' -print0 | sort -z | xargs -0 -n1 node --check
+
+      - name: Check local page assets
+        shell: python
+        run: |
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlsplit
+          import re
+
+          root = Path('.')
+
+          class AssetParser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.assets = []
+
+              def handle_starttag(self, tag, attrs):
+                  values = dict(attrs)
+                  if tag == 'script' and values.get('src'):
+                      self.assets.append(values['src'])
+                  if tag == 'link' and values.get('href'):
+                      self.assets.append(values['href'])
+
+          parser = AssetParser()
+          parser.feed((root / 'index.html').read_text(encoding='utf-8'))
+          missing = []
+          for value in parser.assets:
+              parsed = urlsplit(value)
+              if parsed.scheme or parsed.netloc:
+                  continue
+              path = parsed.path.removeprefix('./')
+              if path and not (root / path).is_file():
+                  missing.append(path)
+
+          sw = (root / 'sw.js').read_text(encoding='utf-8')
+          for value in re.findall(r"['\"](\./[^'\"]+)['\"]", sw):
+              path = urlsplit(value).path.removeprefix('./')
+              if path and path != '' and not (root / path).is_file():
+                  missing.append(path)
+
+          if missing:
+              raise SystemExit('Missing local assets: ' + ', '.join(sorted(set(missing))))
+
+          print('JavaScript syntax and local asset references are valid.')
