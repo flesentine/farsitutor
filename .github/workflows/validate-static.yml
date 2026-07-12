@@ -24,10 +24,27 @@ jobs:
       - name: Test behavior integrity
         shell: bash
         run: |
-          set -euo pipefail
+          set +e
+          : > behavior-tests.log
+          status=0
           for test_file in tests/*.test.cjs; do
-            node "$test_file"
+            echo "=== $test_file ===" | tee -a behavior-tests.log
+            node "$test_file" 2>&1 | tee -a behavior-tests.log
+            test_status=${PIPESTATUS[0]}
+            if [ "$test_status" -ne 0 ]; then
+              status=$test_status
+            fi
           done
+          exit "$status"
+
+      - name: Upload behavior test log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: behavior-tests
+          path: behavior-tests.log
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Check local page assets
         shell: python
