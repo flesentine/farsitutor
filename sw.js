@@ -1,15 +1,15 @@
-const CACHE = 'farsi-daily-cache-v15';
+const CACHE = 'farsi-daily-cache-v16';
 const ASSETS = [
   './', './index.html', './styles.css', './verb-upgrade.css', './learning-upgrade.css',
   './mobile-experience.css?v=1', './guided-learning.css?v=1', './ux-polish.css?v=1',
-  './script-review.css?v=1',
+  './script-review.css?v=1', './guided-today-v3.css?v=1',
   './words.js', './words-part-01.js', './words-part-02.js', './words-part-03.js',
   './words-part-04.js', './words-part-05.js', './words-part-06.js', './words-part-07.js',
   './words-part-08.js', './words-part-09.js', './words-order.js', './verbs.js',
   './script-lessons.js', './app-core.js', './app-ui.js', './app-main.js',
   './speech-fix.js?v=8', './learning-upgrade.js?v=1', './guided-learning.js?v=2',
-  './sentence-audio-v2.js?v=2', './script-review.js?v=1', './ux-audit-fixes.js?v=1',
-  './guided-today-phase1.js?v=1', './manifest.json', './icon.svg'
+  './sentence-audio-v3.js?v=1', './script-review-v2.js?v=1', './ux-safeguards-v2.js?v=1',
+  './guided-today-v3.js?v=1', './manifest.json', './icon.svg'
 ];
 
 self.addEventListener('install', event => event.waitUntil(
@@ -24,10 +24,21 @@ self.addEventListener('activate', event => event.waitUntil(
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+
+  // Never cache byte-range media responses. A cached 206 can corrupt later playback.
+  if (event.request.headers.has('range')) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
   event.respondWith(
     fetch(event.request, { cache: 'no-store' })
       .then(response => {
-        if (response.ok && event.request.url.startsWith(self.location.origin)) {
+        if (
+          response.status === 200 &&
+          response.type === 'basic' &&
+          event.request.url.startsWith(self.location.origin)
+        ) {
           const copy = response.clone();
           caches.open(CACHE).then(cache => cache.put(event.request, copy));
         }
