@@ -77,7 +77,7 @@
     day.reviews.position = position;
     if (currentChanged) day.reviews.revealed = false;
     day.reviews.revealed = Boolean(day.reviews.revealed) && position < queue.length;
-    if (position >= queue.length) day.done.reviews = true;
+    day.done.reviews = position >= queue.length;
 
     const script = readJSON(SCRIPT_KEY, { completed: {} });
     const review = readJSON(LETTER_REVIEW_KEY, { daily: {} });
@@ -105,6 +105,11 @@
       day.completedAt = null;
       if (Number(day.step) > 3 || Number(day.step) === 5) day.step = 3;
       if (todaySatisfied && !pastSatisfied) day.script.phase = 'past';
+    }
+
+    const currentStep = Number(day.step);
+    if (!Number.isInteger(currentStep) || currentStep < 0 || currentStep > 5) {
+      day.step = nextIncomplete(day);
     }
 
     const allDone = STEP_KEYS.every(step => Boolean(day.done[step]));
