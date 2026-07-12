@@ -1,0 +1,3 @@
+.guided-audio-recovery { margin-top:14px; padding:14px; border:1px solid rgba(91,75,219,.18); border-radius:16px; background:var(--primary-soft); text-align:left; }
+.guided-audio-recovery p { margin:0 0 10px; line-height:1.45; }
+.guided-audio-recovery .guided-secondary { width:100%; margin:0; min-height:48px; }
