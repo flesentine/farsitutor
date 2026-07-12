@@ -1,4 +1,4 @@
-// Small runtime guards for calendar rollover and guided-letter completion integrity.
+// Runtime guards for day rollover, guided-letter completion, and cross-screen state integrity.
 (() => {
   const GUIDED_KEY = 'farsi-guided-today-v2';
   const bootDay = todayKey();
@@ -13,6 +13,19 @@
 
   function dayState() {
     return readGuided().days?.[todayKey()] || null;
+  }
+
+  function sanitizeStoredCards() {
+    state.cards = state.cards || {};
+    let changed = false;
+    Object.keys(state.cards).forEach(key => {
+      const index = Number(key);
+      if (!Number.isInteger(index) || !getWord(index)) {
+        delete state.cards[key];
+        changed = true;
+      }
+    });
+    if (changed) saveState();
   }
 
   function todayLetterNeedsRetry() {
@@ -59,6 +72,25 @@
     if (todayKey() !== bootDay) window.location.reload();
   }
 
+  sanitizeStoredCards();
+
+  const previousShowView = showView;
+  showView = function showViewWithQueueIntegrity(name) {
+    if (name === 'review' && typeof sanitizeReviewQueue === 'function') sanitizeReviewQueue();
+    previousShowView(name);
+    if (name === 'review' && typeof sanitizeReviewQueue === 'function') {
+      sanitizeReviewQueue();
+      renderReviewCard();
+    }
+  };
+
+  document.addEventListener('farsi:speech-complete', event => {
+    const button = event.detail?.button;
+    if (button?.closest('#guidedTodayV3') && button.dataset.guidedAction === 'play-word') {
+      addWord(todaysWordIndex(), true);
+    }
+  });
+
   document.addEventListener('click', event => {
     const retry = event.target.closest('[data-runtime-action="retry-today-letter"]');
     if (retry) {
@@ -75,6 +107,15 @@
       resetTodayLetterAndReload();
     }
   }, true);
+
+  window.addEventListener('storage', event => {
+    if (event.key !== STORAGE_KEY) return;
+    state = loadState();
+    sanitizeStoredCards();
+    sanitizeReviewQueue();
+    renderAll();
+    if ($('reviewView').classList.contains('active')) renderReviewCard();
+  });
 
   const root = document.getElementById('guidedTodayV3');
   if (root) {
