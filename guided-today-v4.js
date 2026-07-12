@@ -648,9 +648,14 @@
       if (!rateReviewCard(index, rating.dataset.guidedRate)) return;
       lesson.reviews.position += 1;
       lesson.reviews.revealed = false;
-      if (lesson.reviews.position >= lesson.reviews.queue.length) lesson.done.reviews = true;
-      lesson.step = nextIncomplete();
-      if (lesson.step === 5) lesson.completedAt = Date.now();
+      const reviewsComplete = lesson.reviews.position >= lesson.reviews.queue.length;
+      lesson.done.reviews = reviewsComplete;
+      if (reviewsComplete) {
+        lesson.step = nextIncomplete();
+        if (lesson.step === 5) lesson.completedAt = Date.now();
+      } else {
+        lesson.step = 4;
+      }
       render();
     }
   });
