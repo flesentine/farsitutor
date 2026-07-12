@@ -2,6 +2,7 @@
 (() => {
   const GUIDED_KEY = 'farsi-guided-today-v2';
   const SCRIPT_KEY = 'farsi-script-v1';
+  const LETTER_REVIEW_KEY = 'farsi-script-review-v1';
   const STUDIED_PREFIX = 'farsi-guided-letter-studied-';
 
   const read = (key, fallback = {}) => {
@@ -23,6 +24,68 @@
     const key = primarySound(SCRIPT_LESSONS[index]?.sound);
     return SCRIPT_LESSONS.filter(lesson => primarySound(lesson.sound) === key).length === 1;
   }
+
+  function normalizeGuidedState() {
+    const key = todayKey();
+    const guided = read(GUIDED_KEY, { days: {} });
+    guided.days = guided.days || {};
+    const script = read(SCRIPT_KEY, { completed: {} });
+    const review = read(LETTER_REVIEW_KEY, { daily: {} });
+    const standaloneComplete = Boolean(script.completed?.[key]);
+    let day = guided.days[key];
+    if (!day && !standaloneComplete) return;
+    if (!day) {
+      day = { done: {}, script: {} };
+      guided.days[key] = day;
+    }
+
+    day.done = day.done || {};
+    day.script = day.script || {};
+    const candidates = typeof window.getStudiedScriptCandidates === 'function'
+      ? window.getStudiedScriptCandidates(SCRIPT_LESSONS.length)
+      : [];
+    const previousIndex = day.script.pastIndex ?? null;
+    const preferred = candidates.find(candidate => candidate.index === Number(previousIndex));
+    const selected = preferred || candidates[0] || null;
+
+    if ((selected?.index ?? null) !== previousIndex) {
+      day.script.pastIndex = selected?.index ?? null;
+      day.script.pastDaysAgo = selected?.daysAgo ?? null;
+      day.script.pastAnswered = false;
+      day.script.pastSelected = null;
+      day.script.pastCorrect = false;
+      if (day.script.phase === 'past') day.script.phase = 'today';
+    } else if (selected) {
+      day.script.pastDaysAgo = selected.daysAgo;
+    }
+
+    if (standaloneComplete) {
+      day.script.studyComplete = true;
+      day.script.todayAnswered = true;
+      day.script.todaySelected = currentLetterIndex();
+      day.script.todayCorrect = true;
+      localStorage.setItem(`${STUDIED_PREFIX}${key}`, '1');
+    }
+
+    const todayEvidence = Boolean(day.script.todayAnswered || standaloneComplete);
+    const priorEvidence = !selected || Boolean(day.script.pastAnswered) || Number(review.daily?.[key]?.attempts || 0) > 0;
+    if (standaloneComplete && priorEvidence) {
+      day.done.script = true;
+    } else if (day.done.script && (!todayEvidence || !priorEvidence)) {
+      day.done.script = false;
+      day.completedAt = null;
+      if (Number(day.step) > 3) day.step = 3;
+    }
+    if (standaloneComplete && selected && !priorEvidence) {
+      day.done.script = false;
+      day.script.phase = 'past';
+      day.completedAt = null;
+      if (Number(day.step) > 3) day.step = 3;
+    }
+    write(GUIDED_KEY, guided);
+  }
+
+  normalizeGuidedState();
 
   function meaningfulPracticeStreak() {
     const guided = read(GUIDED_KEY, { days: {} });
