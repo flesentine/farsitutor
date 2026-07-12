@@ -161,7 +161,6 @@
   showView = function showViewWithStateIntegrity(name) {
     if (name === 'today') syncGuidedDayFromExternalActivity();
     previousShowView(name);
-    if (name === 'today') window.FarsiGuidedToday?.reloadFromStorage?.();
     syncTabSemantics();
   };
 
