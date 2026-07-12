@@ -5,7 +5,6 @@
   const LETTER_REVIEW_KEY = 'farsi-script-review-v1';
   const STUDIED_PREFIX = 'farsi-guided-letter-studied-';
   const STEP_KEYS = ['word', 'sentence', 'recall', 'script', 'reviews'];
-  let ratingLocked = false;
 
   function readJSON(key, fallback = {}) {
     try {
@@ -97,70 +96,7 @@
     return changed;
   }
 
-  function retryKind() {
-    const script = readJSON(GUIDED_KEY, { days: {} }).days?.[todayKey()]?.script;
-    if (!script) return null;
-    if (script.todayAnswered && script.todayCorrect === false) return 'today';
-    if (script.phase === 'past' && script.pastAnswered && script.pastCorrect === false) return 'past';
-    return null;
-  }
-
-  function resetLetterForRetry(kind) {
-    const guided = readJSON(GUIDED_KEY, { days: {} });
-    const day = guided.days?.[todayKey()];
-    if (!day) return false;
-    day.done ||= {};
-    day.script ||= {};
-    if (kind === 'past') {
-      Object.assign(day.script, { phase: 'past', pastAnswered: false, pastSelected: null, pastCorrect: false });
-    } else {
-      Object.assign(day.script, { studyComplete: true, phase: 'today', todayAnswered: false, todaySelected: null, todayCorrect: false });
-    }
-    day.done.script = false;
-    day.step = 3;
-    day.completedAt = null;
-    writeJSON(GUIDED_KEY, guided);
-    return true;
-  }
-
-  function resetRecallForRetry() {
-    const guided = readJSON(GUIDED_KEY, { days: {} });
-    const day = guided.days?.[todayKey()];
-    if (!day) return false;
-    day.done ||= {};
-    day.recall = { answered: false, selected: null, correct: false };
-    day.done.recall = false;
-    day.step = 2;
-    day.completedAt = null;
-    writeJSON(GUIDED_KEY, guided);
-    return true;
-  }
-
-  function acquireRatingLock() {
-    if (ratingLocked) return false;
-    ratingLocked = true;
-    window.setTimeout(() => { ratingLocked = false; }, 400);
-    return true;
-  }
-
-  function currentGuidedReviewIsValid() {
-    const day = readJSON(GUIDED_KEY, { days: {} }).days?.[todayKey()];
-    if (!day) return true;
-    const queue = Array.isArray(day.reviews?.queue) ? day.reviews.queue : [];
-    const position = Number(day.reviews?.position || 0);
-    return Number.isInteger(position) && position >= 0 && position < queue.length && validCard(queue[position]);
-  }
-
-  const api = {
-    sanitizeCardsBeforeGuidedRender,
-    sanitizeGuidedDay,
-    retryKind,
-    resetLetterForRetry,
-    resetRecallForRetry,
-    acquireRatingLock,
-    currentGuidedReviewIsValid
-  };
-
+  const api = { sanitizeCardsBeforeGuidedRender, sanitizeGuidedDay };
   window.FarsiGuidedIntegrity = api;
   if (window.__FARSI_TEST__) window.__FARSI_GUIDED_INTEGRITY_TEST__ = api;
 
