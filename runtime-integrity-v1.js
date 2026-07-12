@@ -6,6 +6,7 @@
   const STUDIED_PREFIX = 'farsi-guided-letter-studied-';
   const STEP_KEYS = ['word', 'sentence', 'recall', 'script', 'reviews'];
   const bootDay = todayKey();
+  let guidedStateDirty = false;
 
   function readJSON(key, fallback = {}) {
     try {
@@ -233,7 +234,8 @@
 
   const previousShowView = showView;
   showView = function showViewWithStateIntegrity(name) {
-    if (name === 'today' && syncGuidedDayFromExternalActivity()) {
+    const guidedChanged = name === 'today' && syncGuidedDayFromExternalActivity();
+    if (name === 'today' && (guidedStateDirty || guidedChanged)) {
       window.location.reload();
       return;
     }
@@ -297,7 +299,8 @@
     }
 
     const guidedChanged = event.key !== GUIDED_KEY && syncGuidedDayFromExternalActivity();
-    if (todayIsActive() && (event.key === GUIDED_KEY || guidedChanged)) {
+    if (event.key === GUIDED_KEY || guidedChanged) guidedStateDirty = true;
+    if (todayIsActive() && guidedStateDirty) {
       window.location.reload();
       return;
     }
