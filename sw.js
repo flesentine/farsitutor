@@ -1,12 +1,14 @@
-const CACHE = 'farsi-daily-cache-v11';
+const CACHE = 'farsi-daily-cache-v12';
 const ASSETS = [
   './', './index.html', './styles.css', './verb-upgrade.css', './learning-upgrade.css',
   './mobile-experience.css?v=1', './guided-learning.css?v=1', './ux-polish.css?v=1',
+  './script-review.css?v=1',
   './words.js', './words-part-01.js', './words-part-02.js', './words-part-03.js',
   './words-part-04.js', './words-part-05.js', './words-part-06.js', './words-part-07.js',
   './words-part-08.js', './words-part-09.js', './words-order.js', './verbs.js',
   './script-lessons.js', './app-core.js', './app-ui.js', './app-main.js',
   './speech-fix.js?v=8', './learning-upgrade.js?v=1', './guided-learning.js?v=2',
+  './sentence-audio-v2.js?v=1', './script-review.js?v=1',
   './manifest.json', './icon.svg'
 ];
 
