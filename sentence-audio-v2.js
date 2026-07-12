@@ -1,8 +1,10 @@
-// Gesture-first sentence pronunciation for mobile Safari and installed PWAs.
+// Direct sentence audio plus guided-letter quiz answer guard.
 (() => {
-  const baseSpeakPractice = window.speakPractice;
-  const baseSpeak = speak;
-  const prefetchedSentences = new Map();
+  const previousSpeakPractice = window.speakPractice;
+  const previousSpeak = window.speak;
+  const cachedAudio = new Map();
+  let currentAudio = null;
+  let directRequest = 0;
 
   function normalizeItems(items) {
     return (Array.isArray(items) ? items : [items])
@@ -20,76 +22,136 @@
     document.dispatchEvent(new CustomEvent(`farsi:speech-${name}`, { detail }));
   }
 
-  function remoteUrl(text) {
-    return `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=fa&ttsspeed=0.8&q=${encodeURIComponent(text)}`;
+  function sourceUrls(text, speed) {
+    const encoded = encodeURIComponent(text);
+    const ttsSpeed = speed === 'slow' ? '0.24' : '1';
+    return [
+      `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=fa&ttsspeed=${ttsSpeed}&q=${encoded}`,
+      `https://translate.googleapis.com/translate_tts?ie=UTF-8&client=gtx&tl=fa&ttsspeed=${ttsSpeed}&q=${encoded}`
+    ];
   }
 
-  function primeSentence(text) {
-    const value = String(text || '').trim();
-    if (!value || isHeadword(value) || prefetchedSentences.has(value)) return;
-    const audio = new Audio(remoteUrl(value));
+  function audioKey(text, speed) {
+    return `${speed}:${text}`;
+  }
+
+  function discardAudio(key, audio) {
+    if (cachedAudio.get(key) === audio) cachedAudio.delete(key);
+    try {
+      audio.pause();
+      audio.removeAttribute('src');
+      audio.querySelectorAll('source').forEach(source => source.remove());
+      audio.load();
+      audio.remove();
+    } catch {}
+  }
+
+  function createSentenceAudio(text, speed = 'normal') {
+    const key = audioKey(text, speed);
+    const existing = cachedAudio.get(key);
+    if (existing) return existing;
+
+    const audio = document.createElement('audio');
     audio.preload = 'auto';
     audio.playsInline = true;
-    audio.addEventListener('error', () => prefetchedSentences.delete(value), { once: true });
-    prefetchedSentences.set(value, audio);
-    try { audio.load(); } catch { prefetchedSentences.delete(value); }
+    audio.setAttribute('playsinline', '');
+    audio.setAttribute('webkit-playsinline', '');
+    audio.style.display = 'none';
+    audio.dataset.farsiSentenceAudio = key;
+
+    sourceUrls(text, speed).forEach(url => {
+      const source = document.createElement('source');
+      source.src = url;
+      source.type = 'audio/mpeg';
+      audio.appendChild(source);
+    });
+
+    audio.addEventListener('error', () => discardAudio(key, audio), { once: true });
+    document.body.appendChild(audio);
+    cachedAudio.set(key, audio);
+    try { audio.load(); } catch { discardAudio(key, audio); }
+    return audio;
   }
 
-  function beginRequest() {
-    speechRequest += 1;
-    if (activeAudio) {
+  function stopDirectAudio() {
+    directRequest += 1;
+    if (currentAudio) {
       try {
-        activeAudio.pause();
-        activeAudio.removeAttribute('src');
-        activeAudio.load();
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
       } catch {}
-      activeAudio = null;
+      currentAudio = null;
     }
-    if ('speechSynthesis' in window && (activeUtterance || window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
-      window.speechSynthesis.cancel();
-    }
-    activeUtterance = null;
-    return speechRequest;
   }
 
-  function playReadyAudio(audio, requestId, speed) {
+  function playSentenceAudio(item, speed) {
+    const requestId = ++directRequest;
+    const key = audioKey(item.text, speed);
+    const audio = createSentenceAudio(item.text, speed);
+
     return new Promise((resolve, reject) => {
       let settled = false;
+      let started = false;
+      let startTimer;
+      let maxTimer;
+
       const cleanup = () => {
+        audio.removeEventListener('playing', onPlaying);
         audio.removeEventListener('ended', onEnded);
         audio.removeEventListener('error', onError);
+        window.clearTimeout(startTimer);
+        window.clearTimeout(maxTimer);
         window.clearInterval(cancelCheck);
-        if (activeAudio === audio) activeAudio = null;
+        if (currentAudio === audio) currentAudio = null;
       };
-      const finish = (ok) => {
+
+      const finish = (ok, error) => {
         if (settled) return;
         settled = true;
         cleanup();
-        ok ? resolve(true) : reject(new Error('Prefetched sentence audio failed'));
+        if (ok) resolve(true);
+        else {
+          discardAudio(key, audio);
+          reject(error || new Error('Sentence audio failed'));
+        }
+      };
+
+      const onPlaying = () => {
+        started = true;
+        window.clearTimeout(startTimer);
+        const estimated = Math.max(9000, item.text.length * (speed === 'slow' ? 420 : 280));
+        maxTimer = window.setTimeout(() => {
+          try { audio.pause(); } catch {}
+          finish(false, new Error('Sentence audio timed out'));
+        }, Math.min(45000, estimated));
       };
       const onEnded = () => finish(true);
-      const onError = () => finish(false);
+      const onError = () => finish(false, new Error('Sentence audio source failed'));
       const cancelCheck = window.setInterval(() => {
-        if (requestId !== speechRequest) {
-          audio.pause();
-          finish(false);
-        }
+        if (requestId !== directRequest) finish(false, new Error('Sentence audio cancelled'));
       }, 100);
+
+      audio.addEventListener('playing', onPlaying, { once: true });
       audio.addEventListener('ended', onEnded, { once: true });
       audio.addEventListener('error', onError, { once: true });
-      audio.currentTime = 0;
-      audio.playbackRate = speed === 'slow' ? .72 : 1;
-      activeAudio = audio;
+      currentAudio = audio;
+
       try {
+        audio.currentTime = 0;
+        audio.volume = 1;
+        audio.playbackRate = 1;
+        startTimer = window.setTimeout(() => {
+          if (!started) finish(false, new Error('Sentence audio did not start'));
+        }, 6000);
         const result = audio.play();
         if (result && typeof result.catch === 'function') result.catch(onError);
-      } catch {
-        finish(false);
+      } catch (error) {
+        finish(false, error);
       }
     });
   }
 
-  function choosePersianVoice() {
+  function findStrictPersianVoice() {
     if (!('speechSynthesis' in window)) return null;
     const voices = window.speechSynthesis.getVoices() || [];
     return voices.find(voice => /^fa(?:-|_|$)/i.test(voice.lang))
@@ -97,63 +159,53 @@
       || null;
   }
 
-  function speakBrowserNow(item, requestId, speed) {
+  function speakWithPersianVoice(item, speed) {
     return new Promise((resolve, reject) => {
-      if (!('speechSynthesis' in window) || requestId !== speechRequest) {
-        reject(new Error('Device speech unavailable'));
+      if (!('speechSynthesis' in window)) {
+        reject(new Error('Speech synthesis unavailable'));
+        return;
+      }
+      const voice = findStrictPersianVoice();
+      if (!voice) {
+        reject(new Error('No Persian voice installed'));
         return;
       }
 
       const synthesis = window.speechSynthesis;
       const utterance = new SpeechSynthesisUtterance(item.text);
-      const voice = choosePersianVoice();
-      let settled = false;
       let started = false;
+      let settled = false;
       let startTimer;
       let maxTimer;
 
-      const cleanup = () => {
-        window.clearTimeout(startTimer);
-        window.clearTimeout(maxTimer);
-        window.clearInterval(statePoll);
-        activeUtterance = null;
-      };
       const finish = (ok) => {
         if (settled) return;
         settled = true;
-        cleanup();
-        ok ? resolve(true) : reject(new Error('Device sentence speech failed'));
+        window.clearTimeout(startTimer);
+        window.clearTimeout(maxTimer);
+        ok ? resolve(true) : reject(new Error('Persian device voice failed'));
       };
-      const markStarted = () => {
+      const onStart = () => {
         if (started) return;
         started = true;
         window.clearTimeout(startTimer);
-        const estimate = Math.max(9000, item.text.length * (speed === 'slow' ? 430 : 310));
         maxTimer = window.setTimeout(() => {
           synthesis.cancel();
           finish(false);
-        }, Math.min(45000, estimate));
+        }, Math.min(45000, Math.max(9000, item.text.length * 350)));
       };
-      const statePoll = window.setInterval(() => {
-        if (requestId !== speechRequest) {
-          synthesis.cancel();
-          finish(false);
-          return;
-        }
-        if (synthesis.speaking || synthesis.pending) markStarted();
-      }, 80);
 
-      if (voice) utterance.voice = voice;
-      utterance.lang = voice?.lang || 'fa-IR';
+      utterance.voice = voice;
+      utterance.lang = voice.lang || 'fa-IR';
       utterance.rate = speed === 'slow' ? .60 : .82;
-      utterance.pitch = 1;
       utterance.volume = 1;
-      utterance.onstart = markStarted;
-      utterance.onboundary = markStarted;
-      utterance.onend = () => finish(true);
+      utterance.pitch = 1;
+      utterance.onstart = onStart;
+      utterance.onboundary = onStart;
+      utterance.onend = () => finish(started);
       utterance.onerror = () => finish(false);
-      activeUtterance = utterance;
 
+      synthesis.cancel();
       synthesis.resume();
       startTimer = window.setTimeout(() => {
         if (!started) {
@@ -162,70 +214,96 @@
         }
       }, 4000);
 
-      try {
-        // This call intentionally happens in the original tap stack on iPhone/PWA.
-        synthesis.speak(utterance);
-      } catch {
-        finish(false);
-      }
+      try { synthesis.speak(utterance); } catch { finish(false); }
     });
   }
 
-  async function playSentenceNow(item, button, options = {}) {
+  async function playSentence(item, speed) {
+    stopDirectAudio();
+    try {
+      return await playSentenceAudio(item, speed);
+    } catch {
+      return speakWithPersianVoice(item, speed);
+    }
+  }
+
+  window.speakPractice = async function speakPracticeDirect(items, button = null, options = {}) {
+    const normalized = normalizeItems(items);
+    if (!normalized.length) return false;
+    const containsSentence = normalized.some(item => !isHeadword(item.text));
+    if (!containsSentence) return previousSpeakPractice(items, button, options);
+
     const speed = options.speed === 'slow' ? 'slow' : 'normal';
-    const requestId = beginRequest();
+    const repeat = Math.max(1, Math.min(5, Number(options.repeat || 1)));
+    const pauseMs = Math.max(200, Math.min(2000, Number(options.pauseMs || 650)));
     setSpeechButtonBusy(button, true);
-    emit('start', { button, items: [item], speed, repeat: 1 });
+    emit('start', { button, items: normalized, speed, repeat });
 
     try {
-      const cached = prefetchedSentences.get(item.text);
-      if (cached && cached.readyState >= 2 && !cached.error) {
-        await playReadyAudio(cached, requestId, speed);
-      } else {
-        await speakBrowserNow(item, requestId, speed);
+      for (let itemIndex = 0; itemIndex < normalized.length; itemIndex += 1) {
+        const item = normalized[itemIndex];
+        for (let repetition = 0; repetition < repeat; repetition += 1) {
+          const ok = isHeadword(item.text)
+            ? await previousSpeakPractice([item], null, { speed })
+            : await playSentence(item, speed);
+          if (!ok) throw new Error('Audio failed');
+          const hasMore = repetition < repeat - 1 || itemIndex < normalized.length - 1;
+          if (hasMore) await new Promise(resolve => window.setTimeout(resolve, pauseMs));
+        }
       }
-      if (requestId !== speechRequest) return false;
-      emit('complete', { button, items: [item], speed, repeat: 1 });
+      emit('complete', { button, items: normalized, speed, repeat });
       return true;
-    } catch {
-      if (requestId !== speechRequest) return false;
-      // Last resort: reuse the older online/phonetic chain.
-      const ok = await baseSpeakPractice([item], button, options);
-      return Boolean(ok);
+    } catch (error) {
+      emit('error', { button, items: normalized, speed, repeat, error });
+      toast('Sentence audio could not play. Check media volume and internet connection.');
+      return false;
     } finally {
       setSpeechButtonBusy(button, false);
     }
-  }
-
-  window.speakPractice = function speakPracticeGestureFirst(items, button = null, options = {}) {
-    const normalized = normalizeItems(items);
-    if (normalized.length === 1 && !isHeadword(normalized[0].text)) {
-      primeSentence(normalized[0].text);
-      return playSentenceNow(normalized[0], button, options);
-    }
-    return baseSpeakPractice(items, button, options);
   };
 
-  speak = function speakWithSentencePriority(text, button = null, phoneticHint = '') {
-    if (!isHeadword(text)) {
-      return window.speakPractice([{ text, phoneticHint }], button);
-    }
-    return baseSpeak(text, button, phoneticHint);
+  speak = function speakDirect(text, button = null, phoneticHint = '') {
+    if (isHeadword(text)) return previousSpeak(text, button, phoneticHint);
+    return window.speakPractice([{ text, phoneticHint }], button);
   };
 
   function primeVisibleSentences() {
-    ['todayExampleFa', 'reviewExampleFa', 'scriptExampleFa'].forEach(id => primeSentence(document.getElementById(id)?.textContent));
+    const values = new Set();
+    document.querySelectorAll('.guided-sentence, #todayExampleFa, #reviewExampleFa, #scriptExampleFa').forEach(element => {
+      const text = element.textContent?.trim();
+      if (text && !isHeadword(text)) values.add(text);
+    });
+    values.forEach(text => {
+      createSentenceAudio(text, 'normal');
+      createSentenceAudio(text, 'slow');
+    });
   }
 
-  if ('speechSynthesis' in window) {
-    window.speechSynthesis.getVoices();
-    window.speechSynthesis.addEventListener?.('voiceschanged', () => window.speechSynthesis.getVoices(), { once: true });
+  // Never reveal a quiz answer before the learner chooses it.
+  const quizStyle = document.createElement('style');
+  quizStyle.textContent = `
+    .guided-card:has(.guided-letter-choice:not(:disabled)) > .guided-letter,
+    .guided-card:has(.guided-letter-choice:not(:disabled)) > h3,
+    .guided-card.letter-question-unanswered > .guided-letter,
+    .guided-card.letter-question-unanswered > h3 { display:none !important; }
+  `;
+  document.head.appendChild(quizStyle);
+
+  function guardLetterQuestions() {
+    document.querySelectorAll('.guided-card').forEach(card => {
+      const choices = [...card.querySelectorAll('.guided-letter-choice')];
+      if (!choices.length) return;
+      card.classList.toggle('letter-question-unanswered', choices.some(choice => !choice.disabled));
+    });
   }
 
-  const observer = new MutationObserver(primeVisibleSentences);
-  ['todayExampleFa', 'reviewExampleFa', 'scriptExampleFa'].forEach(id => {
-    const element = document.getElementById(id);
-    if (element) observer.observe(element, { childList: true, characterData: true, subtree: true });
+  const observer = new MutationObserver(() => {
+    primeVisibleSentences();
+    guardLetterQuestions();
   });
-  window.setTimeout(primeVisibleSentences, 50);
+  observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+  window.setTimeout(() => {
+    primeVisibleSentences();
+    guardLetterQuestions();
+  }, 0);
 })();
