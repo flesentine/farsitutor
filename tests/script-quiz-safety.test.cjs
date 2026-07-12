@@ -80,7 +80,7 @@ for (const file of ['learning-upgrade.js', 'script-review-v2.js', 'guided-today-
 
 const currentQuiz = fs.readFileSync(path.join(__dirname, '..', 'learning-upgrade.js'), 'utf8');
 const olderQuiz = fs.readFileSync(path.join(__dirname, '..', 'script-review-v2.js'), 'utf8');
-if (!currentQuiz.includes('FarsiScriptQuiz.questionFor') || !currentQuiz.includes('FarsiScriptQuiz.buildChoices')) {
+if (!currentQuiz.includes('window.FarsiScriptQuiz') || !currentQuiz.includes('.questionFor') || !currentQuiz.includes('.buildChoices')) {
   throw new Error('The current-letter quiz is bypassing shared safety rules.');
 }
 if (!olderQuiz.includes('FarsiScriptQuiz.questionFor') || !olderQuiz.includes('Try this letter again')) {
