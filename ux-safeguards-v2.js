@@ -8,6 +8,7 @@
     try { return { ...fallback, ...JSON.parse(localStorage.getItem(key) || '{}') }; }
     catch { return { ...fallback }; }
   };
+  const write = (key, value) => localStorage.setItem(key, JSON.stringify(value));
   const localDayKey = (date = new Date()) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 
   function currentLetterIndex() {
@@ -101,6 +102,47 @@
     });
   }
 
+  function updateStandaloneScore() {
+    const progress = read(SCRIPT_KEY, { attempts: 0, correct: 0, completed: {} });
+    const attempts = Number(progress.attempts || 0);
+    const correct = Number(progress.correct || 0);
+    const accuracy = attempts ? Math.round(correct / attempts * 100) : 0;
+    const done = Boolean(progress.completed?.[todayKey()]);
+    const score = document.getElementById('scriptQuizScore');
+    if (score) score.textContent = `${done ? 'Daily script quiz complete · ' : ''}${correct} correct of ${attempts} attempts${attempts ? ` · ${accuracy}%` : ''}`;
+  }
+
+  function answerStandaloneChoice(button) {
+    const selected = Number(button.dataset.scriptChoice);
+    const correctIndex = currentLetterIndex();
+    const correct = selected === correctIndex;
+    const progress = read(SCRIPT_KEY, { attempts: 0, correct: 0, completed: {} });
+    progress.attempts = Number(progress.attempts || 0) + 1;
+    if (correct) {
+      progress.correct = Number(progress.correct || 0) + 1;
+      progress.completed = progress.completed || {};
+      progress.completed[todayKey()] = true;
+    }
+    write(SCRIPT_KEY, progress);
+
+    document.querySelectorAll('#scriptQuizChoices [data-script-choice]').forEach(choice => {
+      choice.disabled = true;
+      const index = Number(choice.dataset.scriptChoice);
+      if (index === correctIndex) choice.classList.add('correct');
+      else if (choice === button) choice.classList.add('wrong');
+    });
+
+    const lesson = SCRIPT_LESSONS[correctIndex];
+    const result = document.getElementById('scriptQuizResult');
+    if (result) {
+      result.textContent = correct ? 'Correct — nice work.' : `Not quite. Today’s letter is ${lesson.letter} (${lesson.name}).`;
+      result.className = `script-quiz-result ${correct ? 'good' : 'bad'}`;
+    }
+    document.getElementById('scriptNextQuizBtn')?.classList.remove('hidden');
+    updateStandaloneScore();
+    window.setTimeout(prepareStandaloneScriptQuiz, 0);
+  }
+
   function prepareStandaloneScriptQuiz() {
     const view = document.getElementById('scriptView');
     const card = view?.querySelector('.script-quiz-card:not(.script-review-card)');
@@ -128,6 +170,7 @@
       view.classList.remove('ux-script-testing');
       card.querySelector('.ux-start-script-quiz')?.remove();
       card.dataset.uxQuizStarted = 'false';
+      updateStandaloneScore();
       return;
     }
 
@@ -147,9 +190,18 @@
       button.textContent = 'Start quiz';
       card.appendChild(button);
     }
+    updateStandaloneScore();
   }
 
   document.addEventListener('click', event => {
+    const choice = event.target.closest('#scriptQuizChoices [data-script-choice]');
+    if (choice && !choice.disabled) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      answerStandaloneChoice(choice);
+      return;
+    }
+
     const start = event.target.closest('[data-ux-action="start-script-quiz"]');
     if (!start) return;
     localStorage.setItem(`${STUDIED_PREFIX}${todayKey()}`, '1');
@@ -165,6 +217,7 @@
     const observer = new MutationObserver(prepareStandaloneScriptQuiz);
     observer.observe(quizChoices, { childList: true });
   }
+  document.getElementById('scriptNextQuizBtn')?.addEventListener('click', () => window.setTimeout(prepareStandaloneScriptQuiz, 0));
   window.setTimeout(prepareStandaloneScriptQuiz, 0);
 
   const resetButton = document.getElementById('resetBtn');
