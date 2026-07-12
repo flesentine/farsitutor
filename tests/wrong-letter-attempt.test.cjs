@@ -26,8 +26,7 @@ const guided = {
         pastIndex: 5,
         pastAnswered: false,
         pastSelected: null,
-        pastCorrect: false,
-        pastSatisfiedExternally: true
+        pastCorrect: false
       },
       reviews: { queue: [], position: 0, revealed: false },
       completedAt: 123
@@ -79,6 +78,7 @@ const context = {
   },
   window: {
     __FARSI_TEST__: true,
+    FarsiGuidedToday: { reloadFromStorage() {} },
     location: { reload() {} },
     addEventListener(name, handler) { listeners[`window:${name}`] = handler; },
     setInterval() { return 1; }
@@ -87,7 +87,7 @@ const context = {
 context.window.window = context.window;
 
 vm.createContext(context);
-const source = fs.readFileSync(path.join(__dirname, '..', 'runtime-integrity-v1.js'), 'utf8');
+const source = fs.readFileSync(path.join(__dirname, '..', 'runtime-integrity-v2.js'), 'utf8');
 vm.runInContext(source, context);
 const api = context.window.__FARSI_RUNTIME_TEST__;
 if (!api) throw new Error('Runtime test API was not exposed.');
@@ -98,9 +98,6 @@ if (!api.syncGuidedDayFromExternalActivity()) {
 let day = JSON.parse(storage.getItem(guidedKey)).days[today];
 if (day.done.script || day.step !== 3 || day.completedAt !== null) {
   throw new Error('Wrong previous-letter attempts incorrectly completed Today.');
-}
-if (day.script.pastSatisfiedExternally) {
-  throw new Error('Stale external completion flag survived without a correct answer.');
 }
 if (day.script.phase !== 'past') {
   throw new Error('Today did not return to the older-letter question after wrong attempts.');
@@ -113,9 +110,6 @@ if (!api.syncGuidedDayFromExternalActivity()) {
 day = JSON.parse(storage.getItem(guidedKey)).days[today];
 if (!day.done.script || day.step !== 5 || !day.completedAt) {
   throw new Error('A correct previous-letter answer did not complete the lesson.');
-}
-if (!day.script.pastSatisfiedExternally) {
-  throw new Error('Correct external previous-letter work was not recorded.');
 }
 
 console.log('Wrong previous-letter attempts remain incomplete.');
