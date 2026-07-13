@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# This script is intentionally run in GitHub Actions so the generated MP3 files are committed.
 import asyncio
 import json
 import os
