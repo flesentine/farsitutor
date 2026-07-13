@@ -64,23 +64,37 @@
     if (document.getElementById('pastScriptReviewCard')) return;
     const layout = document.querySelector('#scriptView .script-layout');
     if (!layout) return;
-    const card = document.createElement('article');
+    const card = document.createElement('details');
     card.id = 'pastScriptReviewCard';
-    card.className = 'script-quiz-card script-review-card';
+    card.className = 'script-review-card';
     card.innerHTML = `
-      <div class="script-review-heading">
-        <div><p class="eyebrow">REVIEW STUDIED LETTERS</p><h3>Keep older letters fresh</h3></div>
-        <span id="pastScriptContext" class="script-review-context"></span>
+      <summary class="script-review-summary">
+        <div class="script-review-summary-copy">
+          <p class="eyebrow">OPTIONAL PRACTICE</p>
+          <h3>Review older letters</h3>
+          <p>Practice letters from earlier lessons when you want extra review.</p>
+        </div>
+        <span class="script-review-summary-action">Open review</span>
+      </summary>
+      <div class="script-quiz-card script-review-panel">
+        <div class="script-review-heading">
+          <div><p class="eyebrow">OLDER LETTER REVIEW</p><h3>Keep earlier letters fresh</h3></div>
+          <span id="pastScriptContext" class="script-review-context"></span>
+        </div>
+        <p id="pastScriptPrompt" class="script-review-prompt"></p>
+        <div id="pastScriptChoices" class="script-quiz-choices"></div>
+        <p id="pastScriptResult" class="script-quiz-result" role="status" aria-live="polite"></p>
+        <div id="pastScriptAnswerActions" class="script-review-answer-actions hidden">
+          <button id="pastScriptHearBtn" class="sentence-speak-btn" type="button"><span aria-hidden="true">🔊</span> Hear example</button>
+          <button id="pastScriptNextBtn" class="secondary-btn" type="button">Review another letter</button>
+        </div>
+        <p id="pastScriptScore" class="muted script-score"></p>
       </div>
-      <p id="pastScriptPrompt" class="script-review-prompt"></p>
-      <div id="pastScriptChoices" class="script-quiz-choices"></div>
-      <p id="pastScriptResult" class="script-quiz-result" role="status" aria-live="polite"></p>
-      <div id="pastScriptAnswerActions" class="script-review-answer-actions hidden">
-        <button id="pastScriptHearBtn" class="sentence-speak-btn" type="button"><span aria-hidden="true">🔊</span> Hear example</button>
-        <button id="pastScriptNextBtn" class="secondary-btn" type="button">Review another letter</button>
-      </div>
-      <p id="pastScriptScore" class="muted script-score"></p>
     `;
+    card.addEventListener('toggle', () => {
+      const action = card.querySelector('.script-review-summary-action');
+      if (action) action.textContent = card.open ? 'Close review' : 'Open review';
+    });
     layout.appendChild(card);
   }
 
