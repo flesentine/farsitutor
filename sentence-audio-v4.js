@@ -1,4 +1,4 @@
-// Gesture-safe sentence audio for iPhone Safari and installed PWAs.
+// Persian-only sentence audio for iPhone Safari and installed PWAs.
 (() => {
   const baseSpeakPractice = window.speakPractice;
   const remoteCache = new Map();
@@ -6,17 +6,13 @@
   let runId = 0;
   let lastResult = { method: null, error: null };
 
-  function normalize(items) {
-    return (Array.isArray(items) ? items : [items])
-      .map(item => typeof item === 'string'
-        ? { text: item, phoneticHint: '' }
-        : { text: item?.text || '', phoneticHint: item?.phoneticHint || '' })
-      .filter(item => item.text);
-  }
+  const normalize = items => (Array.isArray(items) ? items : [items])
+    .map(item => typeof item === 'string'
+      ? { text: item, phoneticHint: '' }
+      : { text: item?.text || '', phoneticHint: item?.phoneticHint || '' })
+    .filter(item => item.text);
 
-  function isHeadword(text) {
-    return Array.isArray(WORDS) && WORDS.some(word => word.fa === text);
-  }
+  const isHeadword = text => Array.isArray(WORDS) && WORDS.some(word => word.fa === text);
 
   function emit(name, detail = {}) {
     document.dispatchEvent(new CustomEvent(`farsi:speech-${name}`, { detail }));
@@ -28,29 +24,6 @@
     return voices.find(voice => /^fa(?:-|_|$)/i.test(voice.lang))
       || voices.find(voice => /persian|farsi|iran/i.test(`${voice.name} ${voice.lang}`))
       || null;
-  }
-
-  function englishVoice() {
-    if (!('speechSynthesis' in window)) return null;
-    const voices = window.speechSynthesis.getVoices() || [];
-    return voices.find(voice => /^en-US$/i.test(voice.lang))
-      || voices.find(voice => /^en(?:-|_|$)/i.test(voice.lang))
-      || voices[0]
-      || null;
-  }
-
-  function phoneticText(value) {
-    return String(value || '')
-      .replaceAll('â', 'aa')
-      .replaceAll('ā', 'aa')
-      .replaceAll('kh', 'k h')
-      .replaceAll('gh', 'g h')
-      .replaceAll('zh', 'j')
-      .replaceAll('q', 'g')
-      .replaceAll('-', ' ')
-      .replace(/[?!.,،؟«»“”]/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
   }
 
   function stopCurrent() {
@@ -66,17 +39,17 @@
     if (typeof stopSpeech === 'function') stopSpeech();
   }
 
-  function speakDeviceNow(text, { voice = null, lang = 'fa-IR', rate = .82, activeRun }) {
+  function speakPersianNow(text, { voice = null, rate = .82, activeRun }) {
     return new Promise((resolve, reject) => {
       if (!text || !('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
-        reject(new Error('Device speech unavailable'));
+        reject(new Error('Persian device speech unavailable'));
         return;
       }
 
       const synthesis = window.speechSynthesis;
       const utterance = new SpeechSynthesisUtterance(text);
       if (voice) utterance.voice = voice;
-      utterance.lang = voice?.lang || lang;
+      utterance.lang = voice?.lang || 'fa-IR';
       utterance.rate = rate;
       utterance.pitch = 1;
       utterance.volume = 1;
@@ -89,7 +62,7 @@
         clearInterval(poll);
         clearTimeout(startTimer);
         clearTimeout(maxTimer);
-        ok ? resolve(true) : reject(error || new Error('Device speech failed'));
+        ok ? resolve(true) : reject(error || new Error('Persian device speech failed'));
       };
       const markStarted = () => {
         started = true;
@@ -99,7 +72,7 @@
       utterance.onstart = markStarted;
       utterance.onboundary = markStarted;
       utterance.onend = () => finish(started);
-      utterance.onerror = event => finish(false, new Error(event.error || 'Device speech failed'));
+      utterance.onerror = event => finish(false, new Error(event.error || 'Persian device speech failed'));
 
       const poll = setInterval(() => {
         if (activeRun !== runId) {
@@ -111,12 +84,12 @@
       }, 80);
       const startTimer = setTimeout(() => {
         if (!started && !synthesis.speaking && !synthesis.pending) {
-          finish(false, new Error('Device speech did not start'));
+          finish(false, new Error('Persian device speech did not start'));
         }
       }, 1800);
-      const maxTimer = setTimeout(() => finish(false, new Error('Device speech timed out')), 45000);
+      const maxTimer = setTimeout(() => finish(false, new Error('Persian device speech timed out')), 45000);
 
-      // This call must happen before the original click handler yields.
+      // Must run synchronously while the original tap still owns user activation.
       try {
         synthesis.resume();
         synthesis.speak(utterance);
@@ -160,18 +133,23 @@
         trySource();
       };
       audio.src = urls[entry.sourceIndex];
-      try { audio.load(); } catch { entry.sourceIndex += 1; trySource(); }
+      try {
+        audio.load();
+      } catch {
+        entry.sourceIndex += 1;
+        trySource();
+      }
     };
     remoteCache.set(key, entry);
     trySource();
-    while (remoteCache.size > 4) remoteCache.delete(remoteCache.keys().next().value);
+    while (remoteCache.size > 6) remoteCache.delete(remoteCache.keys().next().value);
     return entry;
   }
 
   function playReadyRemote(entry, activeRun) {
     return new Promise((resolve, reject) => {
       if (!entry || entry.failed || (!entry.ready && entry.audio.readyState < 2)) {
-        reject(new Error('Streamed Persian audio is not ready'));
+        reject(new Error('Persian stream is not ready'));
         return;
       }
       const audio = entry.audio;
@@ -182,7 +160,7 @@
         cleanup();
         if (activeAudio === audio) activeAudio = null;
         if (!ok) entry.failed = true;
-        ok ? resolve(true) : reject(error || new Error('Streamed Persian audio failed'));
+        ok ? resolve(true) : reject(error || new Error('Persian stream failed'));
       };
       const cleanup = () => {
         audio.onplaying = null;
@@ -194,12 +172,13 @@
       };
       audio.onplaying = () => clearTimeout(startTimer);
       audio.onended = () => finish(true);
-      audio.onerror = () => finish(false, new Error('Streamed Persian audio source failed'));
-      const startTimer = setTimeout(() => finish(false, new Error('Streamed Persian audio did not start')), 2200);
-      const maxTimer = setTimeout(() => finish(false, new Error('Streamed Persian audio timed out')), 45000);
+      audio.onerror = () => finish(false, new Error('Persian stream source failed'));
+      const startTimer = setTimeout(() => finish(false, new Error('Persian stream did not start')), 2200);
+      const maxTimer = setTimeout(() => finish(false, new Error('Persian stream timed out')), 45000);
       const cancelTimer = setInterval(() => {
         if (activeRun !== runId) finish(false, new DOMException('Cancelled', 'AbortError'));
       }, 100);
+
       activeAudio = audio;
       try {
         audio.currentTime = 0;
@@ -214,23 +193,19 @@
 
   function makeSequence(items, repeat) {
     const texts = [];
-    const hints = [];
     for (let repetition = 0; repetition < repeat; repetition += 1) {
-      items.forEach(item => {
-        texts.push(item.text);
-        if (item.phoneticHint) hints.push(item.phoneticHint);
-      });
+      items.forEach(item => texts.push(item.text));
     }
-    return { text: texts.join(' … '), phoneticHint: hints.join(' ... ') };
+    return { text: texts.join(' … ') };
   }
 
-  function chooseImmediateMethod(item, speed, activeRun) {
+  function choosePersianMethod(item, speed, activeRun) {
     const slow = speed === 'slow';
     const voice = persianVoice();
     if (voice) {
       return {
         method: 'persian-device',
-        promise: speakDeviceNow(item.text, { voice, rate: slow ? .60 : .82, activeRun })
+        promise: speakPersianNow(item.text, { voice, rate: slow ? .60 : .82, activeRun })
       };
     }
 
@@ -239,51 +214,35 @@
       return { method: 'persian-stream', promise: playReadyRemote(remote, activeRun) };
     }
 
-    const phonetic = phoneticText(item.phoneticHint);
-    if (phonetic) {
-      return {
-        method: 'phonetic-device',
-        promise: speakDeviceNow(phonetic, {
-          voice: englishVoice(),
-          lang: 'en-US',
-          rate: slow ? .55 : .70,
-          activeRun
-        })
-      };
-    }
-
+    // Some iPhones honor fa-IR even when getVoices() omits the Persian voice.
     return {
       method: 'persian-device-unlisted',
-      promise: speakDeviceNow(item.text, { lang: 'fa-IR', rate: slow ? .60 : .82, activeRun })
+      promise: speakPersianNow(item.text, { rate: slow ? .60 : .82, activeRun })
     };
   }
 
-  async function playPhonetic(phoneticHint, button = null, speed = 'normal') {
-    const phonetic = phoneticText(phoneticHint);
-    if (!phonetic) return false;
+  async function playPersian(text, button = null, speed = 'normal') {
+    if (!text) return false;
     stopCurrent();
     const activeRun = runId;
     setSpeechButtonBusy(button, true);
+    const selected = choosePersianMethod({ text }, speed, activeRun);
     try {
-      await speakDeviceNow(phonetic, {
-        voice: englishVoice(),
-        lang: 'en-US',
-        rate: speed === 'slow' ? .55 : .70,
-        activeRun
-      });
-      lastResult = { method: 'phonetic-device', error: null };
-      emit('complete', { button, method: 'phonetic-device' });
+      await selected.promise;
+      lastResult = { method: selected.method, error: null };
+      emit('complete', { button, items: [{ text }], speed, repeat: 1, method: selected.method });
       return true;
     } catch (error) {
-      lastResult = { method: null, error: error?.message || String(error) };
-      emit('error', { button, error });
+      if (activeRun !== runId || error?.name === 'AbortError') return false;
+      lastResult = { method: selected.method, error: error?.message || String(error) };
+      emit('error', { button, items: [{ text }], speed, repeat: 1, method: selected.method, error });
       return false;
     } finally {
       setSpeechButtonBusy(button, false);
     }
   }
 
-  window.speakPractice = async function speakPracticeV5(items, button = null, options = {}) {
+  window.speakPractice = async function speakPracticePersianOnly(items, button = null, options = {}) {
     const normalized = normalize(items);
     if (!normalized.length) return false;
     if (normalized.every(item => isHeadword(item.text))) return baseSpeakPractice(items, button, options);
@@ -296,44 +255,58 @@
     setSpeechButtonBusy(button, true);
     emit('start', { button, items: normalized, speed, repeat });
 
-    // Select and start the method synchronously while the click still owns user activation.
-    const selected = chooseImmediateMethod(sequence, speed, activeRun);
+    const selected = choosePersianMethod(sequence, speed, activeRun);
     try {
       await selected.promise;
       lastResult = { method: selected.method, error: null };
-      if (selected.method === 'phonetic-device') {
-        toast('Using the pronunciation guide because Persian audio is unavailable on this phone.');
-      }
       emit('complete', { button, items: normalized, speed, repeat, method: selected.method });
       return true;
     } catch (error) {
       if (activeRun !== runId || error?.name === 'AbortError') return false;
       lastResult = { method: selected.method, error: error?.message || String(error) };
       emit('error', { button, items: normalized, speed, repeat, method: selected.method, error });
-      toast('Sentence audio could not start. Try the pronunciation guide below.');
+      toast('Real Persian audio could not start. Try again or continue without audio.');
       return false;
     } finally {
       setSpeechButtonBusy(button, false);
     }
   };
 
-  speak = function speakV5(text, button = null, phoneticHint = '') {
+  speak = function speakPersianOnly(text, button = null, phoneticHint = '') {
     return window.speakPractice([{ text, phoneticHint }], button);
   };
 
-  function primeVisibleSentence() {
-    const text = document.querySelector('#todayView .guided-sentence')?.textContent?.trim();
-    if (text) primeRemote(text, 'normal');
+  function todaysSentenceText() {
+    try {
+      if (typeof currentWord === 'function' && typeof practiceSentence === 'function') {
+        return practiceSentence(currentWord())?.fa || '';
+      }
+    } catch {}
+    return '';
   }
 
-  const observer = new MutationObserver(primeVisibleSentence);
-  const todayView = document.getElementById('todayView');
-  if (todayView) observer.observe(todayView, { childList: true, subtree: true, characterData: true });
-  setTimeout(primeVisibleSentence, 50);
+  function primeTodaysSentence() {
+    const text = todaysSentenceText()
+      || document.querySelector('#todayView .guided-sentence')?.textContent?.trim()
+      || '';
+    if (!text) return;
+    primeRemote(text, 'normal');
+    primeRemote(text, 'slow');
+  }
+
+  if (typeof MutationObserver !== 'undefined') {
+    const todayView = document.getElementById('todayView');
+    if (todayView) {
+      new MutationObserver(primeTodaysSentence)
+        .observe(todayView, { childList: true, subtree: true, characterData: true });
+    }
+  }
+  setTimeout(primeTodaysSentence, 0);
+  setTimeout(primeTodaysSentence, 400);
 
   window.FarsiSentenceAudio = {
     primeRemote,
-    playPhonetic,
+    playPersian,
     diagnostics: () => ({ ...lastResult, hasPersianVoice: Boolean(persianVoice()) })
   };
 
