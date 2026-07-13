@@ -1,10 +1,96 @@
+const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
+const CURRICULUM_FILES = [
+  'words.js',
+  'words-part-01.js', 'words-part-02.js', 'words-part-03.js',
+  'words-part-04.js', 'words-part-05.js', 'words-part-06.js',
+  'words-part-07.js', 'words-part-08.js', 'words-part-09.js',
+  'words-order.js'
+];
+
+function normalize(value) {
+  return String(value || '')
+    .normalize('NFC')
+    .replace(/ي/g, 'ی')
+    .replace(/ك/g, 'ک')
+    .replace(/\s+/g, ' ')
+    .replace(/ *\u200c */g, '\u200c')
+    .trim();
+}
+
+function contentHash(text, voice) {
+  return crypto
+    .createHash('sha256')
+    .update(`${voice}\n${normalize(text)}`, 'utf8')
+    .digest('hex');
+}
+
+function loadCurriculum() {
+  const context = vm.createContext({ console });
+  for (const file of CURRICULUM_FILES) {
+    const filename = path.join(ROOT, file);
+    vm.runInContext(fs.readFileSync(filename, 'utf8'), context, { filename });
+  }
+  return vm.runInContext('({ words: WORDS, order: DAILY_ORDER })', context);
+}
+
+function expectedScheduledSentences(words, order) {
+  if (order.length !== 1000 || new Set(order).size !== 1000) {
+    throw new Error(`DAILY_ORDER must contain exactly 1,000 unique indexes; found ${order.length}.`);
+  }
+
+  const entries = new Map();
+  for (const wordIndex of order) {
+    const word = words[wordIndex];
+    if (!word) throw new Error(`DAILY_ORDER references missing word index ${wordIndex}.`);
+    const text = normalize(word.exFa || `من کلمهٔ «${word.fa}» را یاد می‌گیرم.`);
+    if (!text) throw new Error(`Word index ${wordIndex} has no sentence text.`);
+    if (entries.has(text)) {
+      throw new Error(`Scheduled curriculum repeats sentence text at word index ${wordIndex}: ${text}`);
+    }
+    entries.set(String(wordIndex).padStart(4, '0'), text);
+  }
+  return entries;
+}
 
 async function main() {
+  const source = JSON.parse(
+    fs.readFileSync(path.join(ROOT, 'sentence-audio-source.json'), 'utf8')
+  );
+  const hashes = JSON.parse(
+    fs.readFileSync(path.join(ROOT, 'sentence-audio-hashes.json'), 'utf8')
+  );
+  const { words, order } = loadCurriculum();
+  const scheduled = expectedScheduledSentences(words, order);
+
+  if (source.length !== 1000) {
+    throw new Error(`Sentence source must contain exactly 1,000 entries; found ${source.length}.`);
+  }
+
+  const sourceIds = new Set();
+  const sourceTexts = new Set();
+  for (const entry of source) {
+    if (sourceIds.has(entry.id)) throw new Error(`Duplicate sentence source id: ${entry.id}`);
+    if (sourceTexts.has(normalize(entry.text))) {
+      throw new Error(`Duplicate normalized sentence source text: ${entry.text}`);
+    }
+    sourceIds.add(entry.id);
+    sourceTexts.add(normalize(entry.text));
+
+    const expectedText = scheduled.get(entry.id);
+    if (!expectedText) throw new Error(`Sentence source id ${entry.id} is not scheduled.`);
+    if (normalize(entry.text) !== expectedText) {
+      throw new Error(`Sentence source drift at id ${entry.id}.`);
+    }
+  }
+  if (sourceIds.size !== scheduled.size) {
+    throw new Error('Sentence source does not cover the complete scheduled curriculum.');
+  }
+
   const manifestContext = { window: {} };
   manifestContext.window.window = manifestContext.window;
   vm.createContext(manifestContext);
@@ -16,23 +102,51 @@ async function main() {
   const manifest = manifestContext.window.FARSI_SENTENCE_AUDIO;
   const voice = manifestContext.window.FARSI_SENTENCE_AUDIO_VOICE;
   if (!voice?.startsWith('fa-IR-')) throw new Error(`Generated voice is not Persian: ${voice}`);
-  if (!manifest || Object.keys(manifest).length < 900) {
-    throw new Error('The bundled sentence manifest is unexpectedly incomplete.');
+  if (!manifest || Object.keys(manifest).length !== source.length) {
+    throw new Error('The bundled sentence manifest does not exactly match the sentence source.');
+  }
+  if (hashes.voice !== voice || hashes.algorithm !== 'sha256(voice + newline + normalized Persian sentence)') {
+    throw new Error('Sentence audio hash metadata does not match the generated voice or algorithm.');
+  }
+  if (Object.keys(hashes.entries || {}).length !== source.length) {
+    throw new Error('Sentence audio hash metadata does not exactly cover the sentence source.');
+  }
+
+  const expectedFiles = new Set();
+  for (const entry of source) {
+    const text = normalize(entry.text);
+    const expectedUrl = `./audio/sentences/${entry.id}.mp3`;
+    if (manifest[text] !== expectedUrl) {
+      throw new Error(`Manifest mismatch for sentence id ${entry.id}.`);
+    }
+    const expectedHash = contentHash(text, voice);
+    if (hashes.entries[entry.id] !== expectedHash) {
+      throw new Error(`Stale sentence recording hash for id ${entry.id}.`);
+    }
+
+    const filename = path.join(ROOT, expectedUrl.replace(/^\.\//, ''));
+    if (!fs.existsSync(filename) || fs.statSync(filename).size <= 1024) {
+      throw new Error(`Missing generated sentence recording: ${expectedUrl}`);
+    }
+    expectedFiles.add(path.basename(filename));
+  }
+
+  const actualFiles = fs.readdirSync(path.join(ROOT, 'audio', 'sentences'))
+    .filter(filename => filename.endsWith('.mp3'));
+  if (
+    actualFiles.length !== expectedFiles.size
+    || actualFiles.some(filename => !expectedFiles.has(filename))
+  ) {
+    throw new Error('The sentence audio directory contains missing or orphaned MP3 files.');
   }
 
   const airport = 'فرودگاه دور است.';
   const airportUrl = manifest[airport];
-  if (!airportUrl) throw new Error('The airport sentence is missing from bundled audio.');
-  const airportFile = path.join(ROOT, airportUrl.replace(/^\.\//, ''));
-  if (!fs.existsSync(airportFile) || fs.statSync(airportFile).size <= 1024) {
-    throw new Error('The airport sentence MP3 is missing or empty.');
+  if (airportUrl !== './audio/sentences/0081.mp3') {
+    throw new Error('The airport sentence is missing or points to the wrong bundled recording.');
   }
-
-  for (const url of Object.values(manifest)) {
-    const filename = path.join(ROOT, url.replace(/^\.\//, ''));
-    if (!fs.existsSync(filename) || fs.statSync(filename).size <= 1024) {
-      throw new Error(`Missing generated sentence recording: ${url}`);
-    }
+  if (contentHash(`${airport}!`, voice) === hashes.entries['0081']) {
+    throw new Error('Changing a sentence did not invalidate its recording hash.');
   }
 
   let baseCalls = 0;
@@ -81,6 +195,7 @@ async function main() {
     String,
     Number,
     Math,
+    Map,
     setTimeout,
     clearTimeout,
     document: { dispatchEvent() {} },
@@ -94,6 +209,11 @@ async function main() {
   context.window.window = context.window;
   vm.createContext(context);
   vm.runInContext(fs.readFileSync(path.join(ROOT, 'sentence-local-audio.js'), 'utf8'), context);
+
+  const normalizedVariant = 'يك چای، لطفاً.';
+  if (context.window.FarsiSentenceAudio.localUrl(normalizedVariant) !== './audio/sentences/0002.mp3') {
+    throw new Error('Arabic yeh/kaf variants did not resolve to normalized Persian sentence audio.');
+  }
 
   const direct = await context.window.FarsiSentenceAudio.playPersian(airport, null, 'normal');
   if (!direct) throw new Error('Bundled Persian sentence did not complete direct playback.');
@@ -112,7 +232,7 @@ async function main() {
   if (played.some(item => item.url !== airportUrl)) throw new Error('Guided practice played the wrong sentence file.');
   if (played.some(item => item.rate !== 0.78)) throw new Error('Slow guided practice did not use local playback speed.');
 
-  console.log(`Bundled Persian sentence audio passed with ${Object.keys(manifest).length} recordings using ${voice}.`);
+  console.log(`Bundled Persian sentence audio passed with ${source.length} recordings using ${voice}.`);
 }
 
 main().catch(error => {
