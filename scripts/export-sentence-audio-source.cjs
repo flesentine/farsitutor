@@ -19,7 +19,10 @@ for (const file of files) {
 const words = vm.runInContext('WORDS', context);
 const normalize = value => String(value || '')
   .normalize('NFC')
+  .replace(/ي/g, 'ی')
+  .replace(/ك/g, 'ک')
   .replace(/\s+/g, ' ')
+  .replace(/ *\u200c */g, '\u200c')
   .trim();
 
 const seen = new Set();

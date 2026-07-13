@@ -18,6 +18,10 @@
       .trim();
   }
 
+  const normalizedAudioMap = new Map(
+    Object.entries(audioMap).map(([text, url]) => [normalizeText(text), url])
+  );
+
   function normalizeItems(items) {
     return (Array.isArray(items) ? items : [items])
       .map(item => typeof item === 'string'
@@ -27,7 +31,7 @@
   }
 
   function localUrl(text) {
-    return audioMap[normalizeText(text)] || null;
+    return normalizedAudioMap.get(normalizeText(text)) || null;
   }
 
   function emit(name, detail = {}) {
