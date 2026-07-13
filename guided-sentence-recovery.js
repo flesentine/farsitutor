@@ -1,4 +1,4 @@
-// Keeps the guided lesson usable when sentence audio fails.
+// Keeps the guided lesson usable when genuine Persian sentence audio fails.
 (() => {
   const GUIDED_KEY = 'farsi-guided-today-v2';
   const ROOT_ID = 'guidedTodayV3';
@@ -49,23 +49,23 @@
   function showRecovery(button) {
     if (!isGuidedSentenceButton(button)) return;
     const card = button.closest('.guided-card');
-    if (!card || card.querySelector('[data-skip-sentence-audio]')) return;
+    if (!card || card.querySelector('[data-retry-persian-audio]')) return;
     const panel = document.createElement('div');
     panel.className = 'guided-audio-recovery';
     panel.innerHTML = `
-      <p><strong>Persian audio could not start.</strong><br>Use the pronunciation guide or continue without audio.</p>
-      <button type="button" class="primary-btn guided-primary" data-play-pronunciation-guide>🔊 Play pronunciation guide</button>
+      <p><strong>Real Persian audio is not ready yet.</strong><br>Try it again, or keep going without audio.</p>
+      <button type="button" class="primary-btn guided-primary" data-retry-persian-audio>🔊 Try Persian audio again</button>
       <button type="button" class="secondary-btn guided-secondary" data-skip-sentence-audio>Continue without audio</button>`;
     card.appendChild(panel);
   }
 
   document.addEventListener('farsi:speech-error', event => showRecovery(event.detail?.button));
   document.addEventListener('click', async event => {
-    const guide = event.target.closest('[data-play-pronunciation-guide]');
-    if (guide) {
-      const card = guide.closest('.guided-card');
-      const hint = card?.querySelector('.guided-latin')?.textContent?.trim();
-      const ok = await window.FarsiSentenceAudio?.playPhonetic?.(hint, guide);
+    const retry = event.target.closest('[data-retry-persian-audio]');
+    if (retry) {
+      const card = retry.closest('.guided-card');
+      const text = card?.querySelector('.guided-sentence')?.textContent?.trim();
+      const ok = await window.FarsiSentenceAudio?.playPersian?.(text, retry);
       if (ok) markSentencePlayed();
       return;
     }
