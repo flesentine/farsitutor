@@ -2,6 +2,14 @@ name: Generate Persian sentence audio
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/generate-sentence-audio.yml
+      - scripts/export-sentence-audio-source.cjs
+      - scripts/generate-sentence-audio.py
+      - sentence-local-audio.js
   push:
     branches:
       - agent/bundle-persian-sentence-audio
@@ -15,25 +23,25 @@ permissions:
   contents: write
 
 concurrency:
-  group: sentence-audio-${{ github.ref }}
+  group: sentence-audio-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
   generate:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
-      - name: Check out branch
+      - name: Check out source branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          cache: pip
 
       - name: Install Persian TTS generator
         run: python -m pip install edge-tts==7.2.8
@@ -57,4 +65,5 @@ jobs:
             exit 0
           fi
           git commit -m "Generate local Persian sentence recordings"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          TARGET_BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
+          git push origin "HEAD:${TARGET_BRANCH}"
