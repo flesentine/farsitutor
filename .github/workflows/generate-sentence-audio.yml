@@ -9,9 +9,14 @@ on:
       - .github/workflows/generate-sentence-audio.yml
       - scripts/export-sentence-audio-source.cjs
       - scripts/generate-sentence-audio.py
+      - sentence-local-audio.js
 
 permissions:
   contents: write
+
+concurrency:
+  group: sentence-audio-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   generate:
