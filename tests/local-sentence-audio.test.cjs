@@ -36,7 +36,7 @@ async function main() {
   }
 
   let baseCalls = 0;
-  let playedUrl = '';
+  const played = [];
   class FakeAudio {
     constructor(url) {
       this.src = url || '';
@@ -52,7 +52,7 @@ async function main() {
     setAttribute() {}
     pause() {}
     play() {
-      playedUrl = this.src;
+      played.push({ url: this.src, rate: this.playbackRate });
       setTimeout(() => {
         this.onplaying?.();
         setTimeout(() => this.onended?.(), 1);
@@ -68,6 +68,10 @@ async function main() {
     }
   }
 
+  const fallback = async () => {
+    baseCalls += 1;
+    return true;
+  };
   const context = {
     console,
     Audio: FakeAudio,
@@ -75,28 +79,38 @@ async function main() {
     Promise,
     Object,
     String,
+    Number,
+    Math,
     setTimeout,
     clearTimeout,
     document: { dispatchEvent() {} },
     setSpeechButtonBusy() {},
     window: {
       FARSI_SENTENCE_AUDIO: manifest,
-      FarsiSentenceAudio: {
-        async playPersian() {
-          baseCalls += 1;
-          return true;
-        }
-      }
+      speakPractice: fallback,
+      FarsiSentenceAudio: { playPersian: fallback }
     }
   };
   context.window.window = context.window;
   vm.createContext(context);
   vm.runInContext(fs.readFileSync(path.join(ROOT, 'sentence-local-audio.js'), 'utf8'), context);
 
-  const ok = await context.window.FarsiSentenceAudio.playPersian(airport, null, 'normal');
-  if (!ok) throw new Error('Bundled Persian sentence did not complete playback.');
-  if (baseCalls !== 0) throw new Error('Bundled sentence incorrectly used the remote/device fallback.');
-  if (playedUrl !== airportUrl) throw new Error(`Wrong local recording played: ${playedUrl}`);
+  const direct = await context.window.FarsiSentenceAudio.playPersian(airport, null, 'normal');
+  if (!direct) throw new Error('Bundled Persian sentence did not complete direct playback.');
+  if (baseCalls !== 0) throw new Error('Direct sentence playback incorrectly used the remote/device fallback.');
+  if (played.at(-1)?.url !== airportUrl) throw new Error(`Wrong direct recording played: ${played.at(-1)?.url}`);
+
+  played.length = 0;
+  const guided = await context.window.speakPractice(
+    [{ text: airport, phoneticHint: 'Forudgâh dur ast.' }],
+    null,
+    { speed: 'slow', repeat: 3, pauseMs: 150 }
+  );
+  if (!guided) throw new Error('Guided sentence practice did not complete.');
+  if (baseCalls !== 0) throw new Error('Guided sentence practice used the live speech fallback.');
+  if (played.length !== 3) throw new Error(`Repeat ×3 played ${played.length} times instead of 3.`);
+  if (played.some(item => item.url !== airportUrl)) throw new Error('Guided practice played the wrong sentence file.');
+  if (played.some(item => item.rate !== 0.78)) throw new Error('Slow guided practice did not use local playback speed.');
 
   console.log(`Bundled Persian sentence audio passed with ${Object.keys(manifest).length} recordings using ${voice}.`);
 }
