@@ -1,11 +1,10 @@
-// Gesture-first sentence audio with device, streamed, and phonetic fallbacks.
+// Gesture-safe sentence audio for iPhone Safari and installed PWAs.
 (() => {
   const baseSpeakPractice = window.speakPractice;
-  const sentenceAudio = new Audio();
-  sentenceAudio.preload = 'metadata';
-  sentenceAudio.playsInline = true;
-  sentenceAudio.setAttribute('playsinline', '');
+  const remoteCache = new Map();
+  let activeAudio = null;
   let runId = 0;
+  let lastResult = { method: null, error: null };
 
   function normalize(items) {
     return (Array.isArray(items) ? items : [items])
@@ -54,18 +53,20 @@
       .trim();
   }
 
-  function stopAudio() {
-    try {
-      sentenceAudio.pause();
-      sentenceAudio.currentTime = 0;
-      sentenceAudio.removeAttribute('src');
-      sentenceAudio.load();
-    } catch {}
+  function stopCurrent() {
+    runId += 1;
+    if (activeAudio) {
+      try {
+        activeAudio.pause();
+        activeAudio.currentTime = 0;
+      } catch {}
+      activeAudio = null;
+    }
     try { window.speechSynthesis?.cancel(); } catch {}
     if (typeof stopSpeech === 'function') stopSpeech();
   }
 
-  function speakDevice(text, { voice = null, lang = 'fa-IR', rate = .82, activeRun }) {
+  function speakDeviceNow(text, { voice = null, lang = 'fa-IR', rate = .82, activeRun }) {
     return new Promise((resolve, reject) => {
       if (!text || !('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
         reject(new Error('Device speech unavailable'));
@@ -82,8 +83,6 @@
 
       let settled = false;
       let started = false;
-      let wasActive = false;
-      const startedAt = Date.now();
       const finish = (ok, error) => {
         if (settled) return;
         settled = true;
@@ -94,13 +93,12 @@
       };
       const markStarted = () => {
         started = true;
-        wasActive = true;
         clearTimeout(startTimer);
       };
 
       utterance.onstart = markStarted;
       utterance.onboundary = markStarted;
-      utterance.onend = () => finish(started || wasActive);
+      utterance.onend = () => finish(started);
       utterance.onerror = event => finish(false, new Error(event.error || 'Device speech failed'));
 
       const poll = setInterval(() => {
@@ -110,13 +108,15 @@
           return;
         }
         if (synthesis.speaking || synthesis.pending) markStarted();
-        if (wasActive && !synthesis.speaking && !synthesis.pending && Date.now() - startedAt > 300) finish(true);
       }, 80);
       const startTimer = setTimeout(() => {
-        if (!started && !synthesis.speaking && !synthesis.pending) finish(false, new Error('Device speech did not start'));
+        if (!started && !synthesis.speaking && !synthesis.pending) {
+          finish(false, new Error('Device speech did not start'));
+        }
       }, 1800);
-      const maxTimer = setTimeout(() => finish(wasActive, new Error('Device speech timed out')), 45000);
+      const maxTimer = setTimeout(() => finish(false, new Error('Device speech timed out')), 45000);
 
+      // This call must happen before the original click handler yields.
       try {
         synthesis.resume();
         synthesis.speak(utterance);
@@ -135,138 +135,209 @@
     ];
   }
 
-  async function playRemote(text, slow, activeRun) {
-    for (const url of remoteUrls(text, slow)) {
-      if (activeRun !== runId) throw new DOMException('Cancelled', 'AbortError');
-      try {
-        await new Promise((resolve, reject) => {
-          let settled = false;
-          let started = false;
-          const finish = (ok, error) => {
-            if (settled) return;
-            settled = true;
-            cleanup();
-            ok ? resolve(true) : reject(error || new Error('Streamed audio failed'));
-          };
-          const cleanup = () => {
-            sentenceAudio.onplaying = null;
-            sentenceAudio.onended = null;
-            sentenceAudio.onerror = null;
-            clearTimeout(startTimer);
-            clearTimeout(maxTimer);
-            clearInterval(cancelTimer);
-          };
-          sentenceAudio.src = url;
-          sentenceAudio.volume = 1;
-          sentenceAudio.playbackRate = 1;
-          sentenceAudio.onplaying = () => { started = true; clearTimeout(startTimer); };
-          sentenceAudio.onended = () => finish(true);
-          sentenceAudio.onerror = () => finish(false, new Error('Streamed audio source failed'));
-          const startTimer = setTimeout(() => {
-            if (!started) finish(false, new Error('Streamed audio did not start'));
-          }, 2800);
-          const maxTimer = setTimeout(() => finish(false, new Error('Streamed audio timed out')), 45000);
-          const cancelTimer = setInterval(() => {
-            if (activeRun !== runId) finish(false, new DOMException('Cancelled', 'AbortError'));
-          }, 100);
-          const result = sentenceAudio.play();
-          result?.catch?.(error => finish(false, error));
-        });
-        return true;
-      } catch (error) {
-        if (error?.name === 'AbortError') throw error;
+  function primeRemote(text, speed = 'normal') {
+    if (!text) return null;
+    const key = `${speed}:${text}`;
+    const existing = remoteCache.get(key);
+    if (existing) return existing;
+
+    const entry = { key, audio: new Audio(), ready: false, failed: false, sourceIndex: 0 };
+    const urls = remoteUrls(text, speed === 'slow');
+    const trySource = () => {
+      if (entry.sourceIndex >= urls.length) {
+        entry.failed = true;
+        return;
       }
-    }
-    throw new Error('Streamed Persian audio unavailable');
+      const audio = entry.audio;
+      audio.preload = 'auto';
+      audio.playsInline = true;
+      audio.setAttribute('playsinline', '');
+      audio.onloadeddata = () => { entry.ready = true; };
+      audio.oncanplay = () => { entry.ready = true; };
+      audio.onerror = () => {
+        entry.ready = false;
+        entry.sourceIndex += 1;
+        trySource();
+      };
+      audio.src = urls[entry.sourceIndex];
+      try { audio.load(); } catch { entry.sourceIndex += 1; trySource(); }
+    };
+    remoteCache.set(key, entry);
+    trySource();
+    while (remoteCache.size > 4) remoteCache.delete(remoteCache.keys().next().value);
+    return entry;
   }
 
-  async function playSentence(item, speed, activeRun) {
+  function playReadyRemote(entry, activeRun) {
+    return new Promise((resolve, reject) => {
+      if (!entry || entry.failed || (!entry.ready && entry.audio.readyState < 2)) {
+        reject(new Error('Streamed Persian audio is not ready'));
+        return;
+      }
+      const audio = entry.audio;
+      let settled = false;
+      const finish = (ok, error) => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        if (activeAudio === audio) activeAudio = null;
+        if (!ok) entry.failed = true;
+        ok ? resolve(true) : reject(error || new Error('Streamed Persian audio failed'));
+      };
+      const cleanup = () => {
+        audio.onplaying = null;
+        audio.onended = null;
+        audio.onerror = null;
+        clearTimeout(startTimer);
+        clearTimeout(maxTimer);
+        clearInterval(cancelTimer);
+      };
+      audio.onplaying = () => clearTimeout(startTimer);
+      audio.onended = () => finish(true);
+      audio.onerror = () => finish(false, new Error('Streamed Persian audio source failed'));
+      const startTimer = setTimeout(() => finish(false, new Error('Streamed Persian audio did not start')), 2200);
+      const maxTimer = setTimeout(() => finish(false, new Error('Streamed Persian audio timed out')), 45000);
+      const cancelTimer = setInterval(() => {
+        if (activeRun !== runId) finish(false, new DOMException('Cancelled', 'AbortError'));
+      }, 100);
+      activeAudio = audio;
+      try {
+        audio.currentTime = 0;
+        audio.volume = 1;
+        const result = audio.play();
+        result?.catch?.(error => finish(false, error));
+      } catch (error) {
+        finish(false, error);
+      }
+    });
+  }
+
+  function makeSequence(items, repeat) {
+    const texts = [];
+    const hints = [];
+    for (let repetition = 0; repetition < repeat; repetition += 1) {
+      items.forEach(item => {
+        texts.push(item.text);
+        if (item.phoneticHint) hints.push(item.phoneticHint);
+      });
+    }
+    return { text: texts.join(' … '), phoneticHint: hints.join(' ... ') };
+  }
+
+  function chooseImmediateMethod(item, speed, activeRun) {
     const slow = speed === 'slow';
     const voice = persianVoice();
-
     if (voice) {
-      try {
-        await speakDevice(item.text, { voice, rate: slow ? .60 : .82, activeRun });
-        return 'persian-device';
-      } catch (error) {
-        if (error?.name === 'AbortError') throw error;
-      }
+      return {
+        method: 'persian-device',
+        promise: speakDeviceNow(item.text, { voice, rate: slow ? .60 : .82, activeRun })
+      };
     }
 
-    try {
-      await playRemote(item.text, slow, activeRun);
-      return 'persian-stream';
-    } catch (error) {
-      if (error?.name === 'AbortError') throw error;
-    }
-
-    try {
-      await speakDevice(item.text, { lang: 'fa-IR', rate: slow ? .60 : .82, activeRun });
-      return 'persian-device-unlisted';
-    } catch (error) {
-      if (error?.name === 'AbortError') throw error;
+    const remote = primeRemote(item.text, speed);
+    if (remote?.ready || remote?.audio?.readyState >= 2) {
+      return { method: 'persian-stream', promise: playReadyRemote(remote, activeRun) };
     }
 
     const phonetic = phoneticText(item.phoneticHint);
-    if (!phonetic) throw new Error('No pronunciation fallback available');
-    await speakDevice(phonetic, {
-      voice: englishVoice(),
-      lang: 'en-US',
-      rate: slow ? .55 : .70,
-      activeRun
-    });
-    toast('Persian voice unavailable — using the pronunciation guide.');
-    return 'phonetic-device';
+    if (phonetic) {
+      return {
+        method: 'phonetic-device',
+        promise: speakDeviceNow(phonetic, {
+          voice: englishVoice(),
+          lang: 'en-US',
+          rate: slow ? .55 : .70,
+          activeRun
+        })
+      };
+    }
+
+    return {
+      method: 'persian-device-unlisted',
+      promise: speakDeviceNow(item.text, { lang: 'fa-IR', rate: slow ? .60 : .82, activeRun })
+    };
   }
 
-  window.speakPractice = async function speakPracticeV4(items, button = null, options = {}) {
+  async function playPhonetic(phoneticHint, button = null, speed = 'normal') {
+    const phonetic = phoneticText(phoneticHint);
+    if (!phonetic) return false;
+    stopCurrent();
+    const activeRun = runId;
+    setSpeechButtonBusy(button, true);
+    try {
+      await speakDeviceNow(phonetic, {
+        voice: englishVoice(),
+        lang: 'en-US',
+        rate: speed === 'slow' ? .55 : .70,
+        activeRun
+      });
+      lastResult = { method: 'phonetic-device', error: null };
+      emit('complete', { button, method: 'phonetic-device' });
+      return true;
+    } catch (error) {
+      lastResult = { method: null, error: error?.message || String(error) };
+      emit('error', { button, error });
+      return false;
+    } finally {
+      setSpeechButtonBusy(button, false);
+    }
+  }
+
+  window.speakPractice = async function speakPracticeV5(items, button = null, options = {}) {
     const normalized = normalize(items);
     if (!normalized.length) return false;
     if (normalized.every(item => isHeadword(item.text))) return baseSpeakPractice(items, button, options);
 
-    const activeRun = ++runId;
-    stopAudio();
+    stopCurrent();
+    const activeRun = runId;
     const speed = options.speed === 'slow' ? 'slow' : 'normal';
     const repeat = Math.max(1, Math.min(5, Number(options.repeat || 1)));
-    const pauseMs = Math.max(200, Math.min(2000, Number(options.pauseMs || 650)));
+    const sequence = makeSequence(normalized, repeat);
     setSpeechButtonBusy(button, true);
     emit('start', { button, items: normalized, speed, repeat });
 
+    // Select and start the method synchronously while the click still owns user activation.
+    const selected = chooseImmediateMethod(sequence, speed, activeRun);
     try {
-      let method = null;
-      for (let index = 0; index < normalized.length; index += 1) {
-        const item = normalized[index];
-        for (let repetition = 0; repetition < repeat; repetition += 1) {
-          if (activeRun !== runId) throw new DOMException('Cancelled', 'AbortError');
-          method = isHeadword(item.text)
-            ? (await baseSpeakPractice([item], null, { speed }) ? 'headword' : null)
-            : await playSentence(item, speed, activeRun);
-          if (!method) throw new Error('Audio failed');
-          if (repetition < repeat - 1 || index < normalized.length - 1) {
-            await new Promise(resolve => setTimeout(resolve, pauseMs));
-          }
-        }
+      await selected.promise;
+      lastResult = { method: selected.method, error: null };
+      if (selected.method === 'phonetic-device') {
+        toast('Using the pronunciation guide because Persian audio is unavailable on this phone.');
       }
-      emit('complete', { button, items: normalized, speed, repeat, method });
+      emit('complete', { button, items: normalized, speed, repeat, method: selected.method });
       return true;
     } catch (error) {
       if (activeRun !== runId || error?.name === 'AbortError') return false;
-      emit('error', { button, items: normalized, speed, repeat, error });
-      toast('Sentence audio still could not play. You can continue without audio.');
+      lastResult = { method: selected.method, error: error?.message || String(error) };
+      emit('error', { button, items: normalized, speed, repeat, method: selected.method, error });
+      toast('Sentence audio could not start. Try the pronunciation guide below.');
       return false;
     } finally {
       setSpeechButtonBusy(button, false);
     }
   };
 
-  speak = function speakV4(text, button = null, phoneticHint = '') {
+  speak = function speakV5(text, button = null, phoneticHint = '') {
     return window.speakPractice([{ text, phoneticHint }], button);
   };
 
+  function primeVisibleSentence() {
+    const text = document.querySelector('#todayView .guided-sentence')?.textContent?.trim();
+    if (text) primeRemote(text, 'normal');
+  }
+
+  const observer = new MutationObserver(primeVisibleSentence);
+  const todayView = document.getElementById('todayView');
+  if (todayView) observer.observe(todayView, { childList: true, subtree: true, characterData: true });
+  setTimeout(primeVisibleSentence, 50);
+
+  window.FarsiSentenceAudio = {
+    primeRemote,
+    playPhonetic,
+    diagnostics: () => ({ ...lastResult, hasPersianVoice: Boolean(persianVoice()) })
+  };
+
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      runId += 1;
-      stopAudio();
-    }
+    if (document.hidden) stopCurrent();
   });
 })();
