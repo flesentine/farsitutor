@@ -5,6 +5,7 @@
   if (!sentenceAudio?.playPersian || !Object.keys(audioMap).length) return;
 
   const basePlayPersian = sentenceAudio.playPersian.bind(sentenceAudio);
+  const baseSpeakPractice = window.speakPractice.bind(window);
   let activeAudio = null;
   let requestId = 0;
 
@@ -17,9 +18,16 @@
       .trim();
   }
 
+  function normalizeItems(items) {
+    return (Array.isArray(items) ? items : [items])
+      .map(item => typeof item === 'string'
+        ? { text: item, phoneticHint: '' }
+        : { text: item?.text || '', phoneticHint: item?.phoneticHint || '' })
+      .filter(item => item.text);
+  }
+
   function localUrl(text) {
-    const normalized = normalizeText(text);
-    return audioMap[normalized] || null;
+    return audioMap[normalizeText(text)] || null;
   }
 
   function emit(name, detail = {}) {
@@ -34,6 +42,10 @@
       activeAudio.currentTime = 0;
     } catch {}
     activeAudio = null;
+  }
+
+  function wait(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
   }
 
   function playFile(url, text, button, speed) {
@@ -99,6 +111,32 @@
     } catch {
       return basePlayPersian(text, button, speed);
     }
+  };
+
+  window.speakPractice = async function speakPracticeWithBundledSentences(items, button = null, options = {}) {
+    const normalized = normalizeItems(items);
+    if (!normalized.length || !normalized.some(item => localUrl(item.text))) {
+      return baseSpeakPractice(items, button, options);
+    }
+
+    const speed = options.speed === 'slow' ? 'slow' : 'normal';
+    const repeat = Math.max(1, Math.min(5, Number(options.repeat || 1)));
+    const pauseMs = Math.max(150, Math.min(2000, Number(options.pauseMs || 650)));
+
+    for (let repetition = 0; repetition < repeat; repetition += 1) {
+      for (let itemIndex = 0; itemIndex < normalized.length; itemIndex += 1) {
+        const item = normalized[itemIndex];
+        const ok = localUrl(item.text)
+          ? await sentenceAudio.playPersian(item.text, button, speed)
+          : await baseSpeakPractice([item], button, { speed });
+        if (!ok) return false;
+
+        const moreItems = itemIndex < normalized.length - 1;
+        const moreRepetitions = repetition < repeat - 1;
+        if (moreItems || moreRepetitions) await wait(pauseMs);
+      }
+    }
+    return true;
   };
 
   sentenceAudio.localUrl = localUrl;
