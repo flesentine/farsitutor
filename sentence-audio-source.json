@@ -1,0 +1,7002 @@
+[
+  {
+    "id": "0000",
+    "wordIndex": 0,
+    "text": "سلام، حالت چطوره؟",
+    "latin": "Salâm, hâlet chetore?",
+    "meaning": "Hello, how are you?"
+  },
+  {
+    "id": "0001",
+    "wordIndex": 1,
+    "text": "خیلی ممنون.",
+    "latin": "Kheyli mamnun.",
+    "meaning": "Thank you very much."
+  },
+  {
+    "id": "0002",
+    "wordIndex": 2,
+    "text": "یک چای، لطفاً.",
+    "latin": "Yek chây, lotfan.",
+    "meaning": "One tea, please."
+  },
+  {
+    "id": "0003",
+    "wordIndex": 3,
+    "text": "بله، آماده‌ام.",
+    "latin": "Bale, âmâde-am.",
+    "meaning": "Yes, I am ready."
+  },
+  {
+    "id": "0004",
+    "wordIndex": 4,
+    "text": "نه، نمی‌دانم.",
+    "latin": "Na, nemidânam.",
+    "meaning": "No, I do not know."
+  },
+  {
+    "id": "0005",
+    "wordIndex": 5,
+    "text": "خداحافظ، فردا می‌بینمت.",
+    "latin": "Khodâhâfez, fardâ mibinamet.",
+    "meaning": "Goodbye, I will see you tomorrow."
+  },
+  {
+    "id": "0006",
+    "wordIndex": 6,
+    "text": "امروز روز خوبی است.",
+    "latin": "Emruz ruz-e khubi ast.",
+    "meaning": "Today is a good day."
+  },
+  {
+    "id": "0007",
+    "wordIndex": 7,
+    "text": "هوا خیلی بد نیست.",
+    "latin": "Havâ kheyli bad nist.",
+    "meaning": "The weather is not very bad."
+  },
+  {
+    "id": "0008",
+    "wordIndex": 8,
+    "text": "آب سرد می‌خواهم.",
+    "latin": "Âb-e sard mikhâham.",
+    "meaning": "I want cold water."
+  },
+  {
+    "id": "0009",
+    "wordIndex": 9,
+    "text": "این غذا خوشمزه است.",
+    "latin": "In ghazâ khoshmaze ast.",
+    "meaning": "This food is delicious."
+  },
+  {
+    "id": "0010",
+    "wordIndex": 10,
+    "text": "من چای دوست دارم.",
+    "latin": "Man chây dust dâram.",
+    "meaning": "I like tea."
+  },
+  {
+    "id": "0011",
+    "wordIndex": 11,
+    "text": "صبح قهوه می‌خورم.",
+    "latin": "Sobh ghahve mikhoram.",
+    "meaning": "I drink coffee in the morning."
+  },
+  {
+    "id": "0012",
+    "wordIndex": 12,
+    "text": "من در خانه هستم.",
+    "latin": "Man dar khâne hastam.",
+    "meaning": "I am at home."
+  },
+  {
+    "id": "0013",
+    "wordIndex": 13,
+    "text": "او به مدرسه می‌رود.",
+    "latin": "U be madrese miravad.",
+    "meaning": "She goes to school."
+  },
+  {
+    "id": "0014",
+    "wordIndex": 14,
+    "text": "امروز کار دارم.",
+    "latin": "Emruz kâr dâram.",
+    "meaning": "I have work today."
+  },
+  {
+    "id": "0015",
+    "wordIndex": 15,
+    "text": "او دوست من است.",
+    "latin": "U dust-e man ast.",
+    "meaning": "He is my friend."
+  },
+  {
+    "id": "0016",
+    "wordIndex": 16,
+    "text": "خانواده‌ام را دوست دارم.",
+    "latin": "Khânevâde-am râ dust dâram.",
+    "meaning": "I love my family."
+  },
+  {
+    "id": "0017",
+    "wordIndex": 17,
+    "text": "مادرم مهربان است.",
+    "latin": "Mâdaram mehrabân ast.",
+    "meaning": "My mother is kind."
+  },
+  {
+    "id": "0018",
+    "wordIndex": 18,
+    "text": "پدرم در خانه است.",
+    "latin": "Pedaram dar khâne ast.",
+    "meaning": "My father is at home."
+  },
+  {
+    "id": "0019",
+    "wordIndex": 19,
+    "text": "آن بچه خوشحال است.",
+    "latin": "Ân bache khoshhâl ast.",
+    "meaning": "That child is happy."
+  },
+  {
+    "id": "0020",
+    "wordIndex": 20,
+    "text": "امروز هوا گرم است.",
+    "latin": "Emruz havâ garm ast.",
+    "meaning": "The weather is warm today."
+  },
+  {
+    "id": "0021",
+    "wordIndex": 21,
+    "text": "فردا می‌بینمت.",
+    "latin": "Fardâ mibinamet.",
+    "meaning": "I will see you tomorrow."
+  },
+  {
+    "id": "0022",
+    "wordIndex": 22,
+    "text": "دیروز باران آمد.",
+    "latin": "Diruz bârân âmad.",
+    "meaning": "It rained yesterday."
+  },
+  {
+    "id": "0023",
+    "wordIndex": 23,
+    "text": "صبح بخیر!",
+    "latin": "Sobh bekheyr!",
+    "meaning": "Good morning!"
+  },
+  {
+    "id": "0024",
+    "wordIndex": 24,
+    "text": "شب بخیر.",
+    "latin": "Shab bekheyr.",
+    "meaning": "Good night."
+  },
+  {
+    "id": "0025",
+    "wordIndex": 25,
+    "text": "الان وقت دارم.",
+    "latin": "Alân vaght dâram.",
+    "meaning": "I have time now."
+  },
+  {
+    "id": "0026",
+    "wordIndex": 26,
+    "text": "من اینجا هستم.",
+    "latin": "Man injâ hastam.",
+    "meaning": "I am here."
+  },
+  {
+    "id": "0027",
+    "wordIndex": 27,
+    "text": "ماشین آنجاست.",
+    "latin": "Mâshin ânjâst.",
+    "meaning": "The car is there."
+  },
+  {
+    "id": "0028",
+    "wordIndex": 28,
+    "text": "دستشویی کجاست؟",
+    "latin": "Dastshuyi kojâst?",
+    "meaning": "Where is the restroom?"
+  },
+  {
+    "id": "0029",
+    "wordIndex": 29,
+    "text": "این چیه؟",
+    "latin": "In chie?",
+    "meaning": "What is this?"
+  },
+  {
+    "id": "0030",
+    "wordIndex": 30,
+    "text": "چرا ناراحتی؟",
+    "latin": "Cherâ nârâhati?",
+    "meaning": "Why are you upset?"
+  },
+  {
+    "id": "0031",
+    "wordIndex": 31,
+    "text": "چطور هستی؟",
+    "latin": "Chetor hasti?",
+    "meaning": "How are you?"
+  },
+  {
+    "id": "0032",
+    "wordIndex": 32,
+    "text": "کی می‌آیی؟",
+    "latin": "Key miâyi?",
+    "meaning": "When are you coming?"
+  },
+  {
+    "id": "0033",
+    "wordIndex": 33,
+    "text": "من فارسی یاد می‌گیرم.",
+    "latin": "Man fârsi yâd migiram.",
+    "meaning": "I am learning Persian."
+  },
+  {
+    "id": "0034",
+    "wordIndex": 34,
+    "text": "تو آماده‌ای؟",
+    "latin": "To âmâde-i?",
+    "meaning": "Are you ready?"
+  },
+  {
+    "id": "0035",
+    "wordIndex": 35,
+    "text": "شما کجا هستید؟",
+    "latin": "Shomâ kojâ hastid?",
+    "meaning": "Where are you?"
+  },
+  {
+    "id": "0036",
+    "wordIndex": 36,
+    "text": "او فارسی صحبت می‌کند.",
+    "latin": "U fârsi sohbat mikonad.",
+    "meaning": "He or she speaks Persian."
+  },
+  {
+    "id": "0037",
+    "wordIndex": 37,
+    "text": "ما آماده‌ایم.",
+    "latin": "Mâ âmâde-im.",
+    "meaning": "We are ready."
+  },
+  {
+    "id": "0038",
+    "wordIndex": 38,
+    "text": "من موسیقی دوست دارم.",
+    "latin": "Man musighi dust dâram.",
+    "meaning": "I like music."
+  },
+  {
+    "id": "0039",
+    "wordIndex": 39,
+    "text": "من آب می‌خواهم.",
+    "latin": "Man âb mikhâham.",
+    "meaning": "I want water."
+  },
+  {
+    "id": "0040",
+    "wordIndex": 40,
+    "text": "می‌خواهم بروم.",
+    "latin": "Mikhâham beravam.",
+    "meaning": "I want to go."
+  },
+  {
+    "id": "0041",
+    "wordIndex": 41,
+    "text": "فردا می‌آیم.",
+    "latin": "Fardâ miâyam.",
+    "meaning": "I will come tomorrow."
+  },
+  {
+    "id": "0042",
+    "wordIndex": 42,
+    "text": "خوشحالم که می‌بینمت.",
+    "latin": "Khoshhâlam ke mibinamet.",
+    "meaning": "I am happy to see you."
+  },
+  {
+    "id": "0043",
+    "wordIndex": 43,
+    "text": "می‌خواهم غذا بخورم.",
+    "latin": "Mikhâham ghazâ bokhoram.",
+    "meaning": "I want to eat food."
+  },
+  {
+    "id": "0044",
+    "wordIndex": 44,
+    "text": "آب بنوش.",
+    "latin": "Âb benush.",
+    "meaning": "Drink water."
+  },
+  {
+    "id": "0045",
+    "wordIndex": 45,
+    "text": "چی گفتی؟",
+    "latin": "Chi gofti?",
+    "meaning": "What did you say?"
+  },
+  {
+    "id": "0046",
+    "wordIndex": 46,
+    "text": "نمی‌دانم.",
+    "latin": "Nemidânam.",
+    "meaning": "I do not know."
+  },
+  {
+    "id": "0047",
+    "wordIndex": 47,
+    "text": "می‌فهمم.",
+    "latin": "Mifahmam.",
+    "meaning": "I understand."
+  },
+  {
+    "id": "0048",
+    "wordIndex": 48,
+    "text": "کمک می‌خواهید؟",
+    "latin": "Komak mikhâhid?",
+    "meaning": "Do you need help?"
+  },
+  {
+    "id": "0049",
+    "wordIndex": 49,
+    "text": "پول نقد ندارم.",
+    "latin": "Pul-e naghd nadâram.",
+    "meaning": "I do not have cash."
+  },
+  {
+    "id": "0050",
+    "wordIndex": 50,
+    "text": "ماشین من سفید است.",
+    "latin": "Mâshin-e man sefid ast.",
+    "meaning": "My car is white."
+  },
+  {
+    "id": "0051",
+    "wordIndex": 51,
+    "text": "این خیابان شلوغ است.",
+    "latin": "In khiyâbân sholugh ast.",
+    "meaning": "This street is busy."
+  },
+  {
+    "id": "0052",
+    "wordIndex": 52,
+    "text": "هواپیما آماده است.",
+    "latin": "Havâpeymâ âmâde ast.",
+    "meaning": "The airplane is ready."
+  },
+  {
+    "id": "0053",
+    "wordIndex": 53,
+    "text": "سفر خوبی داشته باشی.",
+    "latin": "Safar-e khubi dâshte bâshi.",
+    "meaning": "Have a good trip."
+  },
+  {
+    "id": "0054",
+    "wordIndex": 54,
+    "text": "چای گرم است.",
+    "latin": "Chây garm ast.",
+    "meaning": "The tea is hot."
+  },
+  {
+    "id": "0055",
+    "wordIndex": 55,
+    "text": "آب خیلی سرد است.",
+    "latin": "Âb-e sard ast.",
+    "meaning": "The water is very cold."
+  },
+  {
+    "id": "0056",
+    "wordIndex": 56,
+    "text": "خانه بزرگ است.",
+    "latin": "Khâne bozorg ast.",
+    "meaning": "The house is big."
+  },
+  {
+    "id": "0057",
+    "wordIndex": 57,
+    "text": "یک قهوه کوچک می‌خواهم.",
+    "latin": "Yek ghahve-ye kuchak mikhâham.",
+    "meaning": "I want a small coffee."
+  },
+  {
+    "id": "0058",
+    "wordIndex": 58,
+    "text": "این شهر زیباست.",
+    "latin": "In shahr zibâst.",
+    "meaning": "This city is beautiful."
+  },
+  {
+    "id": "0059",
+    "wordIndex": 59,
+    "text": "من خیلی خوشحالم.",
+    "latin": "Man kheyli khoshhâlam.",
+    "meaning": "I am very happy."
+  },
+  {
+    "id": "0060",
+    "wordIndex": 60,
+    "text": "امروز خسته‌ام.",
+    "latin": "Emruz khaste-am.",
+    "meaning": "I am tired today."
+  },
+  {
+    "id": "0061",
+    "wordIndex": 61,
+    "text": "من گرسنه‌ام.",
+    "latin": "Man gorosne-am.",
+    "meaning": "I am hungry."
+  },
+  {
+    "id": "0062",
+    "wordIndex": 62,
+    "text": "خیلی تشنه‌ام.",
+    "latin": "Kheyli teshne-am.",
+    "meaning": "I am very thirsty."
+  },
+  {
+    "id": "0063",
+    "wordIndex": 63,
+    "text": "من دوستت دارم.",
+    "latin": "Man duset dâram.",
+    "meaning": "I love you."
+  },
+  {
+    "id": "0065",
+    "wordIndex": 65,
+    "text": "به خانه ما خوش آمدید.",
+    "latin": "Be khâne-ye mâ khosh âmadid.",
+    "meaning": "Welcome to our home."
+  },
+  {
+    "id": "0066",
+    "wordIndex": 66,
+    "text": "ببخشید، ساعت چنده؟",
+    "latin": "Bebakhshid, sâat chande?",
+    "meaning": "Excuse me, what time is it?"
+  },
+  {
+    "id": "0067",
+    "wordIndex": 67,
+    "text": "اشکالی ندارد، نگران نباش.",
+    "latin": "Eshkâli nadârad, negarân nabâsh.",
+    "meaning": "No problem, do not worry."
+  },
+  {
+    "id": "0068",
+    "wordIndex": 68,
+    "text": "من آماده‌ام.",
+    "latin": "Man âmâde-am.",
+    "meaning": "I am ready."
+  },
+  {
+    "id": "0069",
+    "wordIndex": 69,
+    "text": "یک دقیقه صبر کن.",
+    "latin": "Yek daghighe sabr kon.",
+    "meaning": "Wait one minute."
+  },
+  {
+    "id": "0070",
+    "wordIndex": 70,
+    "text": "بیا اینجا.",
+    "latin": "Biyâ injâ.",
+    "meaning": "Come here."
+  },
+  {
+    "id": "0071",
+    "wordIndex": 71,
+    "text": "برو خانه.",
+    "latin": "Boro khâne.",
+    "meaning": "Go home."
+  },
+  {
+    "id": "0072",
+    "wordIndex": 72,
+    "text": "آرام باش.",
+    "latin": "Ârâm bâsh.",
+    "meaning": "Stay calm."
+  },
+  {
+    "id": "0073",
+    "wordIndex": 73,
+    "text": "لطفاً سریع بیا.",
+    "latin": "Lotfan sari biyâ.",
+    "meaning": "Please come quickly."
+  },
+  {
+    "id": "0074",
+    "wordIndex": 74,
+    "text": "آهسته صحبت کن.",
+    "latin": "Âheste sohbat kon.",
+    "meaning": "Speak slowly."
+  },
+  {
+    "id": "0075",
+    "wordIndex": 75,
+    "text": "به راست بپیچ.",
+    "latin": "Be râst bepich.",
+    "meaning": "Turn right."
+  },
+  {
+    "id": "0076",
+    "wordIndex": 76,
+    "text": "به چپ برو.",
+    "latin": "Be chap boro.",
+    "meaning": "Go left."
+  },
+  {
+    "id": "0077",
+    "wordIndex": 77,
+    "text": "مستقیم برو.",
+    "latin": "Mostaghim boro.",
+    "meaning": "Go straight."
+  },
+  {
+    "id": "0078",
+    "wordIndex": 78,
+    "text": "به بالا نگاه کن.",
+    "latin": "Be bâlâ negâh kon.",
+    "meaning": "Look up."
+  },
+  {
+    "id": "0079",
+    "wordIndex": 79,
+    "text": "پایین بیا.",
+    "latin": "Pâyin biyâ.",
+    "meaning": "Come down."
+  },
+  {
+    "id": "0080",
+    "wordIndex": 80,
+    "text": "فروشگاه نزدیک است.",
+    "latin": "Forushgâh nazdik ast.",
+    "meaning": "The store is near."
+  },
+  {
+    "id": "0081",
+    "wordIndex": 81,
+    "text": "فرودگاه دور است.",
+    "latin": "Forudgâh dur ast.",
+    "meaning": "The airport is far."
+  },
+  {
+    "id": "0082",
+    "wordIndex": 82,
+    "text": "در باز است.",
+    "latin": "Dar bâz ast.",
+    "meaning": "The door is open."
+  },
+  {
+    "id": "0083",
+    "wordIndex": 83,
+    "text": "فروشگاه بسته است.",
+    "latin": "Forushgâh baste ast.",
+    "meaning": "The store is closed."
+  },
+  {
+    "id": "0084",
+    "wordIndex": 84,
+    "text": "من کلمهٔ «آنها» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0085",
+    "wordIndex": 85,
+    "text": "من کلمهٔ «این» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0086",
+    "wordIndex": 86,
+    "text": "من کلمهٔ «آن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0087",
+    "wordIndex": 87,
+    "text": "من کلمهٔ «یک» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0088",
+    "wordIndex": 88,
+    "text": "من کلمهٔ «یا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0089",
+    "wordIndex": 89,
+    "text": "من کلمهٔ «اما» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0090",
+    "wordIndex": 90,
+    "text": "من کلمهٔ «که» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0091",
+    "wordIndex": 91,
+    "text": "من کلمهٔ «برای» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0092",
+    "wordIndex": 92,
+    "text": "من کلمهٔ «با» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0093",
+    "wordIndex": 93,
+    "text": "من کلمهٔ «بدون» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0094",
+    "wordIndex": 94,
+    "text": "من کلمهٔ «از» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0095",
+    "wordIndex": 95,
+    "text": "من کلمهٔ «به» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0096",
+    "wordIndex": 96,
+    "text": "من کلمهٔ «در» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0097",
+    "wordIndex": 97,
+    "text": "من کلمهٔ «روی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0098",
+    "wordIndex": 98,
+    "text": "من کلمهٔ «زیر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0099",
+    "wordIndex": 99,
+    "text": "من کلمهٔ «جلو» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0100",
+    "wordIndex": 100,
+    "text": "من کلمهٔ «عقب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0101",
+    "wordIndex": 101,
+    "text": "من کلمهٔ «کنار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0102",
+    "wordIndex": 102,
+    "text": "من کلمهٔ «بین» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0103",
+    "wordIndex": 103,
+    "text": "من کلمهٔ «داخل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0104",
+    "wordIndex": 104,
+    "text": "من کلمهٔ «بیرون» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0105",
+    "wordIndex": 105,
+    "text": "من کلمهٔ «همین» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0106",
+    "wordIndex": 106,
+    "text": "من کلمهٔ «همان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0107",
+    "wordIndex": 107,
+    "text": "من کلمهٔ «همه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0108",
+    "wordIndex": 108,
+    "text": "من کلمهٔ «هیچ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0109",
+    "wordIndex": 109,
+    "text": "من کلمهٔ «بعضی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0110",
+    "wordIndex": 110,
+    "text": "من کلمهٔ «دیگر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0111",
+    "wordIndex": 111,
+    "text": "من کلمهٔ «هر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0112",
+    "wordIndex": 112,
+    "text": "من کلمهٔ «چند» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0113",
+    "wordIndex": 113,
+    "text": "من کلمهٔ «خیلی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0114",
+    "wordIndex": 114,
+    "text": "من کلمهٔ «کم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0115",
+    "wordIndex": 115,
+    "text": "من کلمهٔ «بیشتر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0116",
+    "wordIndex": 116,
+    "text": "من کلمهٔ «کمتر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0117",
+    "wordIndex": 117,
+    "text": "من کلمهٔ «فقط» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0118",
+    "wordIndex": 118,
+    "text": "من کلمهٔ «هم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0119",
+    "wordIndex": 119,
+    "text": "من کلمهٔ «همیشه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0120",
+    "wordIndex": 120,
+    "text": "من کلمهٔ «هرگز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0121",
+    "wordIndex": 121,
+    "text": "من کلمهٔ «گاهی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0122",
+    "wordIndex": 122,
+    "text": "من کلمهٔ «ظهر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0123",
+    "wordIndex": 123,
+    "text": "من کلمهٔ «عصر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0124",
+    "wordIndex": 124,
+    "text": "من کلمهٔ «زود» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0125",
+    "wordIndex": 125,
+    "text": "من کلمهٔ «دیر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0126",
+    "wordIndex": 126,
+    "text": "من کلمهٔ «قبل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0127",
+    "wordIndex": 127,
+    "text": "من کلمهٔ «بعد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0128",
+    "wordIndex": 128,
+    "text": "من کلمهٔ «اول» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0129",
+    "wordIndex": 129,
+    "text": "من کلمهٔ «آخر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0130",
+    "wordIndex": 130,
+    "text": "من کلمهٔ «دوباره» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0131",
+    "wordIndex": 131,
+    "text": "من کلمهٔ «هنوز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0132",
+    "wordIndex": 132,
+    "text": "من کلمهٔ «شاید» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0133",
+    "wordIndex": 133,
+    "text": "من کلمهٔ «حتما» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0134",
+    "wordIndex": 134,
+    "text": "من کلمهٔ «واقعا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0135",
+    "wordIndex": 135,
+    "text": "من کلمهٔ «تقریبا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0136",
+    "wordIndex": 136,
+    "text": "من کلمهٔ «باشه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0137",
+    "wordIndex": 137,
+    "text": "من کلمهٔ «مرسی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0138",
+    "wordIndex": 138,
+    "text": "من کلمهٔ «متأسفم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0139",
+    "wordIndex": 139,
+    "text": "من کلمهٔ «خواهش می‌کنم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0140",
+    "wordIndex": 140,
+    "text": "من کلمهٔ «چه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0141",
+    "wordIndex": 141,
+    "text": "من کلمهٔ «کدام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0142",
+    "wordIndex": 142,
+    "text": "من کلمهٔ «چقدر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0143",
+    "wordIndex": 143,
+    "text": "من کلمهٔ «چندتا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0144",
+    "wordIndex": 144,
+    "text": "من کلمهٔ «آیا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0145",
+    "wordIndex": 145,
+    "text": "من کلمهٔ «بودن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0146",
+    "wordIndex": 146,
+    "text": "من کلمهٔ «داشتن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0147",
+    "wordIndex": 147,
+    "text": "من کلمهٔ «کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0148",
+    "wordIndex": 148,
+    "text": "من کلمهٔ «شدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0149",
+    "wordIndex": 149,
+    "text": "من کلمهٔ «دادن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0150",
+    "wordIndex": 150,
+    "text": "من کلمهٔ «گرفتن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0151",
+    "wordIndex": 151,
+    "text": "من کلمهٔ «توانستن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0152",
+    "wordIndex": 152,
+    "text": "من کلمهٔ «خواندن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0153",
+    "wordIndex": 153,
+    "text": "من کلمهٔ «نوشتن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0154",
+    "wordIndex": 154,
+    "text": "من کلمهٔ «شنیدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0155",
+    "wordIndex": 155,
+    "text": "من کلمهٔ «آوردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0156",
+    "wordIndex": 156,
+    "text": "من کلمهٔ «بردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0157",
+    "wordIndex": 157,
+    "text": "من کلمهٔ «ماندن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0158",
+    "wordIndex": 158,
+    "text": "من کلمهٔ «نشستن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0159",
+    "wordIndex": 159,
+    "text": "من کلمهٔ «ایستادن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0160",
+    "wordIndex": 160,
+    "text": "من کلمهٔ «خوابیدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0161",
+    "wordIndex": 161,
+    "text": "من کلمهٔ «بیدار شدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0162",
+    "wordIndex": 162,
+    "text": "من کلمهٔ «پوشیدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0163",
+    "wordIndex": 163,
+    "text": "من کلمهٔ «شستن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0164",
+    "wordIndex": 164,
+    "text": "من کلمهٔ «فروختن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0165",
+    "wordIndex": 165,
+    "text": "من کلمهٔ «خریدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0166",
+    "wordIndex": 166,
+    "text": "من کلمهٔ «ساختن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0167",
+    "wordIndex": 167,
+    "text": "من کلمهٔ «گذاشتن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0168",
+    "wordIndex": 168,
+    "text": "من کلمهٔ «برداشتن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0169",
+    "wordIndex": 169,
+    "text": "من کلمهٔ «رسیدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0170",
+    "wordIndex": 170,
+    "text": "من کلمهٔ «فرستادن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0171",
+    "wordIndex": 171,
+    "text": "من کلمهٔ «پرسیدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0172",
+    "wordIndex": 172,
+    "text": "من کلمهٔ «جواب دادن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0173",
+    "wordIndex": 173,
+    "text": "من کلمهٔ «باز کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0174",
+    "wordIndex": 174,
+    "text": "من کلمهٔ «بستن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0175",
+    "wordIndex": 175,
+    "text": "من کلمهٔ «شروع کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0176",
+    "wordIndex": 176,
+    "text": "من کلمهٔ «تمام کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0177",
+    "wordIndex": 177,
+    "text": "من کلمهٔ «پیدا کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0178",
+    "wordIndex": 178,
+    "text": "من کلمهٔ «گم کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0179",
+    "wordIndex": 179,
+    "text": "من کلمهٔ «فراموش کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0180",
+    "wordIndex": 180,
+    "text": "من کلمهٔ «یاد گرفتن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0181",
+    "wordIndex": 181,
+    "text": "من کلمهٔ «یاد دادن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0182",
+    "wordIndex": 182,
+    "text": "من کلمهٔ «کار کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0183",
+    "wordIndex": 183,
+    "text": "من کلمهٔ «زندگی کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0184",
+    "wordIndex": 184,
+    "text": "من کلمهٔ «صحبت کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0185",
+    "wordIndex": 185,
+    "text": "من کلمهٔ «فکر کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0186",
+    "wordIndex": 186,
+    "text": "من کلمهٔ «نگاه کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0187",
+    "wordIndex": 187,
+    "text": "من کلمهٔ «گوش دادن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0188",
+    "wordIndex": 188,
+    "text": "من کلمهٔ «بازی کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0189",
+    "wordIndex": 189,
+    "text": "من کلمهٔ «کمک کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0190",
+    "wordIndex": 190,
+    "text": "من کلمهٔ «استفاده کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0191",
+    "wordIndex": 191,
+    "text": "من کلمهٔ «انتخاب کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0192",
+    "wordIndex": 192,
+    "text": "من کلمهٔ «قبول کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0193",
+    "wordIndex": 193,
+    "text": "من کلمهٔ «رد کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0194",
+    "wordIndex": 194,
+    "text": "من کلمهٔ «عوض کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0195",
+    "wordIndex": 195,
+    "text": "من کلمهٔ «تمیز کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0196",
+    "wordIndex": 196,
+    "text": "من کلمهٔ «درست کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0197",
+    "wordIndex": 197,
+    "text": "من کلمهٔ «آماده کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0198",
+    "wordIndex": 198,
+    "text": "من کلمهٔ «صبر کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0199",
+    "wordIndex": 199,
+    "text": "من کلمهٔ «تلاش کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0200",
+    "wordIndex": 200,
+    "text": "من کلمهٔ «احساس کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0201",
+    "wordIndex": 201,
+    "text": "من کلمهٔ «تماس گرفتن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0202",
+    "wordIndex": 202,
+    "text": "من کلمهٔ «تصمیم گرفتن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0203",
+    "wordIndex": 203,
+    "text": "من کلمهٔ «عکس گرفتن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0204",
+    "wordIndex": 204,
+    "text": "من کلمهٔ «دوش گرفتن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0205",
+    "wordIndex": 205,
+    "text": "من کلمهٔ «اجازه دادن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0206",
+    "wordIndex": 206,
+    "text": "من کلمهٔ «نشان دادن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0207",
+    "wordIndex": 207,
+    "text": "من کلمهٔ «ادامه دادن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0208",
+    "wordIndex": 208,
+    "text": "من کلمهٔ «انجام دادن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0209",
+    "wordIndex": 209,
+    "text": "من کلمهٔ «راه رفتن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0210",
+    "wordIndex": 210,
+    "text": "من کلمهٔ «دویدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0211",
+    "wordIndex": 211,
+    "text": "من کلمهٔ «رقصیدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0212",
+    "wordIndex": 212,
+    "text": "من کلمهٔ «خندیدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0213",
+    "wordIndex": 213,
+    "text": "من کلمهٔ «گریه کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0214",
+    "wordIndex": 214,
+    "text": "من کلمهٔ «نیاز داشتن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0215",
+    "wordIndex": 215,
+    "text": "من کلمهٔ «وجود داشتن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0216",
+    "wordIndex": 216,
+    "text": "من کلمهٔ «رانندگی کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0217",
+    "wordIndex": 217,
+    "text": "من کلمهٔ «سوار شدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0218",
+    "wordIndex": 218,
+    "text": "من کلمهٔ «پیاده شدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0219",
+    "wordIndex": 219,
+    "text": "من کلمهٔ «برگشتن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0220",
+    "wordIndex": 220,
+    "text": "من کلمهٔ «افتادن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0221",
+    "wordIndex": 221,
+    "text": "من کلمهٔ «کشیدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0222",
+    "wordIndex": 222,
+    "text": "من کلمهٔ «زدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0223",
+    "wordIndex": 223,
+    "text": "من کلمهٔ «پختن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0224",
+    "wordIndex": 224,
+    "text": "من کلمهٔ «مردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0225",
+    "wordIndex": 225,
+    "text": "من کلمهٔ «کشتن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0226",
+    "wordIndex": 226,
+    "text": "من کلمهٔ «شنا کردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0227",
+    "wordIndex": 227,
+    "text": "من کلمهٔ «آدم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0228",
+    "wordIndex": 228,
+    "text": "من کلمهٔ «مرد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0229",
+    "wordIndex": 229,
+    "text": "من کلمهٔ «زن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0230",
+    "wordIndex": 230,
+    "text": "من کلمهٔ «پسر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0231",
+    "wordIndex": 231,
+    "text": "من کلمهٔ «دختر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0232",
+    "wordIndex": 232,
+    "text": "من کلمهٔ «کودک» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0233",
+    "wordIndex": 233,
+    "text": "من کلمهٔ «مامان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0234",
+    "wordIndex": 234,
+    "text": "من کلمهٔ «بابا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0235",
+    "wordIndex": 235,
+    "text": "من کلمهٔ «خواهر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0236",
+    "wordIndex": 236,
+    "text": "من کلمهٔ «برادر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0237",
+    "wordIndex": 237,
+    "text": "من کلمهٔ «شوهر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0238",
+    "wordIndex": 238,
+    "text": "من کلمهٔ «همسر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0239",
+    "wordIndex": 239,
+    "text": "من کلمهٔ «همسایه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0240",
+    "wordIndex": 240,
+    "text": "من کلمهٔ «مهمان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0241",
+    "wordIndex": 241,
+    "text": "من کلمهٔ «مردم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0242",
+    "wordIndex": 242,
+    "text": "من کلمهٔ «اسم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0243",
+    "wordIndex": 243,
+    "text": "من کلمهٔ «نام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0244",
+    "wordIndex": 244,
+    "text": "من کلمهٔ «سن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0245",
+    "wordIndex": 245,
+    "text": "من کلمهٔ «سال» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0246",
+    "wordIndex": 246,
+    "text": "من کلمهٔ «روز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0247",
+    "wordIndex": 247,
+    "text": "من کلمهٔ «هفته» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0248",
+    "wordIndex": 248,
+    "text": "من کلمهٔ «ماه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0249",
+    "wordIndex": 249,
+    "text": "من کلمهٔ «زمان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0250",
+    "wordIndex": 250,
+    "text": "من کلمهٔ «وقت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0251",
+    "wordIndex": 251,
+    "text": "من کلمهٔ «ساعت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0252",
+    "wordIndex": 252,
+    "text": "من کلمهٔ «دقیقه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0253",
+    "wordIndex": 253,
+    "text": "من کلمهٔ «ثانیه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0254",
+    "wordIndex": 254,
+    "text": "من کلمهٔ «لحظه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0255",
+    "wordIndex": 255,
+    "text": "من کلمهٔ «اتاق» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0256",
+    "wordIndex": 256,
+    "text": "من کلمهٔ «آشپزخانه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0257",
+    "wordIndex": 257,
+    "text": "من کلمهٔ «حمام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0258",
+    "wordIndex": 258,
+    "text": "من کلمهٔ «دستشویی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0259",
+    "wordIndex": 259,
+    "text": "من کلمهٔ «پنجره» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0260",
+    "wordIndex": 260,
+    "text": "من کلمهٔ «دیوار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0261",
+    "wordIndex": 261,
+    "text": "من کلمهٔ «زمین» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0262",
+    "wordIndex": 262,
+    "text": "من کلمهٔ «سقف» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0263",
+    "wordIndex": 263,
+    "text": "من کلمهٔ «تخت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0264",
+    "wordIndex": 264,
+    "text": "من کلمهٔ «میز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0265",
+    "wordIndex": 265,
+    "text": "من کلمهٔ «صندلی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0266",
+    "wordIndex": 266,
+    "text": "من کلمهٔ «مبل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0267",
+    "wordIndex": 267,
+    "text": "من کلمهٔ «چراغ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0268",
+    "wordIndex": 268,
+    "text": "من کلمهٔ «کلید» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0269",
+    "wordIndex": 269,
+    "text": "من کلمهٔ «یخچال» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0270",
+    "wordIndex": 270,
+    "text": "من کلمهٔ «تلویزیون» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0271",
+    "wordIndex": 271,
+    "text": "من کلمهٔ «تلفن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0272",
+    "wordIndex": 272,
+    "text": "من کلمهٔ «موبایل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0273",
+    "wordIndex": 273,
+    "text": "من کلمهٔ «کامپیوتر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0274",
+    "wordIndex": 274,
+    "text": "من کلمهٔ «اینترنت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0275",
+    "wordIndex": 275,
+    "text": "من کلمهٔ «کتاب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0276",
+    "wordIndex": 276,
+    "text": "من کلمهٔ «دفتر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0277",
+    "wordIndex": 277,
+    "text": "من کلمهٔ «کاغذ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0278",
+    "wordIndex": 278,
+    "text": "من کلمهٔ «قلم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0279",
+    "wordIndex": 279,
+    "text": "من کلمهٔ «مداد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0280",
+    "wordIndex": 280,
+    "text": "من کلمهٔ «دانشگاه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0281",
+    "wordIndex": 281,
+    "text": "من کلمهٔ «کلاس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0282",
+    "wordIndex": 282,
+    "text": "من کلمهٔ «درس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0283",
+    "wordIndex": 283,
+    "text": "من کلمهٔ «معلم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0284",
+    "wordIndex": 284,
+    "text": "من کلمهٔ «دانش‌آموز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0285",
+    "wordIndex": 285,
+    "text": "من کلمهٔ «دانشجو» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0286",
+    "wordIndex": 286,
+    "text": "من کلمهٔ «شغل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0287",
+    "wordIndex": 287,
+    "text": "من کلمهٔ «شرکت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0288",
+    "wordIndex": 288,
+    "text": "من کلمهٔ «اداره» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0289",
+    "wordIndex": 289,
+    "text": "من کلمهٔ «قیمت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0290",
+    "wordIndex": 290,
+    "text": "من کلمهٔ «خرید» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0291",
+    "wordIndex": 291,
+    "text": "من کلمهٔ «فروش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0292",
+    "wordIndex": 292,
+    "text": "من کلمهٔ «بازار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0293",
+    "wordIndex": 293,
+    "text": "من کلمهٔ «فروشگاه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0294",
+    "wordIndex": 294,
+    "text": "من کلمهٔ «رستوران» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0295",
+    "wordIndex": 295,
+    "text": "من کلمهٔ «کافه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0296",
+    "wordIndex": 296,
+    "text": "من کلمهٔ «نان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0297",
+    "wordIndex": 297,
+    "text": "من کلمهٔ «برنج» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0298",
+    "wordIndex": 298,
+    "text": "من کلمهٔ «گوشت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0299",
+    "wordIndex": 299,
+    "text": "من کلمهٔ «مرغ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0300",
+    "wordIndex": 300,
+    "text": "من کلمهٔ «ماهی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0301",
+    "wordIndex": 301,
+    "text": "من کلمهٔ «تخم‌مرغ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0302",
+    "wordIndex": 302,
+    "text": "من کلمهٔ «پنیر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0303",
+    "wordIndex": 303,
+    "text": "من کلمهٔ «شیر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0304",
+    "wordIndex": 304,
+    "text": "من کلمهٔ «ماست» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0305",
+    "wordIndex": 305,
+    "text": "من کلمهٔ «کره» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0306",
+    "wordIndex": 306,
+    "text": "من کلمهٔ «میوه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0307",
+    "wordIndex": 307,
+    "text": "من کلمهٔ «سبزی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0308",
+    "wordIndex": 308,
+    "text": "من کلمهٔ «سیب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0309",
+    "wordIndex": 309,
+    "text": "من کلمهٔ «پرتقال» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0310",
+    "wordIndex": 310,
+    "text": "من کلمهٔ «موز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0311",
+    "wordIndex": 311,
+    "text": "من کلمهٔ «انگور» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0312",
+    "wordIndex": 312,
+    "text": "من کلمهٔ «شکر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0313",
+    "wordIndex": 313,
+    "text": "من کلمهٔ «نمک» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0314",
+    "wordIndex": 314,
+    "text": "من کلمهٔ «صبحانه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0315",
+    "wordIndex": 315,
+    "text": "من کلمهٔ «ناهار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0316",
+    "wordIndex": 316,
+    "text": "من کلمهٔ «شام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0317",
+    "wordIndex": 317,
+    "text": "من کلمهٔ «اتوبوس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0318",
+    "wordIndex": 318,
+    "text": "من کلمهٔ «قطار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0319",
+    "wordIndex": 319,
+    "text": "من کلمهٔ «تاکسی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0320",
+    "wordIndex": 320,
+    "text": "من کلمهٔ «دوچرخه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0321",
+    "wordIndex": 321,
+    "text": "من کلمهٔ «موتور» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0322",
+    "wordIndex": 322,
+    "text": "من کلمهٔ «جاده» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0323",
+    "wordIndex": 323,
+    "text": "من کلمهٔ «راه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0324",
+    "wordIndex": 324,
+    "text": "من کلمهٔ «شهر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0325",
+    "wordIndex": 325,
+    "text": "من کلمهٔ «روستا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0326",
+    "wordIndex": 326,
+    "text": "من کلمهٔ «کشور» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0327",
+    "wordIndex": 327,
+    "text": "من کلمهٔ «ایران» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0328",
+    "wordIndex": 328,
+    "text": "من کلمهٔ «آمریکا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0329",
+    "wordIndex": 329,
+    "text": "من کلمهٔ «فرودگاه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0330",
+    "wordIndex": 330,
+    "text": "من کلمهٔ «ایستگاه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0331",
+    "wordIndex": 331,
+    "text": "من کلمهٔ «هتل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0332",
+    "wordIndex": 332,
+    "text": "من کلمهٔ «پارک» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0333",
+    "wordIndex": 333,
+    "text": "من کلمهٔ «بیمارستان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0334",
+    "wordIndex": 334,
+    "text": "من کلمهٔ «بانک» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0335",
+    "wordIndex": 335,
+    "text": "من کلمهٔ «داروخانه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0336",
+    "wordIndex": 336,
+    "text": "من کلمهٔ «دریا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0337",
+    "wordIndex": 337,
+    "text": "من کلمهٔ «کوه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0338",
+    "wordIndex": 338,
+    "text": "من کلمهٔ «رودخانه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0339",
+    "wordIndex": 339,
+    "text": "من کلمهٔ «هوا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0340",
+    "wordIndex": 340,
+    "text": "من کلمهٔ «آفتاب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0341",
+    "wordIndex": 341,
+    "text": "من کلمهٔ «باران» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0342",
+    "wordIndex": 342,
+    "text": "من کلمهٔ «برف» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0343",
+    "wordIndex": 343,
+    "text": "من کلمهٔ «باد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0344",
+    "wordIndex": 344,
+    "text": "من کلمهٔ «خنک» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0345",
+    "wordIndex": 345,
+    "text": "من کلمهٔ «خشک» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0346",
+    "wordIndex": 346,
+    "text": "من کلمهٔ «خیس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0347",
+    "wordIndex": 347,
+    "text": "من کلمهٔ «بلند» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0348",
+    "wordIndex": 348,
+    "text": "من کلمهٔ «کوتاه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0349",
+    "wordIndex": 349,
+    "text": "من کلمهٔ «زشت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0350",
+    "wordIndex": 350,
+    "text": "من کلمهٔ «جدید» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0351",
+    "wordIndex": 351,
+    "text": "من کلمهٔ «قدیمی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0352",
+    "wordIndex": 352,
+    "text": "من کلمهٔ «جوان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0353",
+    "wordIndex": 353,
+    "text": "من کلمهٔ «پیر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0354",
+    "wordIndex": 354,
+    "text": "من کلمهٔ «آسان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0355",
+    "wordIndex": 355,
+    "text": "من کلمهٔ «سخت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0356",
+    "wordIndex": 356,
+    "text": "من کلمهٔ «قوی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0357",
+    "wordIndex": 357,
+    "text": "من کلمهٔ «ضعیف» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0358",
+    "wordIndex": 358,
+    "text": "من کلمهٔ «تمیز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0359",
+    "wordIndex": 359,
+    "text": "من کلمهٔ «کثیف» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0360",
+    "wordIndex": 360,
+    "text": "من کلمهٔ «پر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0361",
+    "wordIndex": 361,
+    "text": "من کلمهٔ «خالی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0362",
+    "wordIndex": 362,
+    "text": "من کلمهٔ «درست» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0363",
+    "wordIndex": 363,
+    "text": "من کلمهٔ «غلط» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0364",
+    "wordIndex": 364,
+    "text": "من کلمهٔ «مهم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0365",
+    "wordIndex": 365,
+    "text": "من کلمهٔ «لازم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0366",
+    "wordIndex": 366,
+    "text": "من کلمهٔ «ممکن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0367",
+    "wordIndex": 367,
+    "text": "من کلمهٔ «ناراحت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0368",
+    "wordIndex": 368,
+    "text": "من کلمهٔ «عصبانی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0369",
+    "wordIndex": 369,
+    "text": "من کلمهٔ «بیمار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0370",
+    "wordIndex": 370,
+    "text": "من کلمهٔ «سالم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0371",
+    "wordIndex": 371,
+    "text": "من کلمهٔ «ترسیده» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0372",
+    "wordIndex": 372,
+    "text": "من کلمهٔ «نگران» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0373",
+    "wordIndex": 373,
+    "text": "من کلمهٔ «تنها» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0374",
+    "wordIndex": 374,
+    "text": "من کلمهٔ «مشغول» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0375",
+    "wordIndex": 375,
+    "text": "من کلمهٔ «آزاد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0376",
+    "wordIndex": 376,
+    "text": "من کلمهٔ «سر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0377",
+    "wordIndex": 377,
+    "text": "من کلمهٔ «صورت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0378",
+    "wordIndex": 378,
+    "text": "من کلمهٔ «چشم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0379",
+    "wordIndex": 379,
+    "text": "من کلمهٔ «گوش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0380",
+    "wordIndex": 380,
+    "text": "من کلمهٔ «بینی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0381",
+    "wordIndex": 381,
+    "text": "من کلمهٔ «دهان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0382",
+    "wordIndex": 382,
+    "text": "من کلمهٔ «دندان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0383",
+    "wordIndex": 383,
+    "text": "من کلمهٔ «مو» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0384",
+    "wordIndex": 384,
+    "text": "من کلمهٔ «گردن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0385",
+    "wordIndex": 385,
+    "text": "من کلمهٔ «دست» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0386",
+    "wordIndex": 386,
+    "text": "من کلمهٔ «انگشت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0387",
+    "wordIndex": 387,
+    "text": "من کلمهٔ «پا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0388",
+    "wordIndex": 388,
+    "text": "من کلمهٔ «قلب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0389",
+    "wordIndex": 389,
+    "text": "من کلمهٔ «خون» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0390",
+    "wordIndex": 390,
+    "text": "من کلمهٔ «درد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0391",
+    "wordIndex": 391,
+    "text": "من کلمهٔ «دارو» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0392",
+    "wordIndex": 392,
+    "text": "من کلمهٔ «دکتر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0393",
+    "wordIndex": 393,
+    "text": "من کلمهٔ «پرستار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0394",
+    "wordIndex": 394,
+    "text": "من کلمهٔ «بیماری» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0395",
+    "wordIndex": 395,
+    "text": "من کلمهٔ «سلامتی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0396",
+    "wordIndex": 396,
+    "text": "من کلمهٔ «رنگ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0397",
+    "wordIndex": 397,
+    "text": "من کلمهٔ «سفید» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0398",
+    "wordIndex": 398,
+    "text": "من کلمهٔ «سیاه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0399",
+    "wordIndex": 399,
+    "text": "من کلمهٔ «قرمز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0400",
+    "wordIndex": 400,
+    "text": "من کلمهٔ «آبی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0401",
+    "wordIndex": 401,
+    "text": "من کلمهٔ «سبز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0402",
+    "wordIndex": 402,
+    "text": "من کلمهٔ «زرد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0403",
+    "wordIndex": 403,
+    "text": "من کلمهٔ «قهوه‌ای» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0404",
+    "wordIndex": 404,
+    "text": "من کلمهٔ «عدد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0405",
+    "wordIndex": 405,
+    "text": "من کلمهٔ «صفر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0406",
+    "wordIndex": 406,
+    "text": "من کلمهٔ «دو» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0407",
+    "wordIndex": 407,
+    "text": "من کلمهٔ «سه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0408",
+    "wordIndex": 408,
+    "text": "من کلمهٔ «چهار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0409",
+    "wordIndex": 409,
+    "text": "من کلمهٔ «پنج» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0410",
+    "wordIndex": 410,
+    "text": "من کلمهٔ «شش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0411",
+    "wordIndex": 411,
+    "text": "من کلمهٔ «هفت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0412",
+    "wordIndex": 412,
+    "text": "من کلمهٔ «هشت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0413",
+    "wordIndex": 413,
+    "text": "من کلمهٔ «ده» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0414",
+    "wordIndex": 414,
+    "text": "من کلمهٔ «صد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0415",
+    "wordIndex": 415,
+    "text": "من کلمهٔ «هزار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0416",
+    "wordIndex": 416,
+    "text": "من کلمهٔ «را» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0417",
+    "wordIndex": 417,
+    "text": "من کلمهٔ «رو» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0418",
+    "wordIndex": 418,
+    "text": "من کلمهٔ «تا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0419",
+    "wordIndex": 419,
+    "text": "من کلمهٔ «بر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0420",
+    "wordIndex": 420,
+    "text": "من کلمهٔ «خود» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0421",
+    "wordIndex": 421,
+    "text": "من کلمهٔ «باید» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0422",
+    "wordIndex": 422,
+    "text": "من کلمهٔ «پس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0423",
+    "wordIndex": 423,
+    "text": "من کلمهٔ «یکی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0424",
+    "wordIndex": 424,
+    "text": "من کلمهٔ «اگر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0425",
+    "wordIndex": 425,
+    "text": "من کلمهٔ «فیلم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0426",
+    "wordIndex": 426,
+    "text": "من کلمهٔ «قرار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0427",
+    "wordIndex": 427,
+    "text": "من کلمهٔ «استفاده» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0428",
+    "wordIndex": 428,
+    "text": "من کلمهٔ «مورد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0429",
+    "wordIndex": 429,
+    "text": "من کلمهٔ «بازی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0430",
+    "wordIndex": 430,
+    "text": "من کلمهٔ «انجام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0431",
+    "wordIndex": 431,
+    "text": "من کلمهٔ «تهران» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0432",
+    "wordIndex": 432,
+    "text": "من کلمهٔ «نیز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0433",
+    "wordIndex": 433,
+    "text": "من کلمهٔ «چون» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0434",
+    "wordIndex": 434,
+    "text": "من کلمهٔ «وجود» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0435",
+    "wordIndex": 435,
+    "text": "من کلمهٔ «حالا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0436",
+    "wordIndex": 436,
+    "text": "من کلمهٔ «فکر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0437",
+    "wordIndex": 437,
+    "text": "من کلمهٔ «ولی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0438",
+    "wordIndex": 438,
+    "text": "من کلمهٔ «پیش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0439",
+    "wordIndex": 439,
+    "text": "من کلمهٔ «بوده» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0440",
+    "wordIndex": 440,
+    "text": "من کلمهٔ «نظر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0441",
+    "wordIndex": 441,
+    "text": "من کلمهٔ «حال» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0442",
+    "wordIndex": 442,
+    "text": "من کلمهٔ «زندگی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0443",
+    "wordIndex": 443,
+    "text": "من کلمهٔ «مثل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0444",
+    "wordIndex": 444,
+    "text": "من کلمهٔ «نفر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0445",
+    "wordIndex": 445,
+    "text": "من کلمهٔ «تمام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0446",
+    "wordIndex": 446,
+    "text": "من کلمهٔ «اینکه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0447",
+    "wordIndex": 447,
+    "text": "من کلمهٔ «عنوان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0448",
+    "wordIndex": 448,
+    "text": "من کلمهٔ «بار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0449",
+    "wordIndex": 449,
+    "text": "من کلمهٔ «حرف» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0450",
+    "wordIndex": 450,
+    "text": "من کلمهٔ «توسط» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0451",
+    "wordIndex": 451,
+    "text": "من کلمهٔ «ایرانی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0452",
+    "wordIndex": 452,
+    "text": "من کلمهٔ «خدا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0453",
+    "wordIndex": 453,
+    "text": "من کلمهٔ «درباره» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0454",
+    "wordIndex": 454,
+    "text": "من کلمهٔ «دولت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0455",
+    "wordIndex": 455,
+    "text": "من کلمهٔ «اسلامی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0456",
+    "wordIndex": 456,
+    "text": "من کلمهٔ «خب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0457",
+    "wordIndex": 457,
+    "text": "من کلمهٔ «البته» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0458",
+    "wordIndex": 458,
+    "text": "من کلمهٔ «بخش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0459",
+    "wordIndex": 459,
+    "text": "من کلمهٔ «جهان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0460",
+    "wordIndex": 460,
+    "text": "من کلمهٔ «خودم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0461",
+    "wordIndex": 461,
+    "text": "من کلمهٔ «ملی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0462",
+    "wordIndex": 462,
+    "text": "من کلمهٔ «وی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0463",
+    "wordIndex": 463,
+    "text": "من کلمهٔ «وقتی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0464",
+    "wordIndex": 464,
+    "text": "من کلمهٔ «چیزی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0465",
+    "wordIndex": 465,
+    "text": "من کلمهٔ «بی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0466",
+    "wordIndex": 466,
+    "text": "من کلمهٔ «سازمان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0467",
+    "wordIndex": 467,
+    "text": "من کلمهٔ «دوم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0468",
+    "wordIndex": 468,
+    "text": "من کلمهٔ «زنده» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0469",
+    "wordIndex": 469,
+    "text": "من کلمهٔ «گروه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0470",
+    "wordIndex": 470,
+    "text": "من کلمهٔ «زبان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0471",
+    "wordIndex": 471,
+    "text": "من کلمهٔ «استان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0472",
+    "wordIndex": 472,
+    "text": "من کلمهٔ «بسیار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0473",
+    "wordIndex": 473,
+    "text": "من کلمهٔ «خودش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0474",
+    "wordIndex": 474,
+    "text": "من کلمهٔ «عکس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0475",
+    "wordIndex": 475,
+    "text": "من کلمهٔ «باعث» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0476",
+    "wordIndex": 476,
+    "text": "من کلمهٔ «تاریخ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0477",
+    "wordIndex": 477,
+    "text": "من کلمهٔ «جنگ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0478",
+    "wordIndex": 478,
+    "text": "من کلمهٔ «دلیل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0479",
+    "wordIndex": 479,
+    "text": "من کلمهٔ «بهترین» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0480",
+    "wordIndex": 480,
+    "text": "من کلمهٔ «خبر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0481",
+    "wordIndex": 481,
+    "text": "من کلمهٔ «دنبال» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0482",
+    "wordIndex": 482,
+    "text": "من کلمهٔ «ادامه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0483",
+    "wordIndex": 483,
+    "text": "من کلمهٔ «اصلا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0484",
+    "wordIndex": 484,
+    "text": "من کلمهٔ «افراد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0485",
+    "wordIndex": 485,
+    "text": "من کلمهٔ «امام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0486",
+    "wordIndex": 486,
+    "text": "من کلمهٔ «تولید» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0487",
+    "wordIndex": 487,
+    "text": "من کلمهٔ «تیم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0488",
+    "wordIndex": 488,
+    "text": "من کلمهٔ «پیدا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0489",
+    "wordIndex": 489,
+    "text": "من کلمهٔ «طرف» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0490",
+    "wordIndex": 490,
+    "text": "من کلمهٔ «همراه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0491",
+    "wordIndex": 491,
+    "text": "من کلمهٔ «برنامه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0492",
+    "wordIndex": 492,
+    "text": "من کلمهٔ «بهش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0493",
+    "wordIndex": 493,
+    "text": "من کلمهٔ «شروع» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0494",
+    "wordIndex": 494,
+    "text": "من کلمهٔ «نگاه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0495",
+    "wordIndex": 495,
+    "text": "من کلمهٔ «سیاسی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0496",
+    "wordIndex": 496,
+    "text": "من کلمهٔ «اصلی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0497",
+    "wordIndex": 497,
+    "text": "من کلمهٔ «انتخاب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0498",
+    "wordIndex": 498,
+    "text": "من کلمهٔ «حتی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0499",
+    "wordIndex": 499,
+    "text": "من کلمهٔ «نبود» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0500",
+    "wordIndex": 500,
+    "text": "من کلمهٔ «وارد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0501",
+    "wordIndex": 501,
+    "text": "من کلمهٔ «اولین» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0502",
+    "wordIndex": 502,
+    "text": "من کلمهٔ «ایجاد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0503",
+    "wordIndex": 503,
+    "text": "من کلمهٔ «بهتر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0504",
+    "wordIndex": 504,
+    "text": "من کلمهٔ «همچنین» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0505",
+    "wordIndex": 505,
+    "text": "من کلمهٔ «جمهوری» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0506",
+    "wordIndex": 506,
+    "text": "من کلمهٔ «مرگ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0507",
+    "wordIndex": 507,
+    "text": "من کلمهٔ «نشان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0508",
+    "wordIndex": 508,
+    "text": "من کلمهٔ «پشت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0509",
+    "wordIndex": 509,
+    "text": "من کلمهٔ «کسی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0510",
+    "wordIndex": 510,
+    "text": "من کلمهٔ «گفته» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0511",
+    "wordIndex": 511,
+    "text": "من کلمهٔ «جا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0512",
+    "wordIndex": 512,
+    "text": "من کلمهٔ «خودت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0513",
+    "wordIndex": 513,
+    "text": "من کلمهٔ «شماره» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0514",
+    "wordIndex": 514,
+    "text": "من کلمهٔ «مجلس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0515",
+    "wordIndex": 515,
+    "text": "من کلمهٔ «میان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0516",
+    "wordIndex": 516,
+    "text": "من کلمهٔ «برخی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0517",
+    "wordIndex": 517,
+    "text": "من کلمهٔ «تغییر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0518",
+    "wordIndex": 518,
+    "text": "من کلمهٔ «توجه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0519",
+    "wordIndex": 519,
+    "text": "من کلمهٔ «جان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0520",
+    "wordIndex": 520,
+    "text": "من کلمهٔ «حضور» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0521",
+    "wordIndex": 521,
+    "text": "من کلمهٔ «دوره» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0522",
+    "wordIndex": 522,
+    "text": "من کلمهٔ «زنان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0523",
+    "wordIndex": 523,
+    "text": "من کلمهٔ «مشکل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0524",
+    "wordIndex": 524,
+    "text": "من کلمهٔ «اعلام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0525",
+    "wordIndex": 525,
+    "text": "من کلمهٔ «جواب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0526",
+    "wordIndex": 526,
+    "text": "من کلمهٔ «حقوق» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0527",
+    "wordIndex": 527,
+    "text": "من کلمهٔ «عشق» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0528",
+    "wordIndex": 528,
+    "text": "من کلمهٔ «یعنی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0529",
+    "wordIndex": 529,
+    "text": "من کلمهٔ «بیش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0530",
+    "wordIndex": 530,
+    "text": "من کلمهٔ «انقلاب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0531",
+    "wordIndex": 531,
+    "text": "من کلمهٔ «جای» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0532",
+    "wordIndex": 532,
+    "text": "من کلمهٔ «حق» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0533",
+    "wordIndex": 533,
+    "text": "من کلمهٔ «فارسی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0534",
+    "wordIndex": 534,
+    "text": "من کلمهٔ «منطقه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0535",
+    "wordIndex": 535,
+    "text": "من کلمهٔ «کاری» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0536",
+    "wordIndex": 536,
+    "text": "من کلمهٔ «کل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0537",
+    "wordIndex": 537,
+    "text": "من کلمهٔ «گل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0538",
+    "wordIndex": 538,
+    "text": "من کلمهٔ «جمله» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0539",
+    "wordIndex": 539,
+    "text": "من کلمهٔ «پایان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0540",
+    "wordIndex": 540,
+    "text": "من کلمهٔ «اشاره» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0541",
+    "wordIndex": 541,
+    "text": "من کلمهٔ «افزایش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0542",
+    "wordIndex": 542,
+    "text": "من کلمهٔ «برابر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0543",
+    "wordIndex": 543,
+    "text": "من کلمهٔ «جهانی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0544",
+    "wordIndex": 544,
+    "text": "من کلمهٔ «رئیس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0545",
+    "wordIndex": 545,
+    "text": "من کلمهٔ «روش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0546",
+    "wordIndex": 546,
+    "text": "من کلمهٔ «شبکه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0547",
+    "wordIndex": 547,
+    "text": "من کلمهٔ «ثبت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0548",
+    "wordIndex": 548,
+    "text": "من کلمهٔ «قابل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0549",
+    "wordIndex": 549,
+    "text": "من کلمهٔ «مجموعه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0550",
+    "wordIndex": 550,
+    "text": "من کلمهٔ «نوع» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0551",
+    "wordIndex": 551,
+    "text": "من کلمهٔ «بهم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0552",
+    "wordIndex": 552,
+    "text": "من کلمهٔ «خاطر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0553",
+    "wordIndex": 553,
+    "text": "من کلمهٔ «داستان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0554",
+    "wordIndex": 554,
+    "text": "من کلمهٔ «دنیا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0555",
+    "wordIndex": 555,
+    "text": "من کلمهٔ «مانند» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0556",
+    "wordIndex": 556,
+    "text": "من کلمهٔ «نوشته» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0557",
+    "wordIndex": 557,
+    "text": "من کلمهٔ «اطلاعات» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0558",
+    "wordIndex": 558,
+    "text": "من کلمهٔ «انسان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0559",
+    "wordIndex": 559,
+    "text": "من کلمهٔ «حمله» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0560",
+    "wordIndex": 560,
+    "text": "من کلمهٔ «خانم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0561",
+    "wordIndex": 561,
+    "text": "من کلمهٔ «دار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0562",
+    "wordIndex": 562,
+    "text": "من کلمهٔ «رفته» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0563",
+    "wordIndex": 563,
+    "text": "من کلمهٔ «زیادی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0564",
+    "wordIndex": 564,
+    "text": "من کلمهٔ «غیر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0565",
+    "wordIndex": 565,
+    "text": "من کلمهٔ «مختلف» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0566",
+    "wordIndex": 566,
+    "text": "من کلمهٔ «مگه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0567",
+    "wordIndex": 567,
+    "text": "من کلمهٔ «نتیجه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0568",
+    "wordIndex": 568,
+    "text": "من کلمهٔ «نسبت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0569",
+    "wordIndex": 569,
+    "text": "من کلمهٔ «گذشته» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0570",
+    "wordIndex": 570,
+    "text": "من کلمهٔ «اسلام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0571",
+    "wordIndex": 571,
+    "text": "من کلمهٔ «بدن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0572",
+    "wordIndex": 572,
+    "text": "من کلمهٔ «جامعه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0573",
+    "wordIndex": 573,
+    "text": "من کلمهٔ «دارای» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0574",
+    "wordIndex": 574,
+    "text": "من کلمهٔ «سمت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0575",
+    "wordIndex": 575,
+    "text": "من کلمهٔ «علیه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0576",
+    "wordIndex": 576,
+    "text": "من کلمهٔ «مرکز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0577",
+    "wordIndex": 577,
+    "text": "من کلمهٔ «میلیون» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0578",
+    "wordIndex": 578,
+    "text": "من کلمهٔ «زمانی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0579",
+    "wordIndex": 579,
+    "text": "من کلمهٔ «شورای» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0580",
+    "wordIndex": 580,
+    "text": "من کلمهٔ «اجتماعی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0581",
+    "wordIndex": 581,
+    "text": "من کلمهٔ «جمع» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0582",
+    "wordIndex": 582,
+    "text": "من کلمهٔ «خوش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0583",
+    "wordIndex": 583,
+    "text": "من کلمهٔ «طول» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0584",
+    "wordIndex": 584,
+    "text": "من کلمهٔ «قانون» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0585",
+    "wordIndex": 585,
+    "text": "من کلمهٔ «قدرت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0586",
+    "wordIndex": 586,
+    "text": "من کلمهٔ «لباس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0587",
+    "wordIndex": 587,
+    "text": "من کلمهٔ «مدت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0588",
+    "wordIndex": 588,
+    "text": "من کلمهٔ «پایه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0589",
+    "wordIndex": 589,
+    "text": "من کلمهٔ «تحت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0590",
+    "wordIndex": 590,
+    "text": "من کلمهٔ «مواد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0591",
+    "wordIndex": 591,
+    "text": "من کلمهٔ «آغاز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0592",
+    "wordIndex": 592,
+    "text": "من کلمهٔ «آهنگ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0593",
+    "wordIndex": 593,
+    "text": "من کلمهٔ «اثر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0594",
+    "wordIndex": 594,
+    "text": "من کلمهٔ «خارج» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0595",
+    "wordIndex": 595,
+    "text": "من کلمهٔ «خوبی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0596",
+    "wordIndex": 596,
+    "text": "من کلمهٔ «درصد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0597",
+    "wordIndex": 597,
+    "text": "من کلمهٔ «موضوع» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0598",
+    "wordIndex": 598,
+    "text": "من کلمهٔ «نیاز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0599",
+    "wordIndex": 599,
+    "text": "من کلمهٔ «واقع» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0600",
+    "wordIndex": 600,
+    "text": "من کلمهٔ «آخرین» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0601",
+    "wordIndex": 601,
+    "text": "من کلمهٔ «آقای» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0602",
+    "wordIndex": 602,
+    "text": "من کلمهٔ «تازه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0603",
+    "wordIndex": 603,
+    "text": "من کلمهٔ «تعداد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0604",
+    "wordIndex": 604,
+    "text": "من کلمهٔ «جهت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0605",
+    "wordIndex": 605,
+    "text": "من کلمهٔ «خواب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0606",
+    "wordIndex": 606,
+    "text": "من کلمهٔ «دی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0607",
+    "wordIndex": 607,
+    "text": "من کلمهٔ «سطح» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0608",
+    "wordIndex": 608,
+    "text": "من کلمهٔ «سیستم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0609",
+    "wordIndex": 609,
+    "text": "من کلمهٔ «قسمت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0610",
+    "wordIndex": 610,
+    "text": "من کلمهٔ «نقش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0611",
+    "wordIndex": 611,
+    "text": "من کلمهٔ «کنترل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0612",
+    "wordIndex": 612,
+    "text": "من کلمهٔ «ازدواج» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0613",
+    "wordIndex": 613,
+    "text": "من کلمهٔ «اقتصادی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0614",
+    "wordIndex": 614,
+    "text": "من کلمهٔ «سوال» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0615",
+    "wordIndex": 615,
+    "text": "من کلمهٔ «فرهنگ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0616",
+    "wordIndex": 616,
+    "text": "من کلمهٔ «فعالیت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0617",
+    "wordIndex": 617,
+    "text": "من کلمهٔ «فوتبال» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0618",
+    "wordIndex": 618,
+    "text": "من کلمهٔ «نشده» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0619",
+    "wordIndex": 619,
+    "text": "من کلمهٔ «کامل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0620",
+    "wordIndex": 620,
+    "text": "من کلمهٔ «احساس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0621",
+    "wordIndex": 621,
+    "text": "من کلمهٔ «استاد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0622",
+    "wordIndex": 622,
+    "text": "من کلمهٔ «اشتباه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0623",
+    "wordIndex": 623,
+    "text": "من کلمهٔ «اصفهان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0624",
+    "wordIndex": 624,
+    "text": "من کلمهٔ «بسیاری» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0625",
+    "wordIndex": 625,
+    "text": "من کلمهٔ «حالت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0626",
+    "wordIndex": 626,
+    "text": "من کلمهٔ «حرکت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0627",
+    "wordIndex": 627,
+    "text": "من کلمهٔ «زاده» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0628",
+    "wordIndex": 628,
+    "text": "من کلمهٔ «شکل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0629",
+    "wordIndex": 629,
+    "text": "من کلمهٔ «عمل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0630",
+    "wordIndex": 630,
+    "text": "من کلمهٔ «عمومی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0631",
+    "wordIndex": 631,
+    "text": "من کلمهٔ «فصل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0632",
+    "wordIndex": 632,
+    "text": "من کلمهٔ «مقابل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0633",
+    "wordIndex": 633,
+    "text": "من کلمهٔ «اساس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0634",
+    "wordIndex": 634,
+    "text": "من کلمهٔ «خط» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0635",
+    "wordIndex": 635,
+    "text": "من کلمهٔ «دلار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0636",
+    "wordIndex": 636,
+    "text": "من کلمهٔ «رابطه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0637",
+    "wordIndex": 637,
+    "text": "من کلمهٔ «سی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0638",
+    "wordIndex": 638,
+    "text": "من کلمهٔ «شرایط» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0639",
+    "wordIndex": 639,
+    "text": "من کلمهٔ «فرهنگی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0640",
+    "wordIndex": 640,
+    "text": "من کلمهٔ «پی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0641",
+    "wordIndex": 641,
+    "text": "من کلمهٔ «چیز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0642",
+    "wordIndex": 642,
+    "text": "من کلمهٔ «آموزش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0643",
+    "wordIndex": 643,
+    "text": "من کلمهٔ «اندازه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0644",
+    "wordIndex": 644,
+    "text": "من کلمهٔ «علمی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0645",
+    "wordIndex": 645,
+    "text": "من کلمهٔ «معرفی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0646",
+    "wordIndex": 646,
+    "text": "من کلمهٔ «وزارت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0647",
+    "wordIndex": 647,
+    "text": "من کلمهٔ «وزیر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0648",
+    "wordIndex": 648,
+    "text": "من کلمهٔ «ترجمه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0649",
+    "wordIndex": 649,
+    "text": "من کلمهٔ «حس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0650",
+    "wordIndex": 650,
+    "text": "من کلمهٔ «دیگری» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0651",
+    "wordIndex": 651,
+    "text": "من کلمهٔ «مربوط» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0652",
+    "wordIndex": 652,
+    "text": "من کلمهٔ «منتشر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0653",
+    "wordIndex": 653,
+    "text": "من کلمهٔ «نظام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0654",
+    "wordIndex": 654,
+    "text": "من کلمهٔ «پخش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0655",
+    "wordIndex": 655,
+    "text": "من کلمهٔ «کاملا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0656",
+    "wordIndex": 656,
+    "text": "من کلمهٔ «امشب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0657",
+    "wordIndex": 657,
+    "text": "من کلمهٔ «ترکیه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0658",
+    "wordIndex": 658,
+    "text": "من کلمهٔ «حدود» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0659",
+    "wordIndex": 659,
+    "text": "من کلمهٔ «حمایت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0660",
+    "wordIndex": 660,
+    "text": "من کلمهٔ «حکومت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0661",
+    "wordIndex": 661,
+    "text": "من کلمهٔ «سایت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0662",
+    "wordIndex": 662,
+    "text": "من کلمهٔ «سوی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0663",
+    "wordIndex": 663,
+    "text": "من کلمهٔ «شکست» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0664",
+    "wordIndex": 664,
+    "text": "من کلمهٔ «طراحی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0665",
+    "wordIndex": 665,
+    "text": "من کلمهٔ «قبول» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0666",
+    "wordIndex": 666,
+    "text": "من کلمهٔ «موسیقی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0667",
+    "wordIndex": 667,
+    "text": "من کلمهٔ «هدف» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0668",
+    "wordIndex": 668,
+    "text": "من کلمهٔ «چنین» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0669",
+    "wordIndex": 669,
+    "text": "من کلمهٔ «بن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0670",
+    "wordIndex": 670,
+    "text": "من کلمهٔ «رشته» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0671",
+    "wordIndex": 671,
+    "text": "من کلمهٔ «علم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0672",
+    "wordIndex": 672,
+    "text": "من کلمهٔ «گزارش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0673",
+    "wordIndex": 673,
+    "text": "من کلمهٔ «امنیت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0674",
+    "wordIndex": 674,
+    "text": "من کلمهٔ «اهل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0675",
+    "wordIndex": 675,
+    "text": "من کلمهٔ «برگزار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0676",
+    "wordIndex": 676,
+    "text": "من کلمهٔ «دانلود» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0677",
+    "wordIndex": 677,
+    "text": "من کلمهٔ «دلم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0678",
+    "wordIndex": 678,
+    "text": "من کلمهٔ «سوم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0679",
+    "wordIndex": 679,
+    "text": "من کلمهٔ «صدای» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0680",
+    "wordIndex": 680,
+    "text": "من کلمهٔ «طریق» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0681",
+    "wordIndex": 681,
+    "text": "من کلمهٔ «منابع» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0682",
+    "wordIndex": 682,
+    "text": "من کلمهٔ «اجازه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0683",
+    "wordIndex": 683,
+    "text": "من کلمهٔ «انگار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0684",
+    "wordIndex": 684,
+    "text": "من کلمهٔ «بخاطر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0685",
+    "wordIndex": 685,
+    "text": "من کلمهٔ «بیان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0686",
+    "wordIndex": 686,
+    "text": "من کلمهٔ «تبدیل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0687",
+    "wordIndex": 687,
+    "text": "من کلمهٔ «حساب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0688",
+    "wordIndex": 688,
+    "text": "من کلمهٔ «خارجی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0689",
+    "wordIndex": 689,
+    "text": "من کلمهٔ «دریافت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0690",
+    "wordIndex": 690,
+    "text": "من کلمهٔ «دسته» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0691",
+    "wordIndex": 691,
+    "text": "من کلمهٔ «صحبت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0692",
+    "wordIndex": 692,
+    "text": "من کلمهٔ «طرح» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0693",
+    "wordIndex": 693,
+    "text": "من کلمهٔ «عاشق» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0694",
+    "wordIndex": 694,
+    "text": "من کلمهٔ «هی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0695",
+    "wordIndex": 695,
+    "text": "من کلمهٔ «چین» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0696",
+    "wordIndex": 696,
+    "text": "من کلمهٔ «کارت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0697",
+    "wordIndex": 697,
+    "text": "من کلمهٔ «کلی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0698",
+    "wordIndex": 698,
+    "text": "من کلمهٔ «یاد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0699",
+    "wordIndex": 699,
+    "text": "من کلمهٔ «آقا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0700",
+    "wordIndex": 700,
+    "text": "من کلمهٔ «انتخابات» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0701",
+    "wordIndex": 701,
+    "text": "من کلمهٔ «تلاش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0702",
+    "wordIndex": 702,
+    "text": "من کلمهٔ «زمینه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0703",
+    "wordIndex": 703,
+    "text": "من کلمهٔ «زیاد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0704",
+    "wordIndex": 704,
+    "text": "من کلمهٔ «صدا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0705",
+    "wordIndex": 705,
+    "text": "من کلمهٔ «محل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0706",
+    "wordIndex": 706,
+    "text": "من کلمهٔ «نامه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0707",
+    "wordIndex": 707,
+    "text": "من کلمهٔ «وضعیت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0708",
+    "wordIndex": 708,
+    "text": "من کلمهٔ «ویژه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0709",
+    "wordIndex": 709,
+    "text": "من کلمهٔ «کاهش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0710",
+    "wordIndex": 710,
+    "text": "من کلمهٔ «آره» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0711",
+    "wordIndex": 711,
+    "text": "من کلمهٔ «اقتصاد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0712",
+    "wordIndex": 712,
+    "text": "من کلمهٔ «الله» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0713",
+    "wordIndex": 713,
+    "text": "من کلمهٔ «انگلیسی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0714",
+    "wordIndex": 714,
+    "text": "من کلمهٔ «برام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0715",
+    "wordIndex": 715,
+    "text": "من کلمهٔ «تموم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0716",
+    "wordIndex": 716,
+    "text": "من کلمهٔ «حل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0717",
+    "wordIndex": 717,
+    "text": "من کلمهٔ «دوران» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0718",
+    "wordIndex": 718,
+    "text": "من کلمهٔ «عالی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0719",
+    "wordIndex": 719,
+    "text": "من کلمهٔ «موفق» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0720",
+    "wordIndex": 720,
+    "text": "من کلمهٔ «موقع» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0721",
+    "wordIndex": 721,
+    "text": "من کلمهٔ «اتفاق» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0722",
+    "wordIndex": 722,
+    "text": "من کلمهٔ «ارائه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0723",
+    "wordIndex": 723,
+    "text": "من کلمهٔ «بررسی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0724",
+    "wordIndex": 724,
+    "text": "من کلمهٔ «تن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0725",
+    "wordIndex": 725,
+    "text": "من کلمهٔ «توسعه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0726",
+    "wordIndex": 726,
+    "text": "من کلمهٔ «حاضر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0727",
+    "wordIndex": 727,
+    "text": "من کلمهٔ «سری» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0728",
+    "wordIndex": 728,
+    "text": "من کلمهٔ «شامل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0729",
+    "wordIndex": 729,
+    "text": "من کلمهٔ «طی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0730",
+    "wordIndex": 730,
+    "text": "من کلمهٔ «عوض» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0731",
+    "wordIndex": 731,
+    "text": "من کلمهٔ «نمایش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0732",
+    "wordIndex": 732,
+    "text": "من کلمهٔ «ازش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0733",
+    "wordIndex": 733,
+    "text": "من کلمهٔ «باور» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0734",
+    "wordIndex": 734,
+    "text": "من کلمهٔ «بهت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0735",
+    "wordIndex": 735,
+    "text": "من کلمهٔ «جریان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0736",
+    "wordIndex": 736,
+    "text": "من کلمهٔ «دل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0737",
+    "wordIndex": 737,
+    "text": "من کلمهٔ «رد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0738",
+    "wordIndex": 738,
+    "text": "من کلمهٔ «شهرستان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0739",
+    "wordIndex": 739,
+    "text": "من کلمهٔ «اخبار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0740",
+    "wordIndex": 740,
+    "text": "من کلمهٔ «حداقل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0741",
+    "wordIndex": 741,
+    "text": "من کلمهٔ «روشن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0742",
+    "wordIndex": 742,
+    "text": "من کلمهٔ «سرعت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0743",
+    "wordIndex": 743,
+    "text": "من کلمهٔ «شاه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0744",
+    "wordIndex": 744,
+    "text": "من کلمهٔ «عراق» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0745",
+    "wordIndex": 745,
+    "text": "من کلمهٔ «مدیریت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0746",
+    "wordIndex": 746,
+    "text": "من کلمهٔ «ارزش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0747",
+    "wordIndex": 747,
+    "text": "من کلمهٔ «داخلی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0748",
+    "wordIndex": 748,
+    "text": "من کلمهٔ «دین» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0749",
+    "wordIndex": 749,
+    "text": "من کلمهٔ «زنگ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0750",
+    "wordIndex": 750,
+    "text": "من کلمهٔ «سریال» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0751",
+    "wordIndex": 751,
+    "text": "من کلمهٔ «صفحه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0752",
+    "wordIndex": 752,
+    "text": "من کلمهٔ «موجود» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0753",
+    "wordIndex": 753,
+    "text": "من کلمهٔ «کسب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0754",
+    "wordIndex": 754,
+    "text": "من کلمهٔ «افغانستان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0755",
+    "wordIndex": 755,
+    "text": "من کلمهٔ «ترک» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0756",
+    "wordIndex": 756,
+    "text": "من کلمهٔ «مال» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0757",
+    "wordIndex": 757,
+    "text": "من کلمهٔ «مدل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0758",
+    "wordIndex": 758,
+    "text": "من کلمهٔ «نفت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0759",
+    "wordIndex": 759,
+    "text": "من کلمهٔ «پزشکی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0760",
+    "wordIndex": 760,
+    "text": "من کلمهٔ «استخدام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0761",
+    "wordIndex": 761,
+    "text": "من کلمهٔ «اعتماد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0762",
+    "wordIndex": 762,
+    "text": "من کلمهٔ «انرژی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0763",
+    "wordIndex": 763,
+    "text": "من کلمهٔ «جون» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0764",
+    "wordIndex": 764,
+    "text": "من کلمهٔ «رسمی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0765",
+    "wordIndex": 765,
+    "text": "من کلمهٔ «زندان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0766",
+    "wordIndex": 766,
+    "text": "من کلمهٔ «سوریه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0767",
+    "wordIndex": 767,
+    "text": "من کلمهٔ «طور» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0768",
+    "wordIndex": 768,
+    "text": "من کلمهٔ «فشار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0769",
+    "wordIndex": 769,
+    "text": "من کلمهٔ «متوجه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0770",
+    "wordIndex": 770,
+    "text": "من کلمهٔ «کس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0771",
+    "wordIndex": 771,
+    "text": "من کلمهٔ «آتش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0772",
+    "wordIndex": 772,
+    "text": "من کلمهٔ «آینده» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0773",
+    "wordIndex": 773,
+    "text": "من کلمهٔ «انتظار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0774",
+    "wordIndex": 774,
+    "text": "من کلمهٔ «انتقال» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0775",
+    "wordIndex": 775,
+    "text": "من کلمهٔ «بحث» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0776",
+    "wordIndex": 776,
+    "text": "من کلمهٔ «تعریف» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0777",
+    "wordIndex": 777,
+    "text": "من کلمهٔ «دستگاه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0778",
+    "wordIndex": 778,
+    "text": "من کلمهٔ «سعی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0779",
+    "wordIndex": 779,
+    "text": "من کلمهٔ «شعر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0780",
+    "wordIndex": 780,
+    "text": "من کلمهٔ «مالی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0781",
+    "wordIndex": 781,
+    "text": "من کلمهٔ «مرحله» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0782",
+    "wordIndex": 782,
+    "text": "من کلمهٔ «مرکزی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0783",
+    "wordIndex": 783,
+    "text": "من کلمهٔ «مشخص» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0784",
+    "wordIndex": 784,
+    "text": "من کلمهٔ «موارد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0785",
+    "wordIndex": 785,
+    "text": "من کلمهٔ «نشون» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0786",
+    "wordIndex": 786,
+    "text": "من کلمهٔ «آلبوم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0787",
+    "wordIndex": 787,
+    "text": "من کلمهٔ «ارتباط» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0788",
+    "wordIndex": 788,
+    "text": "من کلمهٔ «بلکه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0789",
+    "wordIndex": 789,
+    "text": "من کلمهٔ «تشکیل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0790",
+    "wordIndex": 790,
+    "text": "من کلمهٔ «حد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0791",
+    "wordIndex": 791,
+    "text": "من کلمهٔ «دفاع» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0792",
+    "wordIndex": 792,
+    "text": "من کلمهٔ «ساده» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0793",
+    "wordIndex": 793,
+    "text": "من کلمهٔ «سبک» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0794",
+    "wordIndex": 794,
+    "text": "من کلمهٔ «طبیعی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0795",
+    "wordIndex": 795,
+    "text": "من کلمهٔ «عضو» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0796",
+    "wordIndex": 796,
+    "text": "من کلمهٔ «فرد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0797",
+    "wordIndex": 797,
+    "text": "من کلمهٔ «فضای» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0798",
+    "wordIndex": 798,
+    "text": "من کلمهٔ «قتل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0799",
+    "wordIndex": 799,
+    "text": "من کلمهٔ «لذت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0800",
+    "wordIndex": 800,
+    "text": "من کلمهٔ «مراسم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0801",
+    "wordIndex": 801,
+    "text": "من کلمهٔ «نماینده» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0802",
+    "wordIndex": 802,
+    "text": "من کلمهٔ «نیرو» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0803",
+    "wordIndex": 803,
+    "text": "من کلمهٔ «گونه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0804",
+    "wordIndex": 804,
+    "text": "من کلمهٔ «اروپا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0805",
+    "wordIndex": 805,
+    "text": "من کلمهٔ «تصمیم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0806",
+    "wordIndex": 806,
+    "text": "من کلمهٔ «خاص» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0807",
+    "wordIndex": 807,
+    "text": "من کلمهٔ «درک» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0808",
+    "wordIndex": 808,
+    "text": "من کلمهٔ «دستور» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0809",
+    "wordIndex": 809,
+    "text": "من کلمهٔ «رفتار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0810",
+    "wordIndex": 810,
+    "text": "من کلمهٔ «روزنامه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0811",
+    "wordIndex": 811,
+    "text": "من کلمهٔ «سنگ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0812",
+    "wordIndex": 812,
+    "text": "من کلمهٔ «شمال» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0813",
+    "wordIndex": 813,
+    "text": "من کلمهٔ «نسخه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0814",
+    "wordIndex": 814,
+    "text": "من کلمهٔ «آزادی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0815",
+    "wordIndex": 815,
+    "text": "من کلمهٔ «اضافه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0816",
+    "wordIndex": 816,
+    "text": "من کلمهٔ «تجربه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0817",
+    "wordIndex": 817,
+    "text": "من کلمهٔ «تصویر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0818",
+    "wordIndex": 818,
+    "text": "من کلمهٔ «جدا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0819",
+    "wordIndex": 819,
+    "text": "من کلمهٔ «خنده» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0820",
+    "wordIndex": 820,
+    "text": "من کلمهٔ «روسیه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0821",
+    "wordIndex": 821,
+    "text": "من کلمهٔ «سگ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0822",
+    "wordIndex": 822,
+    "text": "من کلمهٔ «شهید» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0823",
+    "wordIndex": 823,
+    "text": "من کلمهٔ «نفس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0824",
+    "wordIndex": 824,
+    "text": "من کلمهٔ «پرداخت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0825",
+    "wordIndex": 825,
+    "text": "من کلمهٔ «اجرا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0826",
+    "wordIndex": 826,
+    "text": "من کلمهٔ «اجرای» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0827",
+    "wordIndex": 827,
+    "text": "من کلمهٔ «ارتش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0828",
+    "wordIndex": 828,
+    "text": "من کلمهٔ «برق» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0829",
+    "wordIndex": 829,
+    "text": "من کلمهٔ «خاک» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0830",
+    "wordIndex": 830,
+    "text": "من کلمهٔ «دروغ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0831",
+    "wordIndex": 831,
+    "text": "من کلمهٔ «دهه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0832",
+    "wordIndex": 832,
+    "text": "من کلمهٔ «راحت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0833",
+    "wordIndex": 833,
+    "text": "من کلمهٔ «سایر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0834",
+    "wordIndex": 834,
+    "text": "من کلمهٔ «شخصی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0835",
+    "wordIndex": 835,
+    "text": "من کلمهٔ «مبارزه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0836",
+    "wordIndex": 836,
+    "text": "من کلمهٔ «نظامی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0837",
+    "wordIndex": 837,
+    "text": "من کلمهٔ «نیروی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0838",
+    "wordIndex": 838,
+    "text": "من کلمهٔ «همکاری» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0839",
+    "wordIndex": 839,
+    "text": "من کلمهٔ «واقعی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0840",
+    "wordIndex": 840,
+    "text": "من کلمهٔ «پیام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0841",
+    "wordIndex": 841,
+    "text": "من کلمهٔ «پیشنهاد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0842",
+    "wordIndex": 842,
+    "text": "من کلمهٔ «آنان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0843",
+    "wordIndex": 843,
+    "text": "من کلمهٔ «استقلال» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0844",
+    "wordIndex": 844,
+    "text": "من کلمهٔ «امور» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0845",
+    "wordIndex": 845,
+    "text": "من کلمهٔ «بعدی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0846",
+    "wordIndex": 846,
+    "text": "من کلمهٔ «تماس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0847",
+    "wordIndex": 847,
+    "text": "من کلمهٔ «جایی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0848",
+    "wordIndex": 848,
+    "text": "من کلمهٔ «جنسی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0849",
+    "wordIndex": 849,
+    "text": "من کلمهٔ «حالی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0850",
+    "wordIndex": 850,
+    "text": "من کلمهٔ «حوزه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0851",
+    "wordIndex": 851,
+    "text": "من کلمهٔ «سیاست» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0852",
+    "wordIndex": 852,
+    "text": "من کلمهٔ «ضد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0853",
+    "wordIndex": 853,
+    "text": "من کلمهٔ «علت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0854",
+    "wordIndex": 854,
+    "text": "من کلمهٔ «مسابقه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0855",
+    "wordIndex": 855,
+    "text": "من کلمهٔ «مسیر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0856",
+    "wordIndex": 856,
+    "text": "من کلمهٔ «مهر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0857",
+    "wordIndex": 857,
+    "text": "من کلمهٔ «میزان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0858",
+    "wordIndex": 858,
+    "text": "من کلمهٔ «نباید» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0859",
+    "wordIndex": 859,
+    "text": "من کلمهٔ «نور» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0860",
+    "wordIndex": 860,
+    "text": "من کلمهٔ «کمی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0861",
+    "wordIndex": 861,
+    "text": "من کلمهٔ «احتمالا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0862",
+    "wordIndex": 862,
+    "text": "من کلمهٔ «انواع» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0863",
+    "wordIndex": 863,
+    "text": "من کلمهٔ «تبریز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0864",
+    "wordIndex": 864,
+    "text": "من کلمهٔ «جز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0865",
+    "wordIndex": 865,
+    "text": "من کلمهٔ «حفظ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0866",
+    "wordIndex": 866,
+    "text": "من کلمهٔ «رشد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0867",
+    "wordIndex": 867,
+    "text": "من کلمهٔ «منتظر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0868",
+    "wordIndex": 868,
+    "text": "من کلمهٔ «کد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0869",
+    "wordIndex": 869,
+    "text": "من کلمهٔ «اون» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0870",
+    "wordIndex": 870,
+    "text": "من کلمهٔ «ثابت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0871",
+    "wordIndex": 871,
+    "text": "من کلمهٔ «طبق» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0872",
+    "wordIndex": 872,
+    "text": "من کلمهٔ «عدم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0873",
+    "wordIndex": 873,
+    "text": "من کلمهٔ «علاقه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0874",
+    "wordIndex": 874,
+    "text": "من کلمهٔ «فارس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0875",
+    "wordIndex": 875,
+    "text": "من کلمهٔ «فوق» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0876",
+    "wordIndex": 876,
+    "text": "من کلمهٔ «مثلا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0877",
+    "wordIndex": 877,
+    "text": "من کلمهٔ «مشهد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0878",
+    "wordIndex": 878,
+    "text": "من کلمهٔ «مشکلات» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0879",
+    "wordIndex": 879,
+    "text": "من کلمهٔ «مصرف» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0880",
+    "wordIndex": 880,
+    "text": "من کلمهٔ «معمولا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0881",
+    "wordIndex": 881,
+    "text": "من کلمهٔ «معنی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0882",
+    "wordIndex": 882,
+    "text": "من کلمهٔ «هنر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0883",
+    "wordIndex": 883,
+    "text": "من کلمهٔ «هنگام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0884",
+    "wordIndex": 884,
+    "text": "من کلمهٔ «پاسخ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0885",
+    "wordIndex": 885,
+    "text": "من کلمهٔ «اعضای» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0886",
+    "wordIndex": 886,
+    "text": "من کلمهٔ «امکان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0887",
+    "wordIndex": 887,
+    "text": "من کلمهٔ «حذف» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0888",
+    "wordIndex": 888,
+    "text": "من کلمهٔ «خبری» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0889",
+    "wordIndex": 889,
+    "text": "من کلمهٔ «دانش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0890",
+    "wordIndex": 890,
+    "text": "من کلمهٔ «درمان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0891",
+    "wordIndex": 891,
+    "text": "من کلمهٔ «رهبری» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0892",
+    "wordIndex": 892,
+    "text": "من کلمهٔ «عربستان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0893",
+    "wordIndex": 893,
+    "text": "من کلمهٔ «فراموش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0894",
+    "wordIndex": 894,
+    "text": "من کلمهٔ «فعال» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0895",
+    "wordIndex": 895,
+    "text": "من کلمهٔ «قهرمان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0896",
+    "wordIndex": 896,
+    "text": "من کلمهٔ «مدیر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0897",
+    "wordIndex": 897,
+    "text": "من کلمهٔ «معروف» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0898",
+    "wordIndex": 898,
+    "text": "من کلمهٔ «نمونه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0899",
+    "wordIndex": 899,
+    "text": "من کلمهٔ «واحد» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0900",
+    "wordIndex": 900,
+    "text": "من کلمهٔ «اصل» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0901",
+    "wordIndex": 901,
+    "text": "من کلمهٔ «برتر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0902",
+    "wordIndex": 902,
+    "text": "من کلمهٔ «روابط» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0903",
+    "wordIndex": 903,
+    "text": "من کلمهٔ «فاصله» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0904",
+    "wordIndex": 904,
+    "text": "من کلمهٔ «ماده» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0905",
+    "wordIndex": 905,
+    "text": "من کلمهٔ «محیط» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0906",
+    "wordIndex": 906,
+    "text": "من کلمهٔ «نجات» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0907",
+    "wordIndex": 907,
+    "text": "من کلمهٔ «پرواز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0908",
+    "wordIndex": 908,
+    "text": "من کلمهٔ «بیست» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0909",
+    "wordIndex": 909,
+    "text": "من کلمهٔ «دولتی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0910",
+    "wordIndex": 910,
+    "text": "من کلمهٔ «سپس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0911",
+    "wordIndex": 911,
+    "text": "من کلمهٔ «غرب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0912",
+    "wordIndex": 912,
+    "text": "من کلمهٔ «مسئله» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0913",
+    "wordIndex": 913,
+    "text": "من کلمهٔ «مقاومت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0914",
+    "wordIndex": 914,
+    "text": "من کلمهٔ «مقدار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0915",
+    "wordIndex": 915,
+    "text": "من کلمهٔ «منظور» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0916",
+    "wordIndex": 916,
+    "text": "من کلمهٔ «نیمه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0917",
+    "wordIndex": 917,
+    "text": "من کلمهٔ «همش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0918",
+    "wordIndex": 918,
+    "text": "من کلمهٔ «پروژه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0919",
+    "wordIndex": 919,
+    "text": "من کلمهٔ «بالای» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0920",
+    "wordIndex": 920,
+    "text": "من کلمهٔ «بدی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0921",
+    "wordIndex": 921,
+    "text": "من کلمهٔ «براش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0922",
+    "wordIndex": 922,
+    "text": "من کلمهٔ «درخواست» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0923",
+    "wordIndex": 923,
+    "text": "من کلمهٔ «طلا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0924",
+    "wordIndex": 924,
+    "text": "من کلمهٔ «علاوه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0925",
+    "wordIndex": 925,
+    "text": "من کلمهٔ «عمر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0926",
+    "wordIndex": 926,
+    "text": "من کلمهٔ «لیگ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0927",
+    "wordIndex": 927,
+    "text": "من کلمهٔ «متن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0928",
+    "wordIndex": 928,
+    "text": "من کلمهٔ «مقام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0929",
+    "wordIndex": 929,
+    "text": "من کلمهٔ «هزینه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0930",
+    "wordIndex": 930,
+    "text": "من کلمهٔ «ورزش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0931",
+    "wordIndex": 931,
+    "text": "من کلمهٔ «ورود» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0932",
+    "wordIndex": 932,
+    "text": "من کلمهٔ «چاپ» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0933",
+    "wordIndex": 933,
+    "text": "من کلمهٔ «کشف» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0934",
+    "wordIndex": 934,
+    "text": "من کلمهٔ «انجمن» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0935",
+    "wordIndex": 935,
+    "text": "من کلمهٔ «باشگاه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0936",
+    "wordIndex": 936,
+    "text": "من کلمهٔ «بخشی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0937",
+    "wordIndex": 937,
+    "text": "من کلمهٔ «تاریخی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0938",
+    "wordIndex": 938,
+    "text": "من کلمهٔ «تک» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0939",
+    "wordIndex": 939,
+    "text": "من کلمهٔ «جام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0940",
+    "wordIndex": 940,
+    "text": "من کلمهٔ «درجه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0941",
+    "wordIndex": 941,
+    "text": "من کلمهٔ «دوستان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0942",
+    "wordIndex": 942,
+    "text": "من کلمهٔ «قطع» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0943",
+    "wordIndex": 943,
+    "text": "من کلمهٔ «محصول» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0944",
+    "wordIndex": 944,
+    "text": "من کلمهٔ «مهندسی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0945",
+    "wordIndex": 945,
+    "text": "من کلمهٔ «پست» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0946",
+    "wordIndex": 946,
+    "text": "من کلمهٔ «آشنا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0947",
+    "wordIndex": 947,
+    "text": "من کلمهٔ «انتشار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0948",
+    "wordIndex": 948,
+    "text": "من کلمهٔ «برات» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0949",
+    "wordIndex": 949,
+    "text": "من کلمهٔ «جالب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0950",
+    "wordIndex": 950,
+    "text": "من کلمهٔ «جشنواره» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0951",
+    "wordIndex": 951,
+    "text": "من کلمهٔ «جلسه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0952",
+    "wordIndex": 952,
+    "text": "من کلمهٔ «دیگران» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0953",
+    "wordIndex": 953,
+    "text": "من کلمهٔ «ساختمان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0954",
+    "wordIndex": 954,
+    "text": "من کلمهٔ «عملیات» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0955",
+    "wordIndex": 955,
+    "text": "من کلمهٔ «فرصت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0956",
+    "wordIndex": 956,
+    "text": "من کلمهٔ «قول» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0957",
+    "wordIndex": 957,
+    "text": "من کلمهٔ «چک» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0958",
+    "wordIndex": 958,
+    "text": "من کلمهٔ «آثار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0959",
+    "wordIndex": 959,
+    "text": "من کلمهٔ «آمار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0960",
+    "wordIndex": 960,
+    "text": "من کلمهٔ «احتمال» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0961",
+    "wordIndex": 961,
+    "text": "من کلمهٔ «امید» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0962",
+    "wordIndex": 962,
+    "text": "من کلمهٔ «انسانی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0963",
+    "wordIndex": 963,
+    "text": "من کلمهٔ «بس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0964",
+    "wordIndex": 964,
+    "text": "من کلمهٔ «تعیین» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0965",
+    "wordIndex": 965,
+    "text": "من کلمهٔ «خطر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0966",
+    "wordIndex": 966,
+    "text": "من کلمهٔ «خواننده» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0967",
+    "wordIndex": 967,
+    "text": "من کلمهٔ «شیراز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0968",
+    "wordIndex": 968,
+    "text": "من کلمهٔ «صحنه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0969",
+    "wordIndex": 969,
+    "text": "من کلمهٔ «گاز» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0970",
+    "wordIndex": 970,
+    "text": "من کلمهٔ «یکم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0971",
+    "wordIndex": 971,
+    "text": "من کلمهٔ «جناب» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0972",
+    "wordIndex": 972,
+    "text": "من کلمهٔ «خدمات» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0973",
+    "wordIndex": 973,
+    "text": "من کلمهٔ «خدمت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0974",
+    "wordIndex": 974,
+    "text": "من کلمهٔ «خراسان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0975",
+    "wordIndex": 975,
+    "text": "من کلمهٔ «رهبر» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0976",
+    "wordIndex": 976,
+    "text": "من کلمهٔ «رژیم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0977",
+    "wordIndex": 977,
+    "text": "من کلمهٔ «شخصیت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0978",
+    "wordIndex": 978,
+    "text": "من کلمهٔ «شدت» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0979",
+    "wordIndex": 979,
+    "text": "من کلمهٔ «عربی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0980",
+    "wordIndex": 980,
+    "text": "من کلمهٔ «مجازی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0981",
+    "wordIndex": 981,
+    "text": "من کلمهٔ «معماری» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0982",
+    "wordIndex": 982,
+    "text": "من کلمهٔ «میدان» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0983",
+    "wordIndex": 983,
+    "text": "من کلمهٔ «نقطه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0984",
+    "wordIndex": 984,
+    "text": "من کلمهٔ «نو» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0985",
+    "wordIndex": 985,
+    "text": "من کلمهٔ «نگه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0986",
+    "wordIndex": 986,
+    "text": "من کلمهٔ «واکنش» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0987",
+    "wordIndex": 987,
+    "text": "من کلمهٔ «پاک» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0988",
+    "wordIndex": 988,
+    "text": "من کلمهٔ «پلیس» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0989",
+    "wordIndex": 989,
+    "text": "من کلمهٔ «گوشی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0990",
+    "wordIndex": 990,
+    "text": "من کلمهٔ «اصلاح» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0991",
+    "wordIndex": 991,
+    "text": "من کلمهٔ «اقدام» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0992",
+    "wordIndex": 992,
+    "text": "من کلمهٔ «بازم» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0993",
+    "wordIndex": 993,
+    "text": "من کلمهٔ «باقی» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0994",
+    "wordIndex": 994,
+    "text": "من کلمهٔ «تهیه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0995",
+    "wordIndex": 995,
+    "text": "من کلمهٔ «درون» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0996",
+    "wordIndex": 996,
+    "text": "من کلمهٔ «دنیای» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0997",
+    "wordIndex": 997,
+    "text": "من کلمهٔ «دوتا» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0998",
+    "wordIndex": 998,
+    "text": "من کلمهٔ «دیدار» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "0999",
+    "wordIndex": 999,
+    "text": "من کلمهٔ «روح» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  },
+  {
+    "id": "1000",
+    "wordIndex": 1000,
+    "text": "من کلمهٔ «سپاه» را یاد می‌گیرم.",
+    "latin": "",
+    "meaning": ""
+  }
+]
