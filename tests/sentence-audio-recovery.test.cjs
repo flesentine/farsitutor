@@ -9,7 +9,7 @@ class MemoryStorage {
 }
 
 async function testGuidedRecovery() {
-  const today = '2026-07-12';
+  const today = '2026-07-13';
   const storage = new MemoryStorage({
     'farsi-guided-today-v2': JSON.stringify({ days: { [today]: {
       step: 1,
@@ -19,7 +19,6 @@ async function testGuidedRecovery() {
     } } })
   });
   let reloads = 0;
-  const listeners = {};
   const context = {
     console,
     JSON,
@@ -27,7 +26,7 @@ async function testGuidedRecovery() {
     localStorage: storage,
     todayKey: () => today,
     document: {
-      addEventListener(name, handler) { listeners[name] = handler; },
+      addEventListener() {},
       createElement() { return { className: '', innerHTML: '', appendChild() {} }; }
     },
     window: {
@@ -39,8 +38,7 @@ async function testGuidedRecovery() {
   vm.createContext(context);
   vm.runInContext(fs.readFileSync(path.join(__dirname, '..', 'guided-sentence-recovery.js'), 'utf8'), context);
   const api = context.window.__FARSI_SENTENCE_RECOVERY_TEST__;
-  if (!api) throw new Error('Sentence recovery API was not exposed.');
-  if (!api.markSentenceSkipped()) throw new Error('Sentence recovery could not advance the lesson.');
+  if (!api?.markSentenceSkipped()) throw new Error('Sentence recovery could not advance the lesson.');
   const saved = JSON.parse(storage.getItem('farsi-guided-today-v2')).days[today];
   if (!saved.done.sentence || saved.step !== 2 || saved.sentenceSkipped !== true) {
     throw new Error('Skipping unavailable audio did not safely advance to the listening check.');
@@ -48,9 +46,8 @@ async function testGuidedRecovery() {
   if (reloads !== 1) throw new Error('Guided Today was not refreshed after audio recovery.');
 }
 
-async function testImmediatePhoneticFallback() {
+async function testNoEnglishAccentFallback() {
   const speechEvents = [];
-  const toasts = [];
   const spoken = [];
   let audioPlayCalls = 0;
 
@@ -64,21 +61,15 @@ async function testImmediatePhoneticFallback() {
       this.playsInline = false;
       this.src = '';
       this.volume = 1;
-      this.playbackRate = 1;
       this.readyState = 0;
     }
     setAttribute() {}
-    removeAttribute() {}
     pause() {}
     load() {}
     play() {
       audioPlayCalls += 1;
       return Promise.reject(new Error('stream unavailable'));
     }
-  }
-
-  class FakeMutationObserver {
-    observe() {}
   }
 
   const synthesis = {
@@ -106,11 +97,9 @@ async function testImmediatePhoneticFallback() {
     constructor(type, options = {}) { this.type = type; this.detail = options.detail; }
   }
 
-  const documentListeners = {};
   const context = {
     console,
     Audio: FakeAudio,
-    MutationObserver: FakeMutationObserver,
     SpeechSynthesisUtterance: FakeUtterance,
     CustomEvent: FakeCustomEvent,
     DOMException,
@@ -130,10 +119,10 @@ async function testImmediatePhoneticFallback() {
     WORDS: [{ fa: 'سلام' }],
     stopSpeech() {},
     setSpeechButtonBusy() {},
-    toast(message) { toasts.push(message); },
+    toast() {},
     document: {
       dispatchEvent(event) { speechEvents.push(event); },
-      addEventListener(name, handler) { documentListeners[name] = handler; },
+      addEventListener() {},
       getElementById() { return null; },
       querySelector() { return null; },
       hidden: false
@@ -150,39 +139,43 @@ async function testImmediatePhoneticFallback() {
   const ok = await context.window.speakPractice([
     { text: 'او فارسی صحبت می‌کند.', phoneticHint: 'U fârsi sohbat mikonad.' }
   ]);
-  if (!ok) throw new Error('The immediate phonetic device fallback did not complete playback.');
-  if (audioPlayCalls !== 0) {
-    throw new Error('An unready remote stream was attempted before the gesture-safe device fallback.');
-  }
+  if (!ok) throw new Error('The immediate fa-IR device attempt did not complete in the mock.');
+  if (audioPlayCalls !== 0) throw new Error('An unready remote stream was attempted on the original tap.');
   const complete = speechEvents.find(event => event.type === 'farsi:speech-complete');
-  if (complete?.detail?.method !== 'phonetic-device') {
-    throw new Error('The immediate fallback did not report the phonetic device method.');
+  if (complete?.detail?.method !== 'persian-device-unlisted') {
+    throw new Error('The audio engine did not use the Persian-language device route.');
   }
-  const english = spoken.find(item => item.lang === 'en-US');
-  if (!english || !/U faarsi sohbat mikonad/i.test(english.text)) {
-    throw new Error('The sentence transliteration was not spoken by the English-device fallback.');
+  if (spoken.some(item => item.lang === 'en-US' || /U faarsi|sohbat mikonad/i.test(item.text))) {
+    throw new Error('An English voice or Latin transliteration was used for sentence pronunciation.');
   }
-  if (!toasts.some(message => message.includes('pronunciation guide'))) {
-    throw new Error('The learner was not told that a pronunciation-guide fallback was used.');
-  }
+  const persian = spoken.find(item => item.lang === 'fa-IR' && item.text.includes('فارسی'));
+  if (!persian) throw new Error('The Persian text was not sent to a fa-IR utterance.');
 }
 
 (async () => {
   await testGuidedRecovery();
-  await testImmediatePhoneticFallback();
+  await testNoEnglishAccentFallback();
 
   const audio = fs.readFileSync(path.join(__dirname, '..', 'sentence-audio-v4.js'), 'utf8');
-  if (!audio.includes('Select and start the method synchronously')) {
-    throw new Error('Sentence audio no longer documents the gesture-safe selection boundary.');
+  for (const forbidden of ['englishVoice', 'phonetic-device', 'playPhonetic', 'pronunciation guide']) {
+    if (audio.includes(forbidden)) throw new Error(`American-accent fallback remains in sentence audio: ${forbidden}`);
   }
-  if (!audio.includes('remote?.ready') || !audio.includes('phonetic-device')) {
-    throw new Error('Sentence audio is missing ready-stream selection or the immediate device fallback.');
+  if (!audio.includes("utterance.lang = voice?.lang || 'fa-IR'")) {
+    throw new Error('Sentence audio no longer enforces Persian language speech.');
   }
+  if (!audio.includes('practiceSentence(currentWord())')) {
+    throw new Error('Today’s Persian sentence is not preloaded before Step 2.');
+  }
+
   const recovery = fs.readFileSync(path.join(__dirname, '..', 'guided-sentence-recovery.js'), 'utf8');
-  if (!recovery.includes('Play pronunciation guide') || !recovery.includes('Continue without audio')) {
-    throw new Error('Sentence recovery is missing an audio retry or escape path.');
+  if (!recovery.includes('Try Persian audio again') || !recovery.includes('Continue without audio')) {
+    throw new Error('Sentence recovery is missing a genuine-Persian retry or escape path.');
   }
-  console.log('Sentence audio recovery passed.');
+  if (recovery.includes('pronunciation guide')) {
+    throw new Error('Recovery still offers the American pronunciation guide.');
+  }
+
+  console.log('Persian-only sentence audio recovery passed.');
 })().catch(error => {
   console.error(error);
   process.exitCode = 1;
