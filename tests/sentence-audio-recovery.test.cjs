@@ -46,7 +46,7 @@ async function testGuidedRecovery() {
   if (reloads !== 1) throw new Error('Guided Today was not refreshed after audio recovery.');
 }
 
-async function testNoEnglishAccentFallback() {
+function makeAudioContext({ streamSucceeds }) {
   const speechEvents = [];
   const spoken = [];
   let audioPlayCalls = 0;
@@ -62,13 +62,19 @@ async function testNoEnglishAccentFallback() {
       this.src = '';
       this.volume = 1;
       this.readyState = 0;
+      this.currentTime = 0;
     }
     setAttribute() {}
     pause() {}
     load() {}
     play() {
       audioPlayCalls += 1;
-      return Promise.reject(new Error('stream unavailable'));
+      if (!streamSucceeds) return Promise.reject(new Error('stream unavailable'));
+      setTimeout(() => {
+        this.onplaying?.();
+        setTimeout(() => this.onended?.(), 2);
+      }, 0);
+      return Promise.resolve();
     }
   }
 
@@ -79,17 +85,7 @@ async function testNoEnglishAccentFallback() {
     cancel() { this.speaking = false; this.pending = false; },
     resume() {},
     speak(utterance) {
-      spoken.push({ text: utterance.text, lang: utterance.lang });
-      this.pending = true;
-      setTimeout(() => {
-        this.pending = false;
-        this.speaking = true;
-        utterance.onstart?.();
-        setTimeout(() => {
-          this.speaking = false;
-          utterance.onend?.();
-        }, 2);
-      }, 0);
+      spoken.push({ text: utterance.text, lang: utterance.lang, voice: utterance.voice?.name || null });
     }
   };
 
@@ -135,33 +131,55 @@ async function testNoEnglishAccentFallback() {
   context.window.window = context.window;
   vm.createContext(context);
   vm.runInContext(fs.readFileSync(path.join(__dirname, '..', 'sentence-audio-v4.js'), 'utf8'), context);
+  return { context, speechEvents, spoken, audioPlayCalls: () => audioPlayCalls };
+}
 
-  const ok = await context.window.speakPractice([
-    { text: 'او فارسی صحبت می‌کند.', phoneticHint: 'U fârsi sohbat mikonad.' }
+async function testDirectPersianStreamWithoutPersianVoice() {
+  const harness = makeAudioContext({ streamSucceeds: true });
+  const ok = await harness.context.window.speakPractice([
+    { text: 'فرودگاه دور است.', phoneticHint: 'Forudgâh dur ast.' }
   ]);
-  if (!ok) throw new Error('The immediate fa-IR device attempt did not complete in the mock.');
-  if (audioPlayCalls !== 0) throw new Error('An unready remote stream was attempted on the original tap.');
-  const complete = speechEvents.find(event => event.type === 'farsi:speech-complete');
-  if (complete?.detail?.method !== 'persian-device-unlisted') {
-    throw new Error('The audio engine did not use the Persian-language device route.');
+  if (!ok) throw new Error('The genuine Persian stream did not complete in the mock.');
+  if (harness.audioPlayCalls() < 1) throw new Error('The Persian stream was not started on the original tap.');
+  if (harness.spoken.length) throw new Error('A non-Persian device voice was used instead of the Persian stream.');
+  const complete = harness.speechEvents.find(event => event.type === 'farsi:speech-complete');
+  if (complete?.detail?.method !== 'persian-stream') {
+    throw new Error('The audio engine did not report genuine Persian stream playback.');
   }
-  if (spoken.some(item => item.lang === 'en-US' || /U faarsi|sohbat mikonad/i.test(item.text))) {
-    throw new Error('An English voice or Latin transliteration was used for sentence pronunciation.');
+}
+
+async function testStreamFailureNeverUsesDefaultVoice() {
+  const harness = makeAudioContext({ streamSucceeds: false });
+  const ok = await harness.context.window.speakPractice([
+    { text: 'فرودگاه دور است.', phoneticHint: 'Forudgâh dur ast.' }
+  ]);
+  if (ok) throw new Error('Failed Persian streams were incorrectly reported as successful.');
+  if (harness.audioPlayCalls() < 1) throw new Error('The Persian stream was never attempted.');
+  if (harness.spoken.length) throw new Error('A default device voice was used after Persian stream failure.');
+  const failure = harness.speechEvents.find(event => event.type === 'farsi:speech-error');
+  if (failure?.detail?.method !== 'persian-stream') {
+    throw new Error('Persian stream failure was not reported honestly.');
   }
-  const persian = spoken.find(item => item.lang === 'fa-IR' && item.text.includes('فارسی'));
-  if (!persian) throw new Error('The Persian text was not sent to a fa-IR utterance.');
 }
 
 (async () => {
   await testGuidedRecovery();
-  await testNoEnglishAccentFallback();
+  await testDirectPersianStreamWithoutPersianVoice();
+  await testStreamFailureNeverUsesDefaultVoice();
 
   const audio = fs.readFileSync(path.join(__dirname, '..', 'sentence-audio-v4.js'), 'utf8');
-  for (const forbidden of ['englishVoice', 'phonetic-device', 'playPhonetic', 'pronunciation guide']) {
-    if (audio.includes(forbidden)) throw new Error(`American-accent fallback remains in sentence audio: ${forbidden}`);
+  for (const forbidden of [
+    'englishVoice',
+    'phonetic-device',
+    'playPhonetic',
+    'pronunciation guide',
+    'persian-device-unlisted',
+    "voice?.lang || 'fa-IR'"
+  ]) {
+    if (audio.includes(forbidden)) throw new Error(`Unsafe sentence fallback remains: ${forbidden}`);
   }
-  if (!audio.includes("utterance.lang = voice?.lang || 'fa-IR'")) {
-    throw new Error('Sentence audio no longer enforces Persian language speech.');
+  if (!audio.includes('Start the genuine Persian stream immediately')) {
+    throw new Error('Sentence audio no longer starts the genuine Persian stream during the tap.');
   }
   if (!audio.includes('practiceSentence(currentWord())')) {
     throw new Error('Today’s Persian sentence is not preloaded before Step 2.');
@@ -171,11 +189,8 @@ async function testNoEnglishAccentFallback() {
   if (!recovery.includes('Try Persian audio again') || !recovery.includes('Continue without audio')) {
     throw new Error('Sentence recovery is missing a genuine-Persian retry or escape path.');
   }
-  if (recovery.includes('pronunciation guide')) {
-    throw new Error('Recovery still offers the American pronunciation guide.');
-  }
 
-  console.log('Persian-only sentence audio recovery passed.');
+  console.log('Genuine Persian sentence audio recovery passed.');
 })().catch(error => {
   console.error(error);
   process.exitCode = 1;
