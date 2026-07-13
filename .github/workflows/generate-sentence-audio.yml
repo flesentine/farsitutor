@@ -10,6 +10,9 @@ on:
       - scripts/export-sentence-audio-source.cjs
       - scripts/generate-sentence-audio.py
       - sentence-local-audio.js
+      - words.js
+      - words-part-*.js
+      - words-order.js
   push:
     branches:
       - agent/bundle-persian-sentence-audio
@@ -18,6 +21,9 @@ on:
       - scripts/export-sentence-audio-source.cjs
       - scripts/generate-sentence-audio.py
       - sentence-local-audio.js
+      - words.js
+      - words-part-*.js
+      - words-order.js
 
 permissions:
   contents: write
@@ -49,21 +55,24 @@ jobs:
       - name: Export curriculum sentences
         run: node scripts/export-sentence-audio-source.cjs
 
-      - name: Generate local Persian recordings
+      - name: Generate changed Persian recordings
         env:
           EDGE_TTS_VOICE: fa-IR-DilaraNeural
           TTS_CONCURRENCY: '3'
         run: python scripts/generate-sentence-audio.py
 
+      - name: Verify sentence audio integrity
+        run: node tests/local-sentence-audio.test.cjs
+
       - name: Commit generated recordings
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sentence-audio-source.json sentence-audio-manifest.js audio/sentences
+          git add sentence-audio-source.json sentence-audio-manifest.js sentence-audio-hashes.json audio/sentences
           if git diff --cached --quiet; then
             echo "Sentence audio is already current."
             exit 0
           fi
-          git commit -m "Generate local Persian sentence recordings"
+          git commit -m "Generate changed Persian sentence recordings"
           TARGET_BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
           git push origin "HEAD:${TARGET_BRANCH}"
