@@ -1,18 +1,174 @@
-/* Previous-day Persian letter review */
-.script-review-card { grid-column: 1 / -1; }
-.script-review-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
-.script-review-heading h3 { margin:2px 0 0; }
-.script-review-context { flex:0 0 auto; padding:7px 10px; border-radius:999px; background:var(--primary-soft); color:var(--primary-dark); font-size:11px; font-weight:850; }
-.script-review-prompt { margin:18px 0 14px; font-size:clamp(19px,3vw,24px); font-weight:800; line-height:1.35; }
-.script-form-cue { display:inline-block; min-width:1.5em; margin-inline-start:.25em; padding:.05em .28em .12em; border-radius:.4em; background:var(--primary-soft); color:var(--primary-dark); font-family:Tahoma,Arial,sans-serif; font-size:1.6em; line-height:1; vertical-align:middle; }
-.script-review-answer-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:13px; }
+/* Previous-day Persian letter review, kept separate from today's quiz. */
+.script-review-card {
+  grid-column: 1 / -1;
+  margin-top: 2px;
+}
+
+.script-review-card > summary {
+  list-style: none;
+}
+
+.script-review-card > summary::-webkit-details-marker {
+  display: none;
+}
+
+.script-review-summary {
+  min-height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 22px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: rgba(255,255,255,.78);
+  box-shadow: 0 10px 28px rgba(41,35,90,.07);
+  cursor: pointer;
+}
+
+.script-review-summary:hover {
+  border-color: rgba(91,75,219,.28);
+}
+
+.script-review-summary-copy {
+  min-width: 0;
+}
+
+.script-review-summary-copy .eyebrow {
+  margin-bottom: 4px;
+}
+
+.script-review-summary-copy h3 {
+  margin: 0 0 4px;
+  font-size: 22px;
+}
+
+.script-review-summary-copy > p:last-child {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.script-review-summary-action {
+  flex: 0 0 auto;
+  padding: 9px 12px;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.script-review-card[open] .script-review-summary {
+  margin-bottom: 14px;
+  border-color: rgba(91,75,219,.22);
+  background: #fff;
+}
+
+.script-review-panel {
+  box-shadow: 0 14px 34px rgba(41,35,90,.08);
+}
+
+.script-review-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.script-review-heading h3 {
+  margin: 2px 0 0;
+}
+
+.script-review-context {
+  flex: 0 0 auto;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.script-review-prompt {
+  margin: 18px 0 14px;
+  font-size: clamp(19px,3vw,24px);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.script-form-cue {
+  display: inline-block;
+  min-width: 1.5em;
+  margin-inline-start: .25em;
+  padding: .05em .28em .12em;
+  border-radius: .4em;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-family: Tahoma,Arial,sans-serif;
+  font-size: 1.6em;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.script-review-answer-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 13px;
+}
+
 .script-review-answer-actions .sentence-speak-btn,
-.script-review-answer-actions .secondary-btn { width:100%; min-height:46px; margin:0; }
-.script-review-card .script-score { margin-top:13px; text-align:left; }
+.script-review-answer-actions .secondary-btn {
+  width: 100%;
+  min-height: 46px;
+  margin: 0;
+}
+
+.script-review-panel .script-score {
+  margin-top: 13px;
+  text-align: left;
+}
+
 @media (max-width:640px) {
-  .script-review-card { padding:18px 16px; }
-  .script-review-heading { gap:10px; }
-  .script-review-heading h3 { font-size:21px; }
-  .script-review-context { padding:6px 8px; font-size:10px; }
-  .script-review-answer-actions { grid-template-columns:1fr; }
+  .script-review-summary {
+    min-height: 0;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .script-review-summary-copy h3 {
+    font-size: 20px;
+  }
+
+  .script-review-summary-copy > p:last-child {
+    font-size: 13px;
+  }
+
+  .script-review-summary-action {
+    padding: 7px 9px;
+    font-size: 11px;
+  }
+
+  .script-review-panel {
+    padding: 18px 16px;
+  }
+
+  .script-review-heading {
+    gap: 10px;
+  }
+
+  .script-review-heading h3 {
+    font-size: 21px;
+  }
+
+  .script-review-context {
+    padding: 6px 8px;
+    font-size: 10px;
+  }
+
+  .script-review-answer-actions {
+    grid-template-columns: 1fr;
+  }
 }
