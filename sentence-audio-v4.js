@@ -1,4 +1,4 @@
-// Persian-only sentence audio for iPhone Safari and installed PWAs.
+// Genuine Persian sentence audio for browsers and installed PWAs.
 (() => {
   const baseSpeakPractice = window.speakPractice;
   const remoteCache = new Map();
@@ -39,17 +39,17 @@
     if (typeof stopSpeech === 'function') stopSpeech();
   }
 
-  function speakPersianNow(text, { voice = null, rate = .82, activeRun }) {
+  function speakWithPersianVoice(text, voice, rate, activeRun) {
     return new Promise((resolve, reject) => {
-      if (!text || !('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
-        reject(new Error('Persian device speech unavailable'));
+      if (!voice || !text || !('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
+        reject(new Error('A genuine Persian device voice is unavailable'));
         return;
       }
 
       const synthesis = window.speechSynthesis;
       const utterance = new SpeechSynthesisUtterance(text);
-      if (voice) utterance.voice = voice;
-      utterance.lang = voice?.lang || 'fa-IR';
+      utterance.voice = voice;
+      utterance.lang = voice.lang;
       utterance.rate = rate;
       utterance.pitch = 1;
       utterance.volume = 1;
@@ -59,7 +59,7 @@
       const finish = (ok, error) => {
         if (settled) return;
         settled = true;
-        clearInterval(poll);
+        clearInterval(cancelTimer);
         clearTimeout(startTimer);
         clearTimeout(maxTimer);
         ok ? resolve(true) : reject(error || new Error('Persian device speech failed'));
@@ -74,14 +74,12 @@
       utterance.onend = () => finish(started);
       utterance.onerror = event => finish(false, new Error(event.error || 'Persian device speech failed'));
 
-      const poll = setInterval(() => {
+      const cancelTimer = setInterval(() => {
         if (activeRun !== runId) {
           try { synthesis.cancel(); } catch {}
           finish(false, new DOMException('Cancelled', 'AbortError'));
-          return;
         }
-        if (synthesis.speaking || synthesis.pending) markStarted();
-      }, 80);
+      }, 100);
       const startTimer = setTimeout(() => {
         if (!started && !synthesis.speaking && !synthesis.pending) {
           finish(false, new Error('Persian device speech did not start'));
@@ -89,7 +87,6 @@
       }, 1800);
       const maxTimer = setTimeout(() => finish(false, new Error('Persian device speech timed out')), 45000);
 
-      // Must run synchronously while the original tap still owns user activation.
       try {
         synthesis.resume();
         synthesis.speak(utterance);
@@ -108,60 +105,44 @@
     ];
   }
 
+  function createRemoteSource(url) {
+    const audio = new Audio();
+    const source = { audio, ready: false, failed: false };
+    audio.preload = 'auto';
+    audio.playsInline = true;
+    audio.setAttribute?.('playsinline', '');
+    audio.onloadeddata = () => { source.ready = true; };
+    audio.oncanplay = () => { source.ready = true; };
+    audio.onerror = () => { source.failed = true; };
+    audio.src = url;
+    try { audio.load(); } catch { source.failed = true; }
+    return source;
+  }
+
   function primeRemote(text, speed = 'normal') {
     if (!text) return null;
     const key = `${speed}:${text}`;
     const existing = remoteCache.get(key);
     if (existing) return existing;
 
-    const entry = { key, audio: new Audio(), ready: false, failed: false, sourceIndex: 0 };
-    const urls = remoteUrls(text, speed === 'slow');
-    const trySource = () => {
-      if (entry.sourceIndex >= urls.length) {
-        entry.failed = true;
-        return;
-      }
-      const audio = entry.audio;
-      audio.preload = 'auto';
-      audio.playsInline = true;
-      audio.setAttribute('playsinline', '');
-      audio.onloadeddata = () => { entry.ready = true; };
-      audio.oncanplay = () => { entry.ready = true; };
-      audio.onerror = () => {
-        entry.ready = false;
-        entry.sourceIndex += 1;
-        trySource();
-      };
-      audio.src = urls[entry.sourceIndex];
-      try {
-        audio.load();
-      } catch {
-        entry.sourceIndex += 1;
-        trySource();
-      }
+    const entry = {
+      key,
+      sources: remoteUrls(text, speed === 'slow').map(createRemoteSource)
     };
     remoteCache.set(key, entry);
-    trySource();
     while (remoteCache.size > 6) remoteCache.delete(remoteCache.keys().next().value);
     return entry;
   }
 
-  function playReadyRemote(entry, activeRun) {
+  function playRemoteSource(source, activeRun) {
     return new Promise((resolve, reject) => {
-      if (!entry || entry.failed || (!entry.ready && entry.audio.readyState < 2)) {
-        reject(new Error('Persian stream is not ready'));
+      if (!source || source.failed) {
+        reject(new Error('Persian stream source is unavailable'));
         return;
       }
-      const audio = entry.audio;
+
+      const audio = source.audio;
       let settled = false;
-      const finish = (ok, error) => {
-        if (settled) return;
-        settled = true;
-        cleanup();
-        if (activeAudio === audio) activeAudio = null;
-        if (!ok) entry.failed = true;
-        ok ? resolve(true) : reject(error || new Error('Persian stream failed'));
-      };
       const cleanup = () => {
         audio.onplaying = null;
         audio.onended = null;
@@ -170,10 +151,22 @@
         clearTimeout(maxTimer);
         clearInterval(cancelTimer);
       };
-      audio.onplaying = () => clearTimeout(startTimer);
+      const finish = (ok, error) => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        if (activeAudio === audio) activeAudio = null;
+        if (!ok) source.failed = true;
+        ok ? resolve(true) : reject(error || new Error('Persian stream failed'));
+      };
+
+      audio.onplaying = () => {
+        source.ready = true;
+        clearTimeout(startTimer);
+      };
       audio.onended = () => finish(true);
       audio.onerror = () => finish(false, new Error('Persian stream source failed'));
-      const startTimer = setTimeout(() => finish(false, new Error('Persian stream did not start')), 2200);
+      const startTimer = setTimeout(() => finish(false, new Error('Persian stream did not start')), 6000);
       const maxTimer = setTimeout(() => finish(false, new Error('Persian stream timed out')), 45000);
       const cancelTimer = setInterval(() => {
         if (activeRun !== runId) finish(false, new DOMException('Cancelled', 'AbortError'));
@@ -191,6 +184,26 @@
     });
   }
 
+  async function playRemote(entry, activeRun) {
+    if (!entry) throw new Error('Persian stream is unavailable');
+    const sources = [...entry.sources]
+      .filter(source => !source.failed)
+      .sort((left, right) => Number(right.ready) - Number(left.ready));
+    if (!sources.length) throw new Error('Persian stream is unavailable');
+
+    let lastError;
+    for (const source of sources) {
+      try {
+        await playRemoteSource(source, activeRun);
+        return true;
+      } catch (error) {
+        if (activeRun !== runId || error?.name === 'AbortError') throw error;
+        lastError = error;
+      }
+    }
+    throw lastError || new Error('Persian stream failed');
+  }
+
   function makeSequence(items, repeat) {
     const texts = [];
     for (let repetition = 0; repetition < repeat; repetition += 1) {
@@ -205,47 +218,18 @@
     if (voice) {
       return {
         method: 'persian-device',
-        promise: speakPersianNow(item.text, { voice, rate: slow ? .60 : .82, activeRun })
+        promise: speakWithPersianVoice(item.text, voice, slow ? .60 : .82, activeRun)
       };
     }
 
+    // Start the genuine Persian stream immediately while the tap still owns media activation.
     const remote = primeRemote(item.text, speed);
-    if (remote?.ready || remote?.audio?.readyState >= 2) {
-      return { method: 'persian-stream', promise: playReadyRemote(remote, activeRun) };
-    }
-
-    // Some iPhones honor fa-IR even when getVoices() omits the Persian voice.
-    return {
-      method: 'persian-device-unlisted',
-      promise: speakPersianNow(item.text, { rate: slow ? .60 : .82, activeRun })
-    };
+    return { method: 'persian-stream', promise: playRemote(remote, activeRun) };
   }
 
-  async function playPersian(text, button = null, speed = 'normal') {
-    if (!text) return false;
-    stopCurrent();
-    const activeRun = runId;
-    setSpeechButtonBusy(button, true);
-    const selected = choosePersianMethod({ text }, speed, activeRun);
-    try {
-      await selected.promise;
-      lastResult = { method: selected.method, error: null };
-      emit('complete', { button, items: [{ text }], speed, repeat: 1, method: selected.method });
-      return true;
-    } catch (error) {
-      if (activeRun !== runId || error?.name === 'AbortError') return false;
-      lastResult = { method: selected.method, error: error?.message || String(error) };
-      emit('error', { button, items: [{ text }], speed, repeat: 1, method: selected.method, error });
-      return false;
-    } finally {
-      setSpeechButtonBusy(button, false);
-    }
-  }
-
-  window.speakPractice = async function speakPracticePersianOnly(items, button = null, options = {}) {
+  async function runPersian(items, button, options = {}) {
     const normalized = normalize(items);
     if (!normalized.length) return false;
-    if (normalized.every(item => isHeadword(item.text))) return baseSpeakPractice(items, button, options);
 
     stopCurrent();
     const activeRun = runId;
@@ -270,6 +254,14 @@
     } finally {
       setSpeechButtonBusy(button, false);
     }
+  }
+
+  window.speakPractice = function speakPracticePersianOnly(items, button = null, options = {}) {
+    const normalized = normalize(items);
+    if (normalized.length && normalized.every(item => isHeadword(item.text))) {
+      return baseSpeakPractice(items, button, options);
+    }
+    return runPersian(normalized, button, options);
   };
 
   speak = function speakPersianOnly(text, button = null, phoneticHint = '') {
@@ -306,7 +298,7 @@
 
   window.FarsiSentenceAudio = {
     primeRemote,
-    playPersian,
+    playPersian: (text, button = null, speed = 'normal') => runPersian([{ text }], button, { speed }),
     diagnostics: () => ({ ...lastResult, hasPersianVoice: Boolean(persianVoice()) })
   };
 

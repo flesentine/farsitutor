@@ -1,4 +1,4 @@
-const CACHE = 'farsi-daily-cache-v29';
+const CACHE = 'farsi-daily-cache-v30';
 const ASSETS = [
   './', './index.html', './styles.css', './verb-upgrade.css', './learning-upgrade.css',
   './guided-learning.css?v=1', './ux-polish.css?v=1', './mobile-experience.css?v=2',
