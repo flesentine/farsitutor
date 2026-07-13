@@ -126,12 +126,32 @@
     renderScore();
   }
 
-  function speakCurrentSentence(button, fromReview = false) {
+  function visibleSentence(fromReview) {
+    const text = $(fromReview ? 'reviewExampleFa' : 'todayExampleFa')?.textContent?.trim();
+    if (text) return text;
     const index = fromReview ? reviewQueue[reviewIndex] : todaysWordIndex();
     const word = getWord(index);
-    if (!word) return;
-    const sentence = practiceSentence(word);
-    speak(sentence.fa, button, sentence.latin);
+    return word ? practiceSentence(word).fa : '';
+  }
+
+  async function speakCurrentSentence(button, fromReview = false) {
+    const text = visibleSentence(fromReview);
+    if (!text) return false;
+
+    const index = fromReview ? reviewQueue[reviewIndex] : todaysWordIndex();
+    const word = getWord(index);
+    if (word?.fa === text) {
+      toast('The full sentence is not available yet.');
+      return false;
+    }
+
+    window.FarsiSentenceAudio?.primeRemote?.(text, 'normal');
+    if (window.FarsiSentenceAudio?.playPersian) {
+      return window.FarsiSentenceAudio.playPersian(text, button, 'normal');
+    }
+
+    const sentence = word ? practiceSentence(word) : { latin: '' };
+    return speak(text, button, sentence.latin || '');
   }
 
   $('speakSentenceBtn').addEventListener('click', event => speakCurrentSentence(event.currentTarget));
