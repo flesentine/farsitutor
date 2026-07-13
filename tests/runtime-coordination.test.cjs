@@ -11,8 +11,9 @@ class MemoryStorage {
   get length() { return this.values.size; }
 }
 
-const today = '2026-07-12';
-const midnight = new Date(`${today}T00:00:00`).getTime();
+const currentDate = new Date();
+const today = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
+const midnight = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()).getTime();
 const guided = {
   days: {
     [today]: {
