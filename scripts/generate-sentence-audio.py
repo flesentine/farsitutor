@@ -27,6 +27,7 @@ def normalize(value: str) -> str:
 
 
 def content_hash(text: str, voice: str) -> str:
+    # Stable filenames are reusable only while both the spoken text and voice match.
     payload = f"{voice}\n{normalize(text)}".encode("utf-8")
     return hashlib.sha256(payload).hexdigest()
 
