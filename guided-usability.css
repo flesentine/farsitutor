@@ -9,6 +9,85 @@
   margin: 2px 0 14px;
 }
 
+.guided-word-listen {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  gap: 8px;
+  margin: 2px 0 12px;
+  padding: 4px 12px 12px;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  color: var(--text);
+}
+
+.guided-word-listen:hover,
+.guided-word-listen:focus-visible {
+  background: var(--primary-soft);
+}
+
+.guided-word-listen .guided-fa {
+  margin: 0;
+}
+
+.guided-word-listen-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.guided-word-audio-strip {
+  width: 100%;
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 14px 0 2px;
+  padding: 9px 13px;
+  border: 1px solid rgba(91, 75, 219, .16);
+  border-radius: 16px;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+}
+
+.guided-word-audio-fa {
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 850;
+}
+
+.guided-word-audio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+#speakReviewBtn.icon-btn {
+  width: auto;
+  min-width: 112px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 14px;
+  border-radius: 13px;
+  color: var(--primary-dark);
+  font-weight: 850;
+}
+
 .guided-recall-reveal {
   display: grid;
   gap: 2px;
@@ -59,5 +138,10 @@
 
   .guided-card h3 {
     font-size: 22px;
+  }
+
+  #speakReviewBtn.icon-btn {
+    min-width: 102px;
+    padding-inline: 11px;
   }
 }
