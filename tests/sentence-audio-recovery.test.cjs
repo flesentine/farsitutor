@@ -48,10 +48,11 @@ async function testGuidedRecovery() {
   if (reloads !== 1) throw new Error('Guided Today was not refreshed after audio recovery.');
 }
 
-async function testPhoneticFallback() {
+async function testImmediatePhoneticFallback() {
   const speechEvents = [];
   const toasts = [];
   const spoken = [];
+  let audioPlayCalls = 0;
 
   class FakeUtterance {
     constructor(text) { this.text = text; }
@@ -64,12 +65,20 @@ async function testPhoneticFallback() {
       this.src = '';
       this.volume = 1;
       this.playbackRate = 1;
+      this.readyState = 0;
     }
     setAttribute() {}
     removeAttribute() {}
     pause() {}
     load() {}
-    play() { return Promise.reject(new Error('stream unavailable')); }
+    play() {
+      audioPlayCalls += 1;
+      return Promise.reject(new Error('stream unavailable'));
+    }
+  }
+
+  class FakeMutationObserver {
+    observe() {}
   }
 
   const synthesis = {
@@ -80,10 +89,6 @@ async function testPhoneticFallback() {
     resume() {},
     speak(utterance) {
       spoken.push({ text: utterance.text, lang: utterance.lang });
-      if (utterance.lang === 'fa-IR') {
-        setTimeout(() => utterance.onerror?.({ error: 'language-unavailable' }), 0);
-        return;
-      }
       this.pending = true;
       setTimeout(() => {
         this.pending = false;
@@ -105,12 +110,14 @@ async function testPhoneticFallback() {
   const context = {
     console,
     Audio: FakeAudio,
+    MutationObserver: FakeMutationObserver,
     SpeechSynthesisUtterance: FakeUtterance,
     CustomEvent: FakeCustomEvent,
     DOMException,
     Date,
     Promise,
     Set,
+    Map,
     Array,
     String,
     Number,
@@ -127,6 +134,8 @@ async function testPhoneticFallback() {
     document: {
       dispatchEvent(event) { speechEvents.push(event); },
       addEventListener(name, handler) { documentListeners[name] = handler; },
+      getElementById() { return null; },
+      querySelector() { return null; },
       hidden: false
     },
     window: {
@@ -141,10 +150,13 @@ async function testPhoneticFallback() {
   const ok = await context.window.speakPractice([
     { text: 'او فارسی صحبت می‌کند.', phoneticHint: 'U fârsi sohbat mikonad.' }
   ]);
-  if (!ok) throw new Error('The phonetic device fallback did not complete playback.');
+  if (!ok) throw new Error('The immediate phonetic device fallback did not complete playback.');
+  if (audioPlayCalls !== 0) {
+    throw new Error('An unready remote stream was attempted before the gesture-safe device fallback.');
+  }
   const complete = speechEvents.find(event => event.type === 'farsi:speech-complete');
   if (complete?.detail?.method !== 'phonetic-device') {
-    throw new Error('The fallback chain did not report the phonetic device method.');
+    throw new Error('The immediate fallback did not report the phonetic device method.');
   }
   const english = spoken.find(item => item.lang === 'en-US');
   if (!english || !/U faarsi sohbat mikonad/i.test(english.text)) {
@@ -157,14 +169,18 @@ async function testPhoneticFallback() {
 
 (async () => {
   await testGuidedRecovery();
-  await testPhoneticFallback();
+  await testImmediatePhoneticFallback();
 
   const audio = fs.readFileSync(path.join(__dirname, '..', 'sentence-audio-v4.js'), 'utf8');
-  for (const required of ['persian-stream', 'persian-device-unlisted', 'phonetic-device']) {
-    if (!audio.includes(required)) throw new Error(`Sentence audio v4 is missing ${required}.`);
+  if (!audio.includes('Select and start the method synchronously')) {
+    throw new Error('Sentence audio no longer documents the gesture-safe selection boundary.');
   }
-  if (!audio.includes('You can continue without audio')) {
-    throw new Error('Sentence audio failure does not explain the escape path.');
+  if (!audio.includes('remote?.ready') || !audio.includes('phonetic-device')) {
+    throw new Error('Sentence audio is missing ready-stream selection or the immediate device fallback.');
+  }
+  const recovery = fs.readFileSync(path.join(__dirname, '..', 'guided-sentence-recovery.js'), 'utf8');
+  if (!recovery.includes('Play pronunciation guide') || !recovery.includes('Continue without audio')) {
+    throw new Error('Sentence recovery is missing an audio retry or escape path.');
   }
   console.log('Sentence audio recovery passed.');
 })().catch(error => {
