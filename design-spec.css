@@ -299,42 +299,14 @@ main {
 .guided-audio.secondary-btn,
 .guided-audio-cue { border: 1px solid rgba(102, 81, 232, .34); }
 .audio-icon {
-  position: relative;
-  width: 18px;
-  height: 18px;
-  display: inline-block;
-}
-.audio-icon::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 6px;
-  width: 5px;
-  height: 7px;
-  border-radius: 2px;
-  background: currentColor;
-}
-.audio-icon::after {
-  content: '';
-  position: absolute;
-  left: 4px;
-  top: 3px;
-  border-top: 7px solid transparent;
-  border-bottom: 7px solid transparent;
-  border-right: 0;
-  border-left: 8px solid currentColor;
-}
-.audio-icon span {
-  position: absolute;
-  right: 0;
-  top: 4px;
-  width: 7px;
-  height: 11px;
-  border: 1.5px solid currentColor;
-  border-left: 0;
-  border-top-color: transparent;
-  border-bottom-color: transparent;
-  border-radius: 0 50% 50% 0;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .text-action {
   min-width: 72px;
