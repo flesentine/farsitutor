@@ -40,6 +40,7 @@ function bindEvents() {
   $('goodBtn').addEventListener('click', () => rateCard('good'));
   $('restartReviewBtn').addEventListener('click', () => buildReviewQueue(true));
   $('reviewAnyBtn').addEventListener('click', () => buildReviewQueue(true));
+  $('scriptBackBtn')?.addEventListener('click', () => showView('today'));
   $('searchInput').addEventListener('input', renderDeck);
   $('reviewCard').addEventListener('keydown', event => {
     if (event.code === 'Space' && !$('revealBtn').classList.contains('hidden')) {
