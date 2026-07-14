@@ -5,6 +5,8 @@ const index = read('index.html');
 const guided = read('guided-today-v4.js');
 const styles = read('design-spec.css');
 const serviceWorker = read('sw.js');
+const appUi = read('app-ui.js');
+const appMain = read('app-main.js');
 
 for (const text of [
   "const CORE_STEPS = ['word', 'sentence', 'recall', 'script']",
@@ -38,6 +40,10 @@ if (!guided.includes("unlockAudioStep('word')") || !guided.includes("unlockAudio
 if (!guided.includes("querySelector(':scope > span:last-child')") || !guided.includes('event.stopImmediatePropagation()')) {
   throw new Error('Audio labels and lesson Back controls need dedicated, unambiguous handlers.');
 }
+if (!appUi.includes('function restartReviewSession()') || !appUi.includes('function practiceAnyWord()')
+    || !appMain.includes("addEventListener('click', restartReviewSession)")) {
+  throw new Error('Review restart and free practice must always build an actionable queue.');
+}
 if (guided.includes('MutationObserver') || guided.includes('window.location.reload')) {
   throw new Error('Today must not patch its DOM or reload during normal interactions.');
 }
@@ -48,7 +54,7 @@ for (const view of ['today', 'review', 'deck']) {
 for (const token of ['--bg: #f7f4ea', '--primary: #6651e8', '--success: #2c8e70', '--content-max: 560px']) {
   if (!styles.includes(token)) throw new Error(`Missing design token: ${token}`);
 }
-for (const asset of ['styles.css?v=32', 'learning-upgrade.css?v=2', 'design-spec.css?v=1', 'app-ui.js?v=3', 'app-main.js?v=3', 'learning-upgrade.js?v=4', 'guided-today-v4.js?v=4']) {
+for (const asset of ['styles.css?v=32', 'learning-upgrade.css?v=2', 'design-spec.css?v=1', 'app-ui.js?v=4', 'app-main.js?v=4', 'learning-upgrade.js?v=4', 'guided-today-v4.js?v=4']) {
   if (!index.includes(asset)) throw new Error(`Production page is missing ${asset}.`);
   if (!serviceWorker.includes(`'./${asset}'`)) throw new Error(`Offline cache is missing ${asset}.`);
 }
