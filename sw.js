@@ -1,14 +1,14 @@
-const CACHE = 'farsi-daily-cache-v36';
+const CACHE = 'farsi-daily-cache-v37';
 const ASSETS = [
   './', './index.html', './styles.css?v=32', './verb-upgrade.css', './learning-upgrade.css?v=2',
-  './script-review.css?v=4', './design-spec.css?v=1', './words.js',
+  './script-review.css?v=4', './design-spec.css?v=2', './words.js',
   './words-part-01.js', './words-part-02.js', './words-part-03.js', './words-part-04.js',
   './words-part-05.js', './words-part-06.js', './words-part-07.js', './words-part-08.js',
   './words-part-09.js', './words-order.js', './verbs.js', './script-lessons.js',
   './app-core.js', './script-quiz-utils.js?v=1', './app-ui.js?v=4', './app-main.js?v=4',
   './speech-fix.js?v=8', './learning-upgrade.js?v=4', './sentence-audio-manifest.js?v=1',
   './sentence-audio-v4.js?v=2', './sentence-local-audio.js?v=1',
-  './script-review-v2.js?v=4', './guided-today-v4.js?v=4', './manifest.json', './icon.svg'
+  './script-review-v2.js?v=5', './guided-today-v4.js?v=5', './manifest.json', './icon.svg'
 ];
 
 self.addEventListener('install', event => event.waitUntil(
