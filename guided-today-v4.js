@@ -85,7 +85,7 @@
       day.completedAt = null;
       const requested = Number(day.step);
       const firstIncomplete = CORE_STEPS.findIndex(key => !day.done[key]);
-      day.step = Number.isInteger(requested) && requested >= 0 && requested <= 3 && !day.done[CORE_STEPS[requested]]
+      day.step = Number.isInteger(requested) && requested >= 0 && requested <= 3
         ? requested
         : Math.max(0, firstIncomplete);
     }
@@ -304,6 +304,20 @@
     }
   }
 
+  function unlockAudioStep(kind) {
+    const root = shell();
+    const continueAction = kind === 'word' ? 'continue-sentence' : 'continue-recall';
+    const continueButton = root.querySelector(`[data-guided-action="${continueAction}"]`);
+    if (continueButton) continueButton.disabled = false;
+    const audioButton = root.querySelector(`.guided-audio[data-guided-action="play-${kind}"]`);
+    if (audioButton) {
+      audioButton.classList.remove('primary-btn');
+      audioButton.classList.add('secondary-btn');
+      const label = audioButton.querySelector('span:last-child');
+      if (label) label.textContent = kind === 'word' ? 'Hear word again' : 'Hear sentence again';
+    }
+  }
+
   async function handleAction(button) {
     const action = button.dataset.guidedAction;
     const word = currentWord();
@@ -330,7 +344,8 @@
       lesson.done.word = true;
       save();
       if (firstCompletion) trackOnce('step_completed', { step: 'word' });
-      return render();
+      unlockAudioStep('word');
+      return;
     }
     if (action === 'continue-sentence') return move(1);
     if (action === 'play-sentence' || action === 'slow-sentence') {
@@ -343,7 +358,8 @@
       lesson.done.sentence = true;
       save();
       if (firstCompletion) trackOnce('step_completed', { step: 'sentence' });
-      return render();
+      unlockAudioStep('sentence');
+      return;
     }
     if (action === 'continue-recall') return move(2);
     if (action === 'play-recall-word') {
@@ -395,6 +411,12 @@
   document.addEventListener('farsi:script-completed', () => {
     lesson.done.script = true;
     completeLesson();
+    showView('today');
+  });
+
+  document.getElementById('scriptBackBtn')?.addEventListener('click', () => {
+    lesson.step = 2;
+    save();
     showView('today');
   });
 
