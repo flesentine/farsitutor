@@ -1,6 +1,7 @@
 (() => {
   const SCRIPT_KEY = 'farsi-script-v1';
   let questionNumber = 0;
+  let lastAnswerCorrect = false;
 
   function loadProgress() {
     try {
@@ -54,6 +55,7 @@
   }
 
   function renderQuiz(autoStart = false) {
+    lastAnswerCorrect = false;
     const targetIndex = currentIndex();
     const question = quiz().questionFor(targetIndex, questionNumber);
     const prompt = $('scriptQuizPrompt');
@@ -91,6 +93,7 @@
       progress.completed[todayKey()] = true;
     }
     saveProgress(progress);
+    lastAnswerCorrect = correct;
 
     document.querySelectorAll('#scriptQuizChoices [data-script-choice]').forEach(choice => {
       choice.disabled = true;
@@ -104,7 +107,7 @@
     result.textContent = correct ? 'Correct — nice work.' : `Not quite. Today’s letter is ${lesson.letter} (${lesson.name}).`;
     result.className = `script-quiz-result ${correct ? 'good' : 'bad'}`;
     const next = $('scriptNextQuizBtn');
-    next.textContent = correct ? 'Practice this letter again' : 'Try this letter again';
+    next.textContent = correct ? 'Finish lesson' : 'Try this letter again';
     next.classList.remove('hidden');
     document.querySelector('#scriptView .script-card')?.classList.remove('hidden');
     renderScore();
@@ -168,6 +171,10 @@
     if (event.target.closest('[data-script-start]')) startQuiz();
   });
   $('scriptNextQuizBtn').addEventListener('click', () => {
+    if (lastAnswerCorrect) {
+      document.dispatchEvent(new CustomEvent('farsi:script-completed', { detail: { date: todayKey() } }));
+      return;
+    }
     questionNumber += 1;
     renderQuiz(true);
   });

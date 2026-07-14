@@ -2,50 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 
-class MemoryStorage {
-  constructor(values = {}) { this.values = new Map(Object.entries(values)); }
-  getItem(key) { return this.values.has(key) ? this.values.get(key) : null; }
-  setItem(key, value) { this.values.set(key, String(value)); }
-}
-
-async function testGuidedRecovery() {
-  const today = '2026-07-13';
-  const storage = new MemoryStorage({
-    'farsi-guided-today-v2': JSON.stringify({ days: { [today]: {
-      step: 1,
-      done: { word: true, sentence: false, recall: false, script: false, reviews: false },
-      sentencePlayed: false,
-      completedAt: null
-    } } })
-  });
-  let reloads = 0;
-  const context = {
-    console,
-    JSON,
-    Set,
-    localStorage: storage,
-    todayKey: () => today,
-    document: {
-      addEventListener() {},
-      createElement() { return { className: '', innerHTML: '', appendChild() {} }; }
-    },
-    window: {
-      __FARSI_TEST__: true,
-      FarsiGuidedToday: { reloadFromStorage() { reloads += 1; } }
-    }
-  };
-  context.window.window = context.window;
-  vm.createContext(context);
-  vm.runInContext(fs.readFileSync(path.join(__dirname, '..', 'guided-sentence-recovery.js'), 'utf8'), context);
-  const api = context.window.__FARSI_SENTENCE_RECOVERY_TEST__;
-  if (!api?.markSentenceSkipped()) throw new Error('Sentence recovery could not advance the lesson.');
-  const saved = JSON.parse(storage.getItem('farsi-guided-today-v2')).days[today];
-  if (!saved.done.sentence || saved.step !== 2 || saved.sentenceSkipped !== true) {
-    throw new Error('Skipping unavailable audio did not safely advance to the listening check.');
-  }
-  if (reloads !== 1) throw new Error('Guided Today was not refreshed after audio recovery.');
-}
-
 function makeAudioContext({ streamSucceeds }) {
   const speechEvents = [];
   const spoken = [];
@@ -163,7 +119,6 @@ async function testStreamFailureNeverUsesDefaultVoice() {
 }
 
 (async () => {
-  await testGuidedRecovery();
   await testDirectPersianStreamWithoutPersianVoice();
   await testStreamFailureNeverUsesDefaultVoice();
 
@@ -185,9 +140,9 @@ async function testStreamFailureNeverUsesDefaultVoice() {
     throw new Error('Today’s Persian sentence is not preloaded before Step 2.');
   }
 
-  const recovery = fs.readFileSync(path.join(__dirname, '..', 'guided-sentence-recovery.js'), 'utf8');
-  if (!recovery.includes('Try Persian audio again') || !recovery.includes('Continue without audio')) {
-    throw new Error('Sentence recovery is missing a genuine-Persian retry or escape path.');
+  const today = fs.readFileSync(path.join(__dirname, '..', 'guided-today-v4.js'), 'utf8');
+  if (!today.includes('Audio is unavailable. You can retry or continue.')) {
+    throw new Error('Today is missing an in-flow audio recovery message.');
   }
 
   console.log('Genuine Persian sentence audio recovery passed.');

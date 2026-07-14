@@ -158,6 +158,32 @@ function buildReviewQueue(forceAny = false, singleIndex = null) {
   renderReviewCard();
 }
 
+function startReviewQueue(indexes) {
+  reviewQueue = [...new Set(indexes.map(Number).filter(validReviewIndex))];
+  reviewIndex = 0;
+  reviewRetryCounts = new Map();
+  reviewRatingLocked = false;
+  renderReviewCard();
+}
+
+function practiceAnyWord() {
+  let available = Object.keys(state.cards).map(Number).filter(validReviewIndex);
+  if (!available.length) {
+    addWord(todaysWordIndex(), true);
+    available = [todaysWordIndex()];
+  }
+  startReviewQueue(shuffleIndexes(available));
+}
+
+function restartReviewSession() {
+  const previousSession = Array.isArray(reviewQueue) ? reviewQueue.filter(validReviewIndex) : [];
+  if (previousSession.length) {
+    startReviewQueue(previousSession);
+    return;
+  }
+  practiceAnyWord();
+}
+
 function reviewStage(card) {
   if ((card?.good || 0) < 3) return 'english';
   if ((card?.good || 0) < 6) return 'latin';
@@ -180,7 +206,7 @@ function renderReviewCard() {
   prompt.removeAttribute('dir');
 
   if (stage === 'english') {
-    $('reviewDirection').textContent = 'English → spoken Persian';
+    $('reviewDirection').textContent = 'English → Persian';
     prompt.textContent = word.en;
     prompt.classList.add('flash-prompt-english');
   } else if (stage === 'latin') {
@@ -208,7 +234,7 @@ function renderReviewCard() {
   $('reviewAnswer').classList.add('hidden');
   $('revealBtn').classList.remove('hidden');
   $('revealBtn').textContent = stage === 'script' ? 'Show meaning' : 'Show Persian';
-  $('speakReviewBtn').classList.add('hidden');
+  $('speakReviewBtn').classList.remove('hidden');
   const status = $('reviewSpeechStatus');
   if (status) {
     status.textContent = '';

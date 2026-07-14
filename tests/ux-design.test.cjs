@@ -3,42 +3,63 @@ const fs = require('fs');
 const read = path => fs.readFileSync(path, 'utf8');
 const index = read('index.html');
 const guided = read('guided-today-v4.js');
-const integrity = read('guided-integrity-v2.js');
-const runtime = read('runtime-integrity-v2.js');
+const styles = read('design-spec.css');
 const serviceWorker = read('sw.js');
+const appUi = read('app-ui.js');
+const appMain = read('app-main.js');
 
-const requiredGuidedText = [
-  'What does the word you just heard mean?',
-  'Hear it and try again',
-  'Try this letter again',
-  'Play slowly',
-  'See all 5 steps',
-  'Practice more words',
-  'lesson.done.recall = correct',
-  "'retry-recall'"
-];
-for (const text of requiredGuidedText) {
-  if (!guided.includes(text)) throw new Error(`Missing native guided UX behavior: ${text}`);
+for (const text of [
+  "const CORE_STEPS = ['word', 'sentence', 'recall', 'script']",
+  'One useful word and letter. About 4 minutes.',
+  'Start today’s lesson',
+  'Today · ${number} of 4',
+  'What does today’s word mean?',
+  'Listen as many times as you like',
+  'Continue to Script',
+  'REQUIRED SCRIPT PRACTICE',
+  'Check',
+  'Try once more',
+  'Lesson complete',
+  "track('lesson_completed')"
+]) {
+  if (!guided.includes(text)) throw new Error(`Missing visual-spec Today behavior: ${text}`);
 }
 
+if (guided.includes('See all 5 steps') || guided.includes("['word', 'sentence', 'recall', 'script', 'reviews']")) {
+  throw new Error('Review must not become a required fifth lesson step.');
+}
+if (guided.includes("data-guided-action=\"finish\"") || guided.includes('<small>OPTIONAL</small>Practice today’s letter')) {
+  throw new Error('Script practice must be required before lesson completion.');
+}
+if (!index.includes('REQUIRED · STEP 4 OF 4') || !index.includes('<svg viewBox="0 0 24 24">')) {
+  throw new Error('Required Script labeling or SVG navigation icons are missing.');
+}
+if (!guided.includes("unlockAudioStep('word')") || !guided.includes("unlockAudioStep('sentence')")) {
+  throw new Error('Audio must unlock Continue without replacing or advancing the current screen.');
+}
+if (!guided.includes("querySelector(':scope > span:last-child')") || !guided.includes('event.stopImmediatePropagation()')) {
+  throw new Error('Audio labels and lesson Back controls need dedicated, unambiguous handlers.');
+}
+if (!appUi.includes('function restartReviewSession()') || !appUi.includes('function practiceAnyWord()')
+    || !appMain.includes("addEventListener('click', restartReviewSession)")) {
+  throw new Error('Review restart and free practice must always build an actionable queue.');
+}
+if (!guided.includes('<svg class="audio-icon"') || index.includes('🔊')) {
+  throw new Error('Audio controls must use the consistent outlined speaker icon.');
+}
 if (guided.includes('MutationObserver') || guided.includes('window.location.reload')) {
-  throw new Error('Guided lesson must not patch its own DOM or reload for normal interactions.');
+  throw new Error('Today must not patch its DOM or reload during normal interactions.');
 }
-if (integrity.includes('MutationObserver') || integrity.includes('ensureStylesheet') || integrity.includes('document.addEventListener')) {
-  throw new Error('Integrity module must remain storage-only.');
+if (/data-view="script"/.test(index)) throw new Error('Script remains a permanent navigation tab.');
+for (const view of ['today', 'review', 'deck']) {
+  if (!index.includes(`data-view="${view}"`)) throw new Error(`Missing primary navigation area: ${view}`);
 }
-if (!runtime.includes('window.FarsiGuidedToday?.reloadFromStorage?.()') || runtime.includes('guidedStateDirty')) {
-  throw new Error('Runtime should refresh guided state through its API, not reload flags.');
+for (const token of ['--bg: #f7f4ea', '--primary: #6651e8', '--success: #2c8e70', '--content-max: 560px']) {
+  if (!styles.includes(token)) throw new Error(`Missing design token: ${token}`);
 }
-
-for (const asset of ['mobile-experience.css?v=2', 'guided-usability.css?v=1', 'guided-integrity-v2.js?v=1', 'guided-today-v4.js?v=1', 'runtime-integrity-v2.js?v=1']) {
+for (const asset of ['styles.css?v=32', 'learning-upgrade.css?v=2', 'design-spec.css?v=2', 'app-ui.js?v=4', 'app-main.js?v=4', 'learning-upgrade.js?v=4', 'script-review-v2.js?v=5', 'guided-today-v4.js?v=5']) {
   if (!index.includes(asset)) throw new Error(`Production page is missing ${asset}.`);
   if (!serviceWorker.includes(`'./${asset}'`)) throw new Error(`Offline cache is missing ${asset}.`);
 }
-for (const obsolete of ['guided-integrity-v1.js', 'guided-today-v3.js?v=2', 'runtime-integrity-v1.js']) {
-  if (index.includes(obsolete) || serviceWorker.includes(obsolete)) {
-    throw new Error(`Obsolete guided runtime is still loaded: ${obsolete}`);
-  }
-}
 
-console.log('Native UX design safeguards passed.');
+console.log('Visual UX specification safeguards passed.');
