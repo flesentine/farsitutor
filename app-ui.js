@@ -180,7 +180,7 @@ function renderReviewCard() {
   prompt.removeAttribute('dir');
 
   if (stage === 'english') {
-    $('reviewDirection').textContent = 'English → spoken Persian';
+    $('reviewDirection').textContent = 'English → Persian';
     prompt.textContent = word.en;
     prompt.classList.add('flash-prompt-english');
   } else if (stage === 'latin') {
@@ -208,7 +208,7 @@ function renderReviewCard() {
   $('reviewAnswer').classList.add('hidden');
   $('revealBtn').classList.remove('hidden');
   $('revealBtn').textContent = stage === 'script' ? 'Show meaning' : 'Show Persian';
-  $('speakReviewBtn').classList.add('hidden');
+  $('speakReviewBtn').classList.remove('hidden');
   const status = $('reviewSpeechStatus');
   if (status) {
     status.textContent = '';
