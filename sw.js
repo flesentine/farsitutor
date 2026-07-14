@@ -1,6 +1,6 @@
-const CACHE = 'farsi-daily-cache-v33';
+const CACHE = 'farsi-daily-cache-v34';
 const ASSETS = [
-  './', './index.html', './styles.css?v=32', './verb-upgrade.css', './learning-upgrade.css',
+  './', './index.html', './styles.css?v=32', './verb-upgrade.css', './learning-upgrade.css?v=2',
   './script-review.css?v=4', './design-spec.css?v=1', './words.js',
   './words-part-01.js', './words-part-02.js', './words-part-03.js', './words-part-04.js',
   './words-part-05.js', './words-part-06.js', './words-part-07.js', './words-part-08.js',
