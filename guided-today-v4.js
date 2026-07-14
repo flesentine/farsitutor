@@ -1,8 +1,8 @@
-// Farsi Daily design-spec renderer: one optional entry state, three required steps, one clear win.
+// Farsi Daily design-spec renderer: four required steps and one clear win.
 (() => {
   const KEY = 'farsi-guided-today-v2';
   const ROOT_ID = 'guidedTodayV3';
-  const CORE_STEPS = ['word', 'sentence', 'recall'];
+  const CORE_STEPS = ['word', 'sentence', 'recall', 'script'];
   const sessionEvents = new Set();
 
   const read = (key, fallback = {}) => {
@@ -46,7 +46,7 @@
       version: 'visual-spec-v1',
       started: false,
       step: 0,
-      done: { word: false, sentence: false, recall: false },
+      done: { word: false, sentence: false, recall: false, script: false },
       recall: { selected: null, submitted: false, correct: false },
       audio: { wordAttempted: false, sentenceAttempted: false },
       completedAt: null
@@ -65,26 +65,27 @@
       done: {
         word: Boolean(legacyDone.word),
         sentence: Boolean(legacyDone.sentence),
-        recall: Boolean(legacyDone.recall)
+        recall: Boolean(legacyDone.recall),
+        script: Boolean(legacyDone.script)
       },
       recall: { ...base.recall, ...(saved.recall || {}) },
       audio: { ...base.audio, ...(saved.audio || {}) }
     };
 
-    day.started = Boolean(day.started || day.done.word || day.done.sentence || day.done.recall || saved.completedAt);
+    day.started = Boolean(day.started || CORE_STEPS.some(key => day.done[key]) || saved.completedAt);
     day.recall.selected = Number.isInteger(Number(day.recall.selected)) ? Number(day.recall.selected) : null;
     day.recall.submitted = Boolean(day.recall.submitted || saved.recall?.answered);
     day.recall.correct = Boolean(day.recall.correct);
     if (day.recall.submitted && !day.recall.correct) day.done.recall = false;
 
     if (CORE_STEPS.every(key => day.done[key])) {
-      day.step = 3;
+      day.step = 4;
       day.completedAt ||= Date.now();
     } else {
       day.completedAt = null;
       const requested = Number(day.step);
       const firstIncomplete = CORE_STEPS.findIndex(key => !day.done[key]);
-      day.step = Number.isInteger(requested) && requested >= 0 && requested <= 2 && !day.done[CORE_STEPS[requested]]
+      day.step = Number.isInteger(requested) && requested >= 0 && requested <= 3 && !day.done[CORE_STEPS[requested]]
         ? requested
         : Math.max(0, firstIncomplete);
     }
@@ -144,7 +145,7 @@
     const due = dueCardIndexes().length;
     return `<section class="today-entry" aria-labelledby="todayEntryTitle">
       <header class="today-entry-head">
-        <div><p class="eyebrow">TODAY</p><h2 id="todayEntryTitle">One useful word. About 3 minutes.</h2></div>
+        <div><p class="eyebrow">TODAY</p><h2 id="todayEntryTitle">One useful word and letter. About 4 minutes.</h2></div>
         <span class="streak-pill"><strong>${streakDays()}</strong> day streak</span>
       </header>
       <article class="today-preview">
@@ -163,10 +164,10 @@
     const number = lesson.step + 1;
     return `<header class="guided-head">
       <button type="button" class="lesson-back" data-guided-action="back" aria-label="Go back">‹</button>
-      <div class="guided-head-copy"><strong>Today · ${number} of 3</strong><span>${['Hear the word', 'Use it in context', 'Recall'][lesson.step]}</span></div>
-      <span class="guided-count" aria-hidden="true">${number}/3</span>
+      <div class="guided-head-copy"><strong>Today · ${number} of 4</strong><span>${['Hear the word', 'Use it in context', 'Recall the word', 'Practice the script'][lesson.step]}</span></div>
+      <span class="guided-count" aria-hidden="true">${number}/4</span>
     </header>
-    <div class="guided-bar" role="progressbar" aria-label="Daily lesson progress" aria-valuemin="1" aria-valuemax="3" aria-valuenow="${number}"><span style="width:${number / 3 * 100}%"></span></div>`;
+    <div class="guided-bar" role="progressbar" aria-label="Daily lesson progress" aria-valuemin="1" aria-valuemax="4" aria-valuenow="${number}"><span style="width:${number / 4 * 100}%"></span></div>`;
   }
 
   function wordCard() {
@@ -179,9 +180,8 @@
         <span class="guided-meaning">${esc(word.en)}</span>
       </button>
       <button type="button" class="${lesson.done.word ? 'secondary-btn' : 'primary-btn'} guided-audio" data-guided-action="play-word">${audioIcon()}<span>${lesson.done.word ? 'Hear word again' : 'Hear word'}</span></button>
-      ${lesson.done.word
-        ? '<button type="button" class="primary-btn guided-primary" data-guided-action="continue-sentence">Continue</button>'
-        : '<p class="guided-help">Tap the word or button, then say it aloud.</p>'}
+      <button type="button" class="primary-btn guided-primary" data-guided-action="continue-sentence" ${lesson.done.word ? '' : 'disabled'}>Continue</button>
+      <p class="guided-help">Listen as many times as you like, then choose Continue.</p>
     </article>`;
   }
 
@@ -196,9 +196,8 @@
       </button>
       <button type="button" class="${lesson.done.sentence ? 'secondary-btn' : 'primary-btn'} guided-audio" data-guided-action="play-sentence">${audioIcon()}<span>${lesson.done.sentence ? 'Hear sentence again' : 'Hear sentence'}</span></button>
       <button type="button" class="text-action" data-guided-action="slow-sentence">Slow</button>
-      ${lesson.done.sentence
-        ? '<button type="button" class="primary-btn guided-primary" data-guided-action="continue-recall">Continue</button>'
-        : '<p class="guided-help">Listen once before moving to recall.</p>'}
+      <button type="button" class="primary-btn guided-primary" data-guided-action="continue-recall" ${lesson.done.sentence ? '' : 'disabled'}>Continue</button>
+      <p class="guided-help">Listen as many times as you like. Next, you’ll recall the word—not the sentence.</p>
     </article>`;
   }
 
@@ -208,8 +207,9 @@
     const correct = lesson.recall.correct;
     return `<article class="guided-card recall-card">
       <span class="guided-kicker">RECALL</span>
-      <h3>What did you hear?</h3>
-      <button type="button" class="secondary-btn guided-audio-cue" data-guided-action="play-recall-word">${audioIcon()}<span>Hear word</span></button>
+      <h3>What does today’s word mean?</h3>
+      <p class="guided-help recall-help">Play the word again, then choose its English meaning.</p>
+      <button type="button" class="secondary-btn guided-audio-cue" data-guided-action="play-recall-word">${audioIcon()}<span>Play today’s word</span></button>
       <div class="guided-choices" role="radiogroup" aria-label="Choose the English meaning">${recallChoices().map(index => {
         const selected = lesson.recall.selected === index;
         const stateClass = submitted ? (index === todaysWordIndex() ? ' correct' : selected ? ' wrong' : '') : selected ? ' selected' : '';
@@ -220,14 +220,23 @@
           <span><b lang="fa" dir="rtl">${esc(word.fa)}</b> · ${esc(word.latin)} means “${esc(word.en)}.”</span>
           ${correct ? '' : '<small>You’ll see it again soon.</small>'}
         </div>
-        <button type="button" class="primary-btn guided-primary" data-guided-action="${correct ? 'finish' : 'retry-recall'}">${correct ? 'Finish' : 'Try once more'}</button>`
+        <button type="button" class="primary-btn guided-primary" data-guided-action="${correct ? 'continue-script' : 'retry-recall'}">${correct ? 'Continue to Script' : 'Try once more'}</button>`
         : `<button type="button" class="primary-btn guided-primary" data-guided-action="check-recall" ${lesson.recall.selected == null ? 'disabled' : ''}>Check</button>`}
     </article>`;
   }
 
+  function scriptGateCard() {
+    return `${stepHeader()}<article class="guided-card script-gate-card">
+      <span class="guided-kicker">REQUIRED SCRIPT PRACTICE</span>
+      <h2>Finish with today’s Persian letter.</h2>
+      <p>Learn its forms and complete the one-question letter quiz.</p>
+      <button type="button" class="primary-btn guided-primary" data-guided-action="open-script">Start Script Practice</button>
+    </article>`;
+  }
+
   function completeLesson() {
-    lesson.done = { word: true, sentence: true, recall: true };
-    lesson.step = 3;
+    lesson.done = { word: true, sentence: true, recall: true, script: true };
+    lesson.step = 4;
     lesson.completedAt ||= Date.now();
     addWord(todaysWordIndex(), true);
     state.history[todayKey()] ||= { opened: true, reviewed: 0 };
@@ -249,7 +258,6 @@
       <div class="streak-number"><strong>${streakDays()}</strong><span>day streak</span></div>
       <div class="guided-done-word"><strong lang="fa" dir="rtl">${esc(word.fa)}</strong><span>${esc(word.latin)} · ${esc(word.en)}</span></div>
       ${due ? `<button type="button" class="secondary-btn optional-action" data-guided-action="open-review"><span><small>OPTIONAL</small>Review ${due} due word${due === 1 ? '' : 's'}</span><b>›</b></button>` : '<p class="optional-empty">No reviews are due right now.</p>'}
-      <button type="button" class="secondary-btn optional-action" data-guided-action="open-script"><span><small>OPTIONAL</small>Practice today’s letter</span><b>›</b></button>
       <button type="button" class="text-action done-action" data-guided-action="done">Done for today</button>
     </article>`;
   }
@@ -258,12 +266,14 @@
     lesson = normalizeLesson(lesson);
     const activity = !lesson.started
       ? entryCard()
-      : lesson.step === 3
+      : lesson.step === 4
         ? doneCard()
-        : `${stepHeader()}${[wordCard, sentenceCard, recallCard][lesson.step]()}`;
+        : lesson.step === 3
+          ? scriptGateCard()
+          : `${stepHeader()}${[wordCard, sentenceCard, recallCard][lesson.step]()}`;
     shell().innerHTML = `${activity}<p id="guidedStatusV3" class="guided-status" role="status" aria-live="polite"></p>`;
     save();
-    trackOnce('today_viewed', { state: !lesson.started ? 'entry' : lesson.step === 3 ? 'complete' : `step_${lesson.step + 1}` });
+    trackOnce('today_viewed', { state: !lesson.started ? 'entry' : lesson.step === 4 ? 'complete' : `step_${lesson.step + 1}` });
   }
 
   function announce(message, error = false) {
@@ -275,7 +285,7 @@
 
   function move(step) {
     lesson.started = true;
-    lesson.step = Math.max(0, Math.min(3, Number(step)));
+    lesson.step = Math.max(0, Math.min(4, Number(step)));
     save();
     render();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -301,7 +311,7 @@
 
     if (action === 'start') {
       lesson.started = true;
-      lesson.step = lesson.done.word ? (lesson.done.sentence ? 2 : 1) : 0;
+      lesson.step = lesson.done.word ? (lesson.done.sentence ? (lesson.done.recall ? 3 : 2) : 1) : 0;
       track('lesson_started');
       return move(lesson.step);
     }
@@ -313,29 +323,27 @@
       return move(lesson.step - 1);
     }
     if (action === 'play-word') {
-      const firstCompletion = !lesson.done.word;
       lesson.audio.wordAttempted = true;
+      save();
+      const firstCompletion = !lesson.done.word;
+      await play({ text: word.fa, phoneticHint: word.latin }, button, { kind: 'word' });
       lesson.done.word = true;
       save();
-      render();
-      const active = document.querySelector(`#${ROOT_ID} [data-guided-action="play-word"]`);
-      await play({ text: word.fa, phoneticHint: word.latin }, active, { kind: 'word' });
       if (firstCompletion) trackOnce('step_completed', { step: 'word' });
-      return;
+      return render();
     }
     if (action === 'continue-sentence') return move(1);
     if (action === 'play-sentence' || action === 'slow-sentence') {
-      const firstCompletion = !lesson.done.sentence;
       lesson.audio.sentenceAttempted = true;
-      lesson.done.sentence = true;
       save();
-      render();
-      const active = document.querySelector(`#${ROOT_ID} [data-guided-action="${action}"]`);
-      await play({ text: sentence.fa, phoneticHint: sentence.latin }, active, {
+      const firstCompletion = !lesson.done.sentence;
+      await play({ text: sentence.fa, phoneticHint: sentence.latin }, button, {
         kind: 'sentence', speed: action === 'slow-sentence' ? 'slow' : 'normal'
       });
+      lesson.done.sentence = true;
+      save();
       if (firstCompletion) trackOnce('step_completed', { step: 'sentence' });
-      return;
+      return render();
     }
     if (action === 'continue-recall') return move(2);
     if (action === 'play-recall-word') {
@@ -354,10 +362,7 @@
       lesson.done.recall = false;
       return render();
     }
-    if (action === 'finish') {
-      completeLesson();
-      return render();
-    }
+    if (action === 'continue-script') return move(3);
     if (action === 'open-review') {
       showView('review');
       buildReviewQueue(false);
@@ -385,6 +390,12 @@
       lesson.recall.selected = Number(recall.dataset.guidedRecall);
       render();
     }
+  });
+
+  document.addEventListener('farsi:script-completed', () => {
+    lesson.done.script = true;
+    completeLesson();
+    showView('today');
   });
 
   const previousShowView = showView;
