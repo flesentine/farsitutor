@@ -158,6 +158,32 @@ function buildReviewQueue(forceAny = false, singleIndex = null) {
   renderReviewCard();
 }
 
+function startReviewQueue(indexes) {
+  reviewQueue = [...new Set(indexes.map(Number).filter(validReviewIndex))];
+  reviewIndex = 0;
+  reviewRetryCounts = new Map();
+  reviewRatingLocked = false;
+  renderReviewCard();
+}
+
+function practiceAnyWord() {
+  let available = Object.keys(state.cards).map(Number).filter(validReviewIndex);
+  if (!available.length) {
+    addWord(todaysWordIndex(), true);
+    available = [todaysWordIndex()];
+  }
+  startReviewQueue(shuffleIndexes(available));
+}
+
+function restartReviewSession() {
+  const previousSession = Array.isArray(reviewQueue) ? reviewQueue.filter(validReviewIndex) : [];
+  if (previousSession.length) {
+    startReviewQueue(previousSession);
+    return;
+  }
+  practiceAnyWord();
+}
+
 function reviewStage(card) {
   if ((card?.good || 0) < 3) return 'english';
   if ((card?.good || 0) < 6) return 'latin';
