@@ -4,6 +4,7 @@ const read = path => fs.readFileSync(path, 'utf8');
 const index = read('index.html');
 const appUi = read('app-ui.js');
 const learning = read('learning-upgrade.js');
+const learningStyles = read('learning-upgrade.css');
 const guidedToday = read('guided-today-v4.js');
 
 for (const obsolete of [
@@ -25,6 +26,9 @@ if (/\b(renderToday|renderReviewCard)\s*=\s*function/.test(learning)) {
 }
 if (guidedToday.includes('MutationObserver') || guidedToday.includes('ensureStylesheet')) {
   throw new Error('Guided Today must render its UX directly.');
+}
+if (learningStyles.includes('mobile-experience.css')) {
+  throw new Error('Legacy mobile styles must not reintroduce duplicate navigation or covered controls.');
 }
 
 console.log('Source ownership remains concise.');
