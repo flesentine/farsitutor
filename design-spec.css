@@ -99,7 +99,8 @@ main {
   font-size: 11px;
   line-height: 1;
 }
-.tab-icon { font-size: 20px; line-height: 1; }
+.tab-icon { width: 27px; height: 27px; display: grid; place-items: center; line-height: 1; }
+.tab-icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .tab.active {
   background: var(--primary-soft);
   color: var(--primary-dark);
@@ -485,7 +486,7 @@ main {
 .deck-item { border-color: var(--border); background: var(--surface); box-shadow: 0 7px 20px rgba(26, 27, 41, .04); }
 .deck-actions button { min-width: 44px; min-height: 44px; background: var(--primary-soft); color: var(--primary-dark); }
 
-/* Optional script module */
+/* Required script module */
 .script-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .script-card, .script-quiz-card { padding: 24px; text-align: center; }
 .script-letter { margin: 5px 0; font-size: 100px; line-height: 1.2; }
@@ -543,7 +544,7 @@ footer { margin-left: 150px; }
   }
   .tab { min-height: 54px; padding: 4px; border-radius: 16px; }
   .tab.active { background: var(--primary); color: white; }
-  .tab-icon { font-size: 18px; }
+  .tab-icon { width: 30px; height: 30px; }
   .badge { right: 20%; border-color: var(--surface); }
   .view { min-width: 0; }
   .today-entry-head h2 { font-size: 27px; }
