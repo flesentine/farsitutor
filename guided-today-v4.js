@@ -137,7 +137,7 @@
   }
 
   function audioIcon() {
-    return '<span class="audio-icon" aria-hidden="true"><span></span></span>';
+    return '<svg class="audio-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19V5Z"/><path d="M15 9.5a4 4 0 0 1 0 5M17.7 7a7.5 7.5 0 0 1 0 10"/></svg>';
   }
 
   function entryCard() {
