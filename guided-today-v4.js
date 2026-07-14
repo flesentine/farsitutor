@@ -313,9 +313,22 @@
     if (audioButton) {
       audioButton.classList.remove('primary-btn');
       audioButton.classList.add('secondary-btn');
-      const label = audioButton.querySelector('span:last-child');
+      const label = audioButton.querySelector(':scope > span:last-child');
       if (label) label.textContent = kind === 'word' ? 'Hear word again' : 'Hear sentence again';
     }
+  }
+
+  function goBack() {
+    if (lesson.step <= 0) {
+      lesson.started = false;
+      save();
+      render();
+      return;
+    }
+    lesson.step -= 1;
+    save();
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   async function handleAction(button) {
@@ -330,11 +343,7 @@
       return move(lesson.step);
     }
     if (action === 'back') {
-      if (lesson.step === 0) {
-        lesson.started = false;
-        return render();
-      }
-      return move(lesson.step - 1);
+      return goBack();
     }
     if (action === 'play-word') {
       lesson.audio.wordAttempted = true;
@@ -393,6 +402,14 @@
       announce('You are done for today. Come back tomorrow for a new word.');
     }
   }
+
+  document.addEventListener('click', event => {
+    const back = event.target.closest?.(`#${ROOT_ID} .lesson-back`);
+    if (!back) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    goBack();
+  }, true);
 
   document.addEventListener('click', event => {
     if (!event.target.closest(`#${ROOT_ID}`)) return;
