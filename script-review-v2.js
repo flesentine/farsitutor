@@ -85,7 +85,7 @@
         <div id="pastScriptChoices" class="script-quiz-choices"></div>
         <p id="pastScriptResult" class="script-quiz-result" role="status" aria-live="polite"></p>
         <div id="pastScriptAnswerActions" class="script-review-answer-actions hidden">
-          <button id="pastScriptHearBtn" class="sentence-speak-btn" type="button"><span aria-hidden="true">🔊</span> Hear example</button>
+          <button id="pastScriptHearBtn" class="sentence-speak-btn" type="button"><svg class="audio-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19V5Z"/><path d="M15 9.5a4 4 0 0 1 0 5M17.7 7a7.5 7.5 0 0 1 0 10"/></svg> Hear example</button>
           <button id="pastScriptNextBtn" class="secondary-btn" type="button">Review another letter</button>
         </div>
         <p id="pastScriptScore" class="muted script-score"></p>
