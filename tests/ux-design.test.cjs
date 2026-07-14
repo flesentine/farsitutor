@@ -44,6 +44,9 @@ if (!appUi.includes('function restartReviewSession()') || !appUi.includes('funct
     || !appMain.includes("addEventListener('click', restartReviewSession)")) {
   throw new Error('Review restart and free practice must always build an actionable queue.');
 }
+if (!guided.includes('<svg class="audio-icon"') || index.includes('🔊')) {
+  throw new Error('Audio controls must use the consistent outlined speaker icon.');
+}
 if (guided.includes('MutationObserver') || guided.includes('window.location.reload')) {
   throw new Error('Today must not patch its DOM or reload during normal interactions.');
 }
@@ -54,7 +57,7 @@ for (const view of ['today', 'review', 'deck']) {
 for (const token of ['--bg: #f7f4ea', '--primary: #6651e8', '--success: #2c8e70', '--content-max: 560px']) {
   if (!styles.includes(token)) throw new Error(`Missing design token: ${token}`);
 }
-for (const asset of ['styles.css?v=32', 'learning-upgrade.css?v=2', 'design-spec.css?v=1', 'app-ui.js?v=4', 'app-main.js?v=4', 'learning-upgrade.js?v=4', 'guided-today-v4.js?v=4']) {
+for (const asset of ['styles.css?v=32', 'learning-upgrade.css?v=2', 'design-spec.css?v=2', 'app-ui.js?v=4', 'app-main.js?v=4', 'learning-upgrade.js?v=4', 'script-review-v2.js?v=5', 'guided-today-v4.js?v=5']) {
   if (!index.includes(asset)) throw new Error(`Production page is missing ${asset}.`);
   if (!serviceWorker.includes(`'./${asset}'`)) throw new Error(`Offline cache is missing ${asset}.`);
 }
