@@ -15,7 +15,7 @@ for (const obsolete of [
   if (index.includes(obsolete)) throw new Error(`Overlapping runtime layer is still loaded: ${obsolete}`);
 }
 
-if (!index.includes('design-spec.css?v=1') || !index.includes('guided-today-v4.js?v=4')) {
+if (!index.includes('design-spec.css?v=2') || !index.includes('guided-today-v4.js?v=5')) {
   throw new Error('The visual-spec presentation and Today renderer must be loaded statically.');
 }
 if (!appUi.includes('function practiceSentence(') || !appUi.includes('function reviewStage(')) {
