@@ -7,16 +7,11 @@
   <meta name="description" content="Learn spoken Persian vocabulary and Persian script with one short daily lesson.">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=32">
   <link rel="stylesheet" href="verb-upgrade.css">
   <link rel="stylesheet" href="learning-upgrade.css">
-  <link rel="stylesheet" href="guided-learning.css?v=1">
-  <link rel="stylesheet" href="ux-polish.css?v=1">
-  <link rel="stylesheet" href="mobile-experience.css?v=2">
-  <link rel="stylesheet" href="script-review.css?v=3">
-  <link rel="stylesheet" href="guided-today-v3.css?v=1">
-  <link rel="stylesheet" href="guided-usability.css?v=2">
-  <link rel="stylesheet" href="guided-audio-recovery.css?v=1">
+  <link rel="stylesheet" href="script-review.css?v=4">
+  <link rel="stylesheet" href="design-spec.css?v=1">
   <title>Farsi Daily</title>
 </head>
 <body>
@@ -30,18 +25,14 @@
   </header>
 
   <main>
-    <section class="stats-grid" aria-label="Learning statistics">
-      <article class="stat-card"><span id="streakStat">0</span><small>day streak</small></article>
-      <article class="stat-card"><span id="learnedStat">0</span><small>words learned</small></article>
-      <article class="stat-card"><span id="dueStat">0</span><small>due now</small></article>
-      <article class="stat-card"><span id="accuracyStat">—</span><small>accuracy</small></article>
-    </section>
+    <div class="sr-only" aria-live="polite">
+      <span id="streakStat">0</span><span id="learnedStat">0</span><span id="dueStat">0</span><span id="accuracyStat">—</span>
+    </div>
 
     <nav class="tabbar" aria-label="Main navigation">
-      <button class="tab active" data-view="today" type="button">Today</button>
-      <button class="tab" data-view="script" type="button">Script</button>
-      <button class="tab" data-view="review" type="button">Review <span id="reviewBadge" class="badge">0</span></button>
-      <button class="tab" data-view="deck" type="button">My words</button>
+      <button class="tab active" data-view="today" type="button"><span class="tab-icon" aria-hidden="true">✦</span><span>Today</span></button>
+      <button class="tab" data-view="review" type="button"><span class="tab-icon" aria-hidden="true">↻</span><span>Review</span><span id="reviewBadge" class="badge">0</span></button>
+      <button class="tab" data-view="deck" type="button"><span class="tab-icon" aria-hidden="true">▦</span><span>My Words</span></button>
     </nav>
 
     <section id="todayView" class="view active">
@@ -67,7 +58,10 @@
     </section>
 
     <section id="scriptView" class="view">
-      <div class="hero-copy"><p class="eyebrow">TODAY'S SCRIPT LESSON</p><h2>Learn today’s letter, then review older letters when you’re ready.</h2></div>
+      <div class="section-heading">
+        <div><p class="eyebrow">OPTIONAL SCRIPT PRACTICE</p><h2>Practice today’s Persian letter.</h2><p class="section-support">A one-minute recognition exercise after your daily spoken lesson.</p></div>
+        <button id="scriptBackBtn" class="ghost-btn" type="button">Back to Today</button>
+      </div>
       <div class="script-layout">
         <article class="script-card">
           <div class="word-topline"><span class="chip">Persian alphabet</span><span id="scriptDay" class="muted"></span></div>
@@ -120,16 +114,17 @@
           <div id="reviewAnswerFarsi" class="review-answer-farsi" lang="fa" dir="rtl">سلام</div>
           <div id="reviewLatin" class="transliteration">salâm</div>
           <div id="reviewMeaning" class="meaning">hello</div>
-          <div id="reviewExampleBox" class="review-example-box hidden">
+          <details id="reviewExampleBox" class="review-example-box hidden">
+            <summary>Example sentence</summary>
             <p id="reviewExampleFa" lang="fa" dir="rtl"></p>
             <p id="reviewExampleLatin"></p>
             <p id="reviewExampleEn"></p>
             <button id="speakReviewSentenceBtn" class="sentence-speak-btn" type="button"><span aria-hidden="true">🔊</span> Hear full sentence</button>
-          </div>
+          </details>
           <div id="reviewVerbPanel" class="verb-panel review-verb-panel hidden"></div>
           <div class="rating-row">
             <button id="againBtn" class="rating-btn again" type="button"><strong>Missed</strong><span>Review again soon</span></button>
-            <button id="goodBtn" class="rating-btn good" type="button"><strong>Got it</strong><span>Increase the gap</span></button>
+            <button id="goodBtn" class="rating-btn good" type="button"><strong>Knew it</strong><span>Increase the gap</span></button>
           </div>
         </div>
       </article>
@@ -162,18 +157,14 @@
 <script src="script-lessons.js" defer></script>
 <script src="app-core.js" defer></script>
 <script src="script-quiz-utils.js?v=1" defer></script>
-<script src="app-ui.js?v=2" defer></script>
-<script src="app-main.js?v=2" defer></script>
+<script src="app-ui.js?v=3" defer></script>
+<script src="app-main.js?v=3" defer></script>
 <script src="speech-fix.js?v=8" defer></script>
 <script src="learning-upgrade.js?v=3" defer></script>
-<script src="guided-learning.js?v=3" defer></script>
 <script src="sentence-audio-manifest.js?v=1" defer></script>
 <script src="sentence-audio-v4.js?v=2" defer></script>
 <script src="sentence-local-audio.js?v=1" defer></script>
 <script src="script-review-v2.js?v=4" defer></script>
-<script src="guided-integrity-v2.js?v=1" defer></script>
-<script src="guided-today-v4.js?v=1" defer></script>
-<script src="guided-sentence-recovery.js?v=3" defer></script>
-<script src="runtime-integrity-v2.js?v=1" defer></script>
+<script src="guided-today-v4.js?v=2" defer></script>
 </body>
 </html>
