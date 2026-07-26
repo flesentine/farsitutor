@@ -93,7 +93,8 @@
 
   function ensureCandidate(state, excludeIndex = null) {
     const available = rankedCandidates(excludeIndex);
-    const current = available.find(candidate => candidate.index === Number(state.candidateIndex));
+    const preferred = state.candidateIndex == null ? null : Number(state.candidateIndex);
+    const current = preferred === null ? null : available.find(candidate => candidate.index === preferred);
     const candidate = current || available[0] || null;
     if (!candidate) return null;
     state.candidateIndex = candidate.index;
