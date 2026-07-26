@@ -1,7 +1,7 @@
 // Layout density and icon placement polish. Learning behavior stays unchanged.
 (() => {
   const paths = {
-    today: '<path d="M7 2v3M17 2v3M3.5 9.5h17M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="m8.5 15 2.2 2.2 4.8-5"/>',
+    today: '<path d="M7 2v3M17 2v3M3.5 9.5h17M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2.5 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="m8.5 15 2.2 2.2 4.8-5"/>',
     review: '<path d="M20 11a8 8 0 1 0-2.34 5.66"/><path d="M20 4v7h-7"/>',
     deck: '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11a3 3 0 0 1 3 3v15a3 3 0 0 0-3-3H6.5A2.5 2.5 0 0 0 4 20.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H14v18a3 3 0 0 1 3-3h.5a2.5 2.5 0 0 1 2.5 2.5Z"/>',
     search: '<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/>',
@@ -34,8 +34,11 @@
 
   function replaceSpeakerIcons(root = document) {
     root.querySelectorAll('button').forEach(button => {
-      [...button.childNodes].forEach(node => {
-        if (node.nodeType !== Node.TEXT_NODE || !node.nodeValue.includes('🔊')) return;
+      const walker = document.createTreeWalker(button, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(node => {
+        if (!node.nodeValue.includes('🔊')) return;
         const parts = node.nodeValue.split('🔊');
         const fragment = document.createDocumentFragment();
         parts.forEach((part, index) => {
