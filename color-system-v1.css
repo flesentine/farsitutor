@@ -1,0 +1,219 @@
+/* Semantic color normalization: brand, neutral surfaces, and learning states. */
+:root {
+  --bg: #f7f7fa;
+  --surface: #ffffff;
+  --surface-2: #f1f2f6;
+  --border: #e2e1e8;
+
+  --text: #211f2c;
+  --muted: #676474;
+
+  --primary-50: #f7f5ff;
+  --primary-100: #ece9ff;
+  --primary-500: #5b4bdb;
+  --primary-600: #5141ce;
+  --primary-700: #4638bd;
+  --primary: var(--primary-500);
+  --primary-dark: var(--primary-700);
+  --primary-soft: var(--primary-100);
+  --primary-faint: var(--primary-50);
+
+  --success: #267d5b;
+  --success-soft: #e6f6ef;
+  --success-border: rgba(38, 125, 91, .45);
+
+  --danger: #a33d49;
+  --danger-soft: #fdecee;
+  --danger-border: rgba(163, 61, 73, .40);
+
+  --learning: #9a5b00;
+  --learning-soft: #fff2d6;
+  --learning-border: rgba(154, 91, 0, .34);
+
+  --notification: #c94b54;
+  --focus-ring: rgba(91, 75, 219, .28);
+  --primary-shadow: rgba(91, 75, 219, .24);
+}
+
+body {
+  background:
+    radial-gradient(circle at 15% 0%, rgba(91, 75, 219, .10), transparent 34rem),
+    radial-gradient(circle at 100% 10%, rgba(116, 109, 143, .08), transparent 28rem),
+    var(--bg);
+}
+
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline-color: var(--focus-ring);
+}
+
+/* Neutral structure should not compete with interactive lavender. */
+.stat-card,
+.tabbar,
+.search-wrap,
+.empty-state {
+  border-color: var(--border);
+}
+
+.example-box,
+.review-example-box,
+.script-forms div,
+.script-example,
+.guided-choice,
+.guided-letter-choice,
+.guided-study-forms div,
+.guided-inline-script,
+.deck-actions button {
+  background: var(--surface-2);
+}
+
+.guided-bar,
+.flash-progress {
+  background: #e7e8ee;
+}
+
+/* Lavender is reserved for selected, current, or actionable controls. */
+.secondary-btn {
+  border: 1px solid rgba(91, 75, 219, .13);
+  background: var(--primary-faint);
+  color: var(--primary-dark);
+}
+
+.speak-btn,
+.icon-btn,
+.guided-inline button,
+.guided-more button {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+}
+
+.sentence-speak-btn {
+  border-color: rgba(91, 75, 219, .16);
+  background: var(--surface);
+  color: var(--primary-dark);
+}
+
+.primary-btn {
+  background: linear-gradient(145deg, var(--primary-500), var(--primary-700));
+  box-shadow: 0 10px 20px var(--primary-shadow);
+}
+
+.primary-btn:hover {
+  background: var(--primary-700);
+}
+
+.primary-btn:disabled {
+  background: #aaa6b8;
+  color: #fff;
+}
+
+/* One semantic feedback system across vocabulary and script quizzes. */
+.rating-btn.good,
+.guided-card .correct,
+.guided-feedback.good,
+.script-choice.correct {
+  border-color: var(--success-border) !important;
+  background: var(--success-soft) !important;
+  color: var(--success) !important;
+}
+
+.rating-btn.again,
+.guided-card .wrong,
+.guided-feedback.bad,
+.script-choice.wrong {
+  border-color: var(--danger-border) !important;
+  background: var(--danger-soft) !important;
+  color: var(--danger) !important;
+}
+
+.script-quiz-result.good,
+.guided-inline-script-status {
+  color: var(--success);
+}
+
+.script-quiz-result.bad,
+.speech-status.error {
+  color: var(--danger);
+}
+
+/* Learning is distinct from success, error, and current-action purple. */
+.status-dot.learning {
+  background: var(--learning);
+}
+
+.filter[data-filter="learning"].active {
+  border-color: var(--learning-border);
+  background: var(--learning-soft);
+  color: var(--learning);
+}
+
+.filter[data-filter="strong"].active {
+  border-color: var(--success-border);
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.filter[data-filter="missed"].active {
+  border-color: var(--danger-border);
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* Small notification text needs stronger contrast than the old coral. */
+.tab .badge {
+  background: var(--notification);
+  color: #fff;
+}
+
+@media (max-width: 760px) {
+  body {
+    background:
+      radial-gradient(circle at 12% -4%, rgba(91, 75, 219, .14), transparent 23rem),
+      radial-gradient(circle at 105% 18%, rgba(116, 109, 143, .08), transparent 21rem),
+      var(--bg);
+  }
+
+  .topbar {
+    border-bottom-color: rgba(226, 225, 232, .92);
+    background: rgba(247, 247, 250, .90);
+  }
+
+  .tabbar {
+    border-color: rgba(255, 255, 255, .92);
+    background: rgba(255, 255, 255, .94);
+  }
+
+  .tab.active {
+    background: linear-gradient(145deg, var(--primary-500), var(--primary-700));
+    color: #fff;
+    box-shadow: 0 8px 18px var(--primary-shadow);
+  }
+
+  .tab .badge {
+    border-color: #fff;
+  }
+
+  .tab.active .badge {
+    border-color: var(--primary-500);
+  }
+
+  .speak-btn {
+    background: linear-gradient(145deg, var(--primary-soft), var(--primary-faint));
+  }
+
+  .example-box {
+    border-color: var(--border);
+    background: var(--surface-2);
+  }
+
+  .secondary-btn {
+    background: var(--primary-faint);
+  }
+
+  .script-choice,
+  .guided-choice,
+  .guided-letter-choice {
+    background: var(--surface-2);
+  }
+}
