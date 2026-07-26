@@ -128,8 +128,9 @@
   function doneCard() {
     const root = document.getElementById(ROOT_ID);
     if (!root) return null;
+    const completionLabels = new Set(['DONE FOR TODAY', 'LESSON COMPLETE']);
     return [...root.querySelectorAll('.guided-card')].find(card =>
-      card.querySelector('.guided-kicker')?.textContent.trim() === 'DONE FOR TODAY'
+      completionLabels.has(card.querySelector('.guided-kicker')?.textContent.trim())
     ) || null;
   }
 
