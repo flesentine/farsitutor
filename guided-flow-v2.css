@@ -1,0 +1,25 @@
+/* Navigation and optional-action polish for the simplified daily flow. */
+.guided-head {
+  max-width: 620px;
+}
+
+.guided-optional-note {
+  margin: 12px 0 4px;
+  padding: 11px 13px;
+  border-radius: 14px;
+  background: var(--primary-soft);
+  color: var(--primary-dark) !important;
+  font-weight: 750;
+}
+
+#speakReviewAnswerBtn {
+  width: 100%;
+  max-width: 360px;
+  margin: 14px auto 0;
+}
+
+@media (max-width: 760px) {
+  .tabbar {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
