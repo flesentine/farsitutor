@@ -1,18 +1,20 @@
-const CACHE = 'farsi-daily-cache-v36';
+const CACHE = 'farsi-daily-cache-v37';
 const ASSETS = [
   './', './index.html', './styles.css', './verb-upgrade.css', './learning-upgrade.css',
   './guided-learning.css?v=1', './ux-polish.css?v=1', './mobile-experience.css?v=2',
   './script-review.css?v=3', './guided-today-v3.css?v=1', './guided-usability.css?v=2',
   './guided-audio-recovery.css?v=1', './guided-flow-v2.css?v=1', './guided-script-inline.css?v=1',
-  './color-system-v1.css?v=1', './layout-polish-v1.css?v=1', './words.js', './words-part-01.js', './words-part-02.js',
-  './words-part-03.js', './words-part-04.js', './words-part-05.js', './words-part-06.js',
-  './words-part-07.js', './words-part-08.js', './words-part-09.js', './words-order.js', './verbs.js',
+  './color-system-v1.css?v=1', './layout-polish-v1.css?v=1', './generated-art-v1.css?v=1',
+  './words.js', './words-part-01.js', './words-part-02.js', './words-part-03.js',
+  './words-part-04.js', './words-part-05.js', './words-part-06.js', './words-part-07.js',
+  './words-part-08.js', './words-part-09.js', './words-order.js', './verbs.js',
   './script-lessons.js', './app-core.js', './script-quiz-utils.js?v=1', './app-ui.js?v=2',
   './app-main.js?v=3', './speech-fix.js?v=8', './learning-upgrade.js?v=3',
   './guided-learning.js?v=3', './sentence-audio-manifest.js?v=1', './sentence-audio-v4.js?v=2',
   './sentence-local-audio.js?v=1', './script-review-v2.js?v=4', './guided-integrity-v3.js?v=1',
   './guided-today-v5.js?v=1', './guided-script-inline.js?v=1', './guided-sentence-recovery.js?v=3',
-  './runtime-integrity-v3.js?v=1', './copy-polish-v1.js?v=1', './layout-polish-v1.js?v=1', './manifest.json', './icon.svg'
+  './runtime-integrity-v3.js?v=1', './copy-polish-v1.js?v=1', './layout-polish-v1.js?v=1',
+  './manifest.json', './icon.svg?v=2', './lesson-complete-badge.svg?v=1'
 ];
 
 self.addEventListener('install', event => event.waitUntil(
