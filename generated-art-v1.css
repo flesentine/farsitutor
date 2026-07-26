@@ -1,0 +1,27 @@
+/* Generated brand artwork integrated without changing lesson behavior. */
+.brand-mark {
+  background: #7651d8 url('./icon.svg?v=2') center / cover no-repeat !important;
+  color: transparent !important;
+  text-shadow: none !important;
+  box-shadow: 0 9px 22px rgba(91, 75, 219, .26) !important;
+}
+
+.guided-complete-heading .guided-done {
+  overflow: hidden;
+  border: 1px solid rgba(91, 75, 219, .18);
+  background: #7651d8 url('./lesson-complete-badge.svg?v=1') center / cover no-repeat !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  box-shadow: 0 8px 20px rgba(91, 75, 219, .22);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .guided-complete-heading .guided-done {
+    animation: generatedBadgeIn .32s cubic-bezier(.2, .8, .2, 1) both;
+  }
+}
+
+@keyframes generatedBadgeIn {
+  from { opacity: 0; transform: scale(.88) rotate(-3deg); }
+  to { opacity: 1; transform: none; }
+}
