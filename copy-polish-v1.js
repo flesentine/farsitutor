@@ -2,6 +2,8 @@
 (() => {
   const exactText = new Map([
     ['Daily lesson complete', 'Lesson complete'],
+    ['Add to my words', 'Save to My Words'],
+    ['Added to my words', 'Saved to My Words'],
     ['Everything required for today is saved.', 'Your progress is saved.'],
     ['Play word again', 'Hear word again'],
     ['Continue to sentence', 'Next: Sentence'],
