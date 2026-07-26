@@ -27,7 +27,7 @@
   <header class="topbar">
     <div class="brand-wrap">
       <div class="brand-mark" aria-hidden="true">ف</div>
-      <div><h1>Farsi Daily</h1><p>Speak first. Learn the script step by step.</p></div>
+      <div><h1>Farsi Daily</h1><p>Speak Farsi first. Learn the Persian script step by step.</p></div>
     </div>
     <button id="installBtn" class="ghost-btn hidden" type="button">Install app</button>
   </header>
@@ -35,9 +35,9 @@
   <main>
     <section class="stats-grid" aria-label="Learning statistics">
       <article class="stat-card"><span id="streakStat">0</span><small>day streak</small></article>
-      <article class="stat-card"><span id="learnedStat">0</span><small>words learned</small></article>
+      <article class="stat-card"><span id="learnedStat">0</span><small>saved words</small></article>
       <article class="stat-card"><span id="dueStat">0</span><small>due now</small></article>
-      <article class="stat-card"><span id="accuracyStat">—</span><small>accuracy</small></article>
+      <article class="stat-card"><span id="accuracyStat">—</span><small>review accuracy</small></article>
     </section>
 
     <nav class="tabbar" aria-label="Main navigation">
@@ -53,7 +53,7 @@
         <div class="farsi-word" id="todayFarsi" lang="fa" dir="rtl">سلام</div>
         <div class="transliteration" id="todayLatin">salâm</div>
         <div class="meaning" id="todayMeaning">hello</div>
-        <button id="speakTodayBtn" class="speak-btn" type="button" aria-label="Speak today's Persian word"><span aria-hidden="true">🔊</span> Hear word</button>
+        <button id="speakTodayBtn" class="speak-btn" type="button" aria-label="Play pronunciation of today's Farsi word"><span aria-hidden="true">🔊</span> Hear word</button>
         <div class="example-box">
           <p id="todayExampleFa" lang="fa" dir="rtl"></p>
           <p id="todayExampleLatin"></p>
@@ -62,14 +62,14 @@
         </div>
         <div id="todayVerbPanel" class="verb-panel hidden" aria-live="polite"></div>
         <div class="today-actions">
-          <button id="addTodayBtn" class="primary-btn" type="button">Add to my words</button>
+          <button id="addTodayBtn" class="primary-btn" type="button">Save to My Words</button>
           <button id="practiceTodayBtn" class="secondary-btn" type="button">Practice now</button>
         </div>
       </article>
     </section>
 
     <section id="scriptView" class="view">
-      <div class="hero-copy"><p class="eyebrow">LETTER PRACTICE</p><h2>Revisit today’s letter or practice older letters.</h2></div>
+      <div class="hero-copy"><p class="eyebrow">LETTER PRACTICE</p><h2>Review today’s letter or practice previous letters.</h2></div>
       <div class="script-layout">
         <article class="script-card">
           <div class="word-topline"><span class="chip">Persian alphabet</span><span id="scriptDay" class="muted"></span></div>
@@ -78,7 +78,7 @@
           <p id="scriptSound" class="script-sound">Sound: b</p>
           <div class="script-forms" aria-label="Letter forms">
             <div><small>Alone</small><strong id="scriptIsolated" lang="fa" dir="rtl"></strong></div>
-            <div><small>Start</small><strong id="scriptInitial" lang="fa" dir="rtl"></strong></div>
+            <div><small>Beginning</small><strong id="scriptInitial" lang="fa" dir="rtl"></strong></div>
             <div><small>Middle</small><strong id="scriptMedial" lang="fa" dir="rtl"></strong></div>
             <div><small>End</small><strong id="scriptFinal" lang="fa" dir="rtl"></strong></div>
           </div>
@@ -104,25 +104,25 @@
 
     <section id="reviewView" class="view">
       <div class="section-heading">
-        <div><p class="eyebrow">SMART REVIEW</p><h2>Start with English, then gradually learn the script.</h2></div>
+        <div><p class="eyebrow">SMART REVIEW</p><h2>Think of the answer, reveal it, then rate yourself.</h2></div>
         <button id="restartReviewBtn" class="ghost-btn" type="button">Restart session</button>
       </div>
       <div id="reviewEmpty" class="empty-state hidden">
         <div class="empty-icon">✓</div><h3>You're caught up</h3>
-        <p>No cards are due right now. Missed words return sooner, and strong words wait longer.</p>
-        <button id="reviewAnyBtn" class="secondary-btn" type="button">Practice any word</button>
+        <p>No words are due right now. Missed words return sooner, and strong words return later.</p>
+        <button id="reviewAnyBtn" class="secondary-btn" type="button">Practice saved words</button>
       </div>
       <article id="reviewCard" class="flashcard hidden" tabindex="0" aria-live="polite">
         <div class="flash-progress"><span id="reviewProgressFill"></span></div>
-        <div class="flash-meta"><span id="reviewCounter">1 of 1</span><button id="speakReviewBtn" class="icon-btn" type="button" aria-label="Hear review word"><span aria-hidden="true">🔊</span><span>Hear word</span></button></div>
-        <div id="reviewDirection" class="review-direction">English → Persian</div>
+        <div class="flash-meta"><span id="reviewCounter">1 of 1</span><button id="speakReviewBtn" class="icon-btn" type="button" aria-label="Play pronunciation for the review word"><span aria-hidden="true">🔊</span><span>Hear word</span></button></div>
+        <div id="reviewDirection" class="review-direction">Recall the Farsi word</div>
         <div id="reviewPrompt" class="flash-prompt flash-prompt-english">hello</div>
         <button id="revealBtn" class="primary-btn wide" type="button">Show answer</button>
         <div id="reviewAnswer" class="review-answer hidden">
           <div id="reviewAnswerFarsi" class="review-answer-farsi" lang="fa" dir="rtl">سلام</div>
           <div id="reviewLatin" class="transliteration">salâm</div>
           <div id="reviewMeaning" class="meaning">hello</div>
-          <button id="speakReviewAnswerBtn" class="sentence-speak-btn" type="button"><span aria-hidden="true">🔊</span> Hear answer</button>
+          <button id="speakReviewAnswerBtn" class="sentence-speak-btn" type="button"><span aria-hidden="true">🔊</span> Hear word</button>
           <div id="reviewExampleBox" class="review-example-box hidden">
             <p id="reviewExampleFa" lang="fa" dir="rtl"></p>
             <p id="reviewExampleLatin"></p>
@@ -131,8 +131,8 @@
           </div>
           <div id="reviewVerbPanel" class="verb-panel review-verb-panel hidden"></div>
           <div class="rating-row">
-            <button id="againBtn" class="rating-btn again" type="button"><strong>Missed</strong><span>Review again soon</span></button>
-            <button id="goodBtn" class="rating-btn good" type="button"><strong>Got it</strong><span>Increase the gap</span></button>
+            <button id="againBtn" class="rating-btn again" type="button"><strong>Missed</strong><span>Show it again soon</span></button>
+            <button id="goodBtn" class="rating-btn good" type="button"><strong>Got it</strong><span>Review it later</span></button>
           </div>
         </div>
       </article>
@@ -140,21 +140,21 @@
 
     <section id="deckView" class="view">
       <div class="section-heading deck-heading">
-        <div><p class="eyebrow">YOUR FLASHCARDS</p><h2>Every word you've collected.</h2></div>
-        <label class="search-wrap"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search words"></label>
+        <div><p class="eyebrow">YOUR WORDS</p><h2>Words you’re learning.</h2></div>
+        <label class="search-wrap"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" aria-label="Search saved words" placeholder="Search words"></label>
       </div>
-      <div class="filter-row" role="group" aria-label="Deck filters">
+      <div class="filter-row" role="group" aria-label="Word filters">
         <button class="filter active" data-filter="all" type="button">All</button>
         <button class="filter" data-filter="learning" type="button">Learning</button>
         <button class="filter" data-filter="strong" type="button">Strong</button>
         <button class="filter" data-filter="missed" type="button">Needs work</button>
       </div>
       <div id="deckList" class="deck-list"></div>
-      <div id="deckEmpty" class="empty-state hidden"><div class="empty-icon">ف</div><h3>No words yet</h3><p>Add today's word and it will appear here.</p></div>
+      <div id="deckEmpty" class="empty-state hidden"><div class="empty-icon">ف</div><h3>No saved words yet</h3><p>Words you save for review will appear here.</p></div>
     </section>
   </main>
 
-  <footer><p>Your spoken-vocabulary and script progress stay private in this browser.</p><button id="resetBtn" class="text-btn" type="button">Reset progress</button></footer>
+  <footer><p>Your Farsi progress is stored only in this browser.</p><button id="resetBtn" class="text-btn" type="button">Reset progress</button></footer>
 </div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
@@ -179,5 +179,6 @@
 <script src="guided-script-inline.js?v=1" defer></script>
 <script src="guided-sentence-recovery.js?v=3" defer></script>
 <script src="runtime-integrity-v3.js?v=1" defer></script>
+<script src="copy-polish-v1.js?v=1" defer></script>
 </body>
 </html>
