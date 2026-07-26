@@ -1,0 +1,82 @@
+/* Keep older-letter review inside Today after the required lesson is complete. */
+.guided-inline-script {
+  margin: 22px 0 14px;
+  padding: clamp(18px, 4vw, 26px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface-2);
+  text-align: left;
+}
+
+.guided-inline-script-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.guided-inline-script-heading h3 {
+  margin: 4px 0 0;
+}
+
+.guided-inline-script-context {
+  flex: 0 0 auto;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--primary-dark);
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.guided-inline-script-prompt {
+  margin: 18px 0 14px;
+  font-size: clamp(18px, 3vw, 23px);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.guided-inline-script-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.guided-inline-script-actions > :only-child {
+  grid-column: 1 / -1;
+}
+
+.guided-inline-script-actions button {
+  width: 100%;
+  min-height: 48px;
+  margin: 0;
+}
+
+.guided-inline-script-help,
+.guided-inline-script-status {
+  margin: 13px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.guided-inline-script-status {
+  color: var(--success);
+  font-weight: 750;
+}
+
+@media (max-width: 640px) {
+  .guided-inline-script-heading {
+    gap: 10px;
+  }
+
+  .guided-inline-script-context {
+    padding: 6px 8px;
+    font-size: 10px;
+  }
+
+  .guided-inline-script-actions {
+    grid-template-columns: 1fr;
+  }
+}
