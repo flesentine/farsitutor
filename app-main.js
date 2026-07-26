@@ -36,6 +36,11 @@ function bindEvents() {
     const word = getWord(reviewQueue[reviewIndex]);
     if (word) speak(word.fa, event.currentTarget);
   });
+  $('speakReviewAnswerBtn').addEventListener('click', event => {
+    if (!sanitizeReviewQueue()) return;
+    const word = getWord(reviewQueue[reviewIndex]);
+    if (word) speak(word.fa, event.currentTarget);
+  });
   $('againBtn').addEventListener('click', () => rateCard('bad'));
   $('goodBtn').addEventListener('click', () => rateCard('good'));
   $('restartReviewBtn').addEventListener('click', () => buildReviewQueue(true));
