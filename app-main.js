@@ -1,3 +1,12 @@
+const platformRuntime = window.FarsiPlatform || {
+  isNative: false,
+  isWeb: true,
+  capabilities: {
+    installPrompt: true,
+    serviceWorker: 'serviceWorker' in navigator
+  }
+};
+
 function clearLearningData() {
   const keys = [];
   for (let index = 0; index < localStorage.length; index += 1) {
@@ -84,18 +93,24 @@ function bindEvents() {
     }
   });
 
-  window.addEventListener('beforeinstallprompt', event => {
-    event.preventDefault();
-    deferredInstallPrompt = event;
-    $('installBtn').classList.remove('hidden');
-  });
-  $('installBtn').addEventListener('click', async () => {
-    if (!deferredInstallPrompt) return;
-    deferredInstallPrompt.prompt();
-    await deferredInstallPrompt.userChoice;
-    deferredInstallPrompt = null;
-    $('installBtn').classList.add('hidden');
-  });
+  const installButton = $('installBtn');
+  if (platformRuntime.capabilities.installPrompt) {
+    window.addEventListener('beforeinstallprompt', event => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      installButton?.classList.remove('hidden');
+    });
+    installButton?.addEventListener('click', async () => {
+      if (!deferredInstallPrompt) return;
+      deferredInstallPrompt.prompt();
+      await deferredInstallPrompt.userChoice;
+      deferredInstallPrompt = null;
+      installButton.classList.add('hidden');
+    });
+  } else {
+    installButton?.classList.add('hidden');
+    installButton?.setAttribute('aria-hidden', 'true');
+  }
 }
 
 if ('speechSynthesis' in window) {
@@ -108,6 +123,6 @@ document.addEventListener('visibilitychange', () => {
 ensureTodayLogged();
 bindEvents();
 renderAll();
-if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+if (platformRuntime.capabilities.serviceWorker && location.protocol !== 'file:') {
   window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
 }
