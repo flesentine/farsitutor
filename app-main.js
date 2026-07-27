@@ -7,9 +7,37 @@ const platformRuntime = window.FarsiPlatform || {
   }
 };
 
+let confirmationReady = null;
+function loadConfirmationDialog() {
+  if (window.FarsiConfirm) return Promise.resolve(window.FarsiConfirm);
+  if (confirmationReady) return confirmationReady;
+
+  confirmationReady = new Promise(resolve => {
+    let script = document.querySelector('script[data-confirmation-dialog]');
+    const finish = () => resolve(window.FarsiConfirm || null);
+    if (!script) {
+      script = document.createElement('script');
+      script.src = './confirmation-dialog.js?v=1';
+      script.async = false;
+      script.dataset.confirmationDialog = 'true';
+      document.head.appendChild(script);
+    }
+    script.addEventListener('load', finish, { once: true });
+    script.addEventListener('error', () => resolve(null), { once: true });
+  });
+  return confirmationReady;
+}
+
+loadConfirmationDialog();
+
 function clearLearningData() {
   window.FarsiStorage.clearLearningData();
   window.location.reload();
+}
+
+async function askConfirmation(options) {
+  await loadConfirmationDialog();
+  return Boolean(await window.FarsiConfirm?.ask?.(options));
 }
 
 function bindEvents() {
@@ -61,7 +89,7 @@ function bindEvents() {
     }
   });
 
-  $('deckList').addEventListener('click', event => {
+  $('deckList').addEventListener('click', async event => {
     const button = event.target.closest('button');
     if (!button) return;
     if (button.dataset.speak !== undefined) speak(getWord(Number(button.dataset.speak)).fa, button);
@@ -72,20 +100,28 @@ function bindEvents() {
     if (button.dataset.remove !== undefined) {
       const index = Number(button.dataset.remove);
       const word = getWord(index);
-      if (word && confirm(`Remove “${word.fa}” from your flashcards?`)) {
-        delete state.cards[index];
-        saveState();
-        sanitizeReviewQueue();
-        renderAll();
-        if ($('reviewView').classList.contains('active')) renderReviewCard();
-      }
+      if (!word) return;
+      const confirmed = await askConfirmation({
+        title: 'Remove saved word?',
+        message: `“${word.fa}” will be removed from My Words and its review history will be deleted.`,
+        confirmLabel: 'Remove word'
+      });
+      if (!confirmed) return;
+      delete state.cards[index];
+      saveState();
+      sanitizeReviewQueue();
+      renderAll();
+      if ($('reviewView').classList.contains('active')) renderReviewCard();
     }
   });
 
-  $('resetBtn').addEventListener('click', () => {
-    if (confirm('Reset all saved words, lesson progress, script progress, and review history?')) {
-      clearLearningData();
-    }
+  $('resetBtn').addEventListener('click', async () => {
+    const confirmed = await askConfirmation({
+      title: 'Reset all learning progress?',
+      message: 'This permanently removes saved words, lessons, letter practice, review history, streaks, and settings from this device.',
+      confirmLabel: 'Reset progress'
+    });
+    if (confirmed) clearLearningData();
   });
 
   const installButton = $('installBtn');
