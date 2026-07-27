@@ -1,5 +1,13 @@
 // Accessible in-app confirmation sheet for destructive actions.
 (() => {
+  if (!document.querySelector('link[data-confirmation-dialog]')) {
+    const stylesheet = document.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = './confirmation-dialog.css?v=1';
+    stylesheet.dataset.confirmationDialog = 'true';
+    document.head.appendChild(stylesheet);
+  }
+
   let layer = null;
   let titleElement = null;
   let messageElement = null;
