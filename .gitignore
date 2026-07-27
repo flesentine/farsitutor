@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+dist/
+
+# Generated native build products. Keep the Xcode project itself once it is created.
+ios/App/Pods/
+ios/App/App/public/
+ios/App/DerivedData/
+ios/App/xcuserdata/
+*.xcuserstate
