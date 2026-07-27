@@ -1,0 +1,27 @@
+{
+  "name": "farsi-daily",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:native": "node tools/build-native.mjs",
+    "cap:add:ios": "npm run build:native && npx cap add ios && npm run ios:configure",
+    "cap:sync:ios": "npm run build:native && npx cap sync ios && npm run ios:configure",
+    "cap:open:ios": "npx cap open ios",
+    "cap:run:ios": "npm run cap:sync:ios && npx cap run ios",
+    "ios:configure": "node tools/configure-ios.mjs",
+    "test:capacitor": "node tests/capacitor-bootstrap.test.cjs"
+  },
+  "dependencies": {
+    "@capacitor/core": "8.4.2",
+    "@capacitor/haptics": "8.0.1",
+    "@capacitor/ios": "8.4.2",
+    "@capacitor/local-notifications": "8.2.1",
+    "@capacitor/preferences": "8.0.1",
+    "@capacitor/share": "8.0.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.4.2",
+    "esbuild": "0.28.1"
+  }
+}
