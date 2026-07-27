@@ -49,7 +49,8 @@
     ['Persian script → meaning', 'Recall the English meaning'],
     ['Audio played successfully.', 'Audio finished.'],
     ['Audio could not play.', 'Audio couldn’t play. Check your volume and try again.'],
-    ['The full sentence is not available yet.', 'Sentence audio isn’t available for this word yet.']
+    ['The full sentence is not available yet.', 'Sentence audio isn’t available for this word yet.'],
+    ['The current web build may use a remote pronunciation fallback when bundled and device audio are unavailable.', 'Curriculum words and sentences use bundled audio. Uncommon phrases use a genuine Persian system voice when available.']
   ]);
 
   const phraseText = [
@@ -155,7 +156,7 @@
   reset?.addEventListener('click', event => {
     event.preventDefault();
     event.stopImmediatePropagation();
-    const message = 'Reset all progress? This will remove your saved words, lessons, letter progress, and review history from this browser.';
+    const message = 'Reset all progress? This will remove your saved words, lessons, letter progress, review history, and settings from this device.';
     if (window.confirm(message)) clearLearningData();
   }, true);
 

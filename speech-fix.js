@@ -1,31 +1,6 @@
-// Reliable pronunciation for headwords, sentences, repeats, and slow practice.
+// Reliable pronunciation using bundled curriculum audio and a genuine Persian device voice.
 (() => {
-  const nativeStartTimeoutMs = 2200;
-  const remoteStartTimeoutMs = 5200;
-
-  function phoneticEnglish(text) {
-    return String(text || '')
-      .toLowerCase()
-      .replaceAll('â', 'aa')
-      .replaceAll('ā', 'aa')
-      .replaceAll('kh', 'k h')
-      .replaceAll('gh', 'g h')
-      .replaceAll('zh', 'j')
-      .replaceAll('q', 'g')
-      .replaceAll('-', ' ')
-      .replace(/[?!.,،؟«»“”]/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
-  }
-
-  function chooseEnglishVoice() {
-    if (!('speechSynthesis' in window)) return null;
-    const voices = window.speechSynthesis.getVoices() || [];
-    return voices.find(voice => /^en-US$/i.test(voice.lang))
-      || voices.find(voice => /^en(?:-|_|$)/i.test(voice.lang))
-      || voices[0]
-      || null;
-  }
+  const deviceStartTimeoutMs = 2200;
 
   function wait(ms, requestId) {
     return new Promise(resolve => {
@@ -53,7 +28,7 @@
     baseSetSpeechButtonBusy(button, busy);
   };
 
-  function playAudioElement(audio, requestId, startTimeoutMs = remoteStartTimeoutMs) {
+  function playAudioElement(audio, requestId, startTimeoutMs = 2800) {
     return new Promise((resolve, reject) => {
       let settled = false;
       let started = false;
@@ -117,24 +92,24 @@
     });
   }
 
-  function speakWithBrowser(item, requestId, speed, mode = 'persian') {
+  function listedPersianVoice() {
+    if (!('speechSynthesis' in window)) return null;
+    const voices = window.speechSynthesis.getVoices() || [];
+    return voices.find(voice => /^fa(?:-|_|$)/i.test(voice.lang))
+      || voices.find(voice => /persian|farsi|iran/i.test(`${voice.name} ${voice.lang}`))
+      || null;
+  }
+
+  function speakWithPersianVoice(item, requestId, speed) {
     return new Promise((resolve, reject) => {
-      if (!('speechSynthesis' in window) || requestId !== speechRequest) {
-        reject(new Error('Speech synthesis unavailable'));
+      const voice = listedPersianVoice();
+      if (!voice || !item?.text || requestId !== speechRequest || typeof SpeechSynthesisUtterance === 'undefined') {
+        reject(new Error('A genuine Persian system voice is unavailable'));
         return;
       }
 
       const synthesis = window.speechSynthesis;
-      const persianVoice = typeof findPersianVoice === 'function' ? findPersianVoice() : null;
-      const usePhonetic = mode === 'phonetic';
-      const spokenText = usePhonetic ? phoneticEnglish(item.phoneticHint) : item.text;
-      if (!spokenText) {
-        reject(new Error('No speech text'));
-        return;
-      }
-
-      const utterance = new SpeechSynthesisUtterance(spokenText);
-      const voice = usePhonetic ? chooseEnglishVoice() : persianVoice;
+      const utterance = new SpeechSynthesisUtterance(item.text);
       let settled = false;
       let started = false;
       let startTimer;
@@ -151,13 +126,13 @@
         settled = true;
         cleanup();
         if (ok) resolve(true);
-        else reject(new Error('Browser speech failed'));
+        else reject(new Error('Persian system speech failed'));
       };
       const markStarted = () => {
         if (started) return;
         started = true;
         window.clearTimeout(startTimer);
-        const estimatedMs = Math.max(7000, spokenText.length * (speed === 'slow' ? 430 : 300));
+        const estimatedMs = Math.max(7000, item.text.length * (speed === 'slow' ? 430 : 300));
         maxTimer = window.setTimeout(() => {
           synthesis.cancel();
           finish(false);
@@ -170,11 +145,9 @@
         }
       }, 100);
 
-      if (voice) utterance.voice = voice;
-      utterance.lang = usePhonetic ? (voice?.lang || 'en-US') : (voice?.lang || 'fa-IR');
-      utterance.rate = speed === 'slow'
-        ? (usePhonetic ? .55 : .60)
-        : (usePhonetic ? .72 : .82);
+      utterance.voice = voice;
+      utterance.lang = voice.lang;
+      utterance.rate = speed === 'slow' ? 0.60 : 0.82;
       utterance.pitch = 1;
       utterance.volume = 1;
       utterance.onstart = markStarted;
@@ -190,7 +163,7 @@
           synthesis.cancel();
           finish(false);
         }
-      }, nativeStartTimeoutMs);
+      }, deviceStartTimeoutMs);
 
       try {
         synthesis.speak(utterance);
@@ -198,78 +171,6 @@
         finish(false);
       }
     });
-  }
-
-  function splitTtsText(text, maxLength = 170) {
-    const value = String(text || '').trim();
-    if (value.length <= maxLength) return [value];
-    const clauses = value.split(/(?<=[.?!؟،؛])\s*/).filter(Boolean);
-    const chunks = [];
-    let current = '';
-    clauses.forEach(clause => {
-      if (!current) current = clause;
-      else if (`${current} ${clause}`.length <= maxLength) current += ` ${clause}`;
-      else {
-        chunks.push(current);
-        current = clause;
-      }
-    });
-    if (current) chunks.push(current);
-    return chunks.length ? chunks : [value.slice(0, maxLength)];
-  }
-
-  async function playRemotePersian(item, requestId, speed) {
-    const chunks = splitTtsText(item.text);
-    for (const chunk of chunks) {
-      const encoded = encodeURIComponent(chunk);
-      const ttsSpeed = speed === 'slow' ? '0.24' : '1';
-      const urls = [
-        `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=fa&ttsspeed=${ttsSpeed}&q=${encoded}`,
-        `https://translate.googleapis.com/translate_tts?ie=UTF-8&client=gtx&tl=fa&ttsspeed=${ttsSpeed}&q=${encoded}`
-      ];
-      let played = false;
-      for (const url of urls) {
-        if (requestId !== speechRequest) return true;
-        const audio = new Audio(url);
-        audio.preload = 'auto';
-        audio.playsInline = true;
-        audio.volume = 1;
-        try {
-          await playAudioElement(audio, requestId);
-          played = true;
-          break;
-        } catch {
-          // Try the next source.
-        }
-      }
-      if (!played) throw new Error('Remote Persian speech failed');
-      if (chunks.length > 1) await wait(180, requestId);
-    }
-    return true;
-  }
-
-  async function playFallback(item, requestId, speed) {
-    const hasPersianVoice = Boolean(typeof findPersianVoice === 'function' && findPersianVoice());
-
-    if (hasPersianVoice) {
-      try {
-        return await speakWithBrowser(item, requestId, speed, 'persian');
-      } catch {
-        // Continue to streamed speech.
-      }
-    }
-
-    try {
-      return await playRemotePersian(item, requestId, speed);
-    } catch {
-      // Some browsers can still select a Persian voice when lang is set even if it is not listed.
-    }
-
-    try {
-      return await speakWithBrowser(item, requestId, speed, 'persian');
-    } catch {
-      return speakWithBrowser(item, requestId, speed, 'phonetic');
-    }
   }
 
   async function playOne(item, requestId, speed) {
@@ -280,20 +181,20 @@
 
     if (wordIndex >= 0) {
       const filename = String(wordIndex).padStart(3, '0');
-      const audio = new Audio(`audio/${filename}.mp3?v=8`);
+      const audio = new Audio(`audio/${filename}.mp3?v=10`);
       audio.preload = 'auto';
       audio.playsInline = true;
       audio.volume = 1;
-      audio.playbackRate = speed === 'slow' ? .72 : 1;
+      audio.playbackRate = speed === 'slow' ? 0.72 : 1;
       try {
-        await playAudioElement(audio, requestId, 2800);
+        await playAudioElement(audio, requestId);
         return true;
       } catch {
-        // Fall through to live speech.
+        // A real Persian system voice is the only fallback for a damaged local file.
       }
     }
 
-    return playFallback(item, requestId, speed);
+    return speakWithPersianVoice(item, requestId, speed);
   }
 
   window.speakPractice = async function speakPractice(items, button = null, options = {}) {
@@ -332,7 +233,7 @@
     } catch (error) {
       if (requestId === speechRequest) {
         emitSpeechEvent('error', { button, items: normalized, speed, repeat, error });
-        toast('Audio could not start. Check media volume, then try Slow sentence.');
+        toast('Pronunciation is unavailable on this device. Check media volume and try again.');
       }
       return false;
     } finally {
