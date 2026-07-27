@@ -46,46 +46,34 @@ async function testGuidedRecovery() {
   if (reloads !== 1) throw new Error('Guided Today was not refreshed after audio recovery.');
 }
 
-function makeAudioContext({ streamSucceeds }) {
+function makeAudioContext({ hasPersianVoice }) {
   const speechEvents = [];
   const spoken = [];
-  let audioPlayCalls = 0;
 
   class FakeUtterance {
     constructor(text) { this.text = text; }
   }
 
-  class FakeAudio {
-    constructor() {
-      this.preload = '';
-      this.playsInline = false;
-      this.src = '';
-      this.volume = 1;
-      this.readyState = 0;
-      this.currentTime = 0;
-    }
-    setAttribute() {}
-    pause() {}
-    load() {}
-    play() {
-      audioPlayCalls += 1;
-      if (!streamSucceeds) return Promise.reject(new Error('stream unavailable'));
-      setTimeout(() => {
-        this.onplaying?.();
-        setTimeout(() => this.onended?.(), 2);
-      }, 0);
-      return Promise.resolve();
-    }
-  }
+  const voices = hasPersianVoice
+    ? [{ name: 'Persian', lang: 'fa-IR' }, { name: 'English', lang: 'en-US' }]
+    : [{ name: 'English', lang: 'en-US' }];
 
   const synthesis = {
     speaking: false,
     pending: false,
-    getVoices() { return [{ name: 'English', lang: 'en-US' }]; },
+    getVoices() { return voices; },
     cancel() { this.speaking = false; this.pending = false; },
     resume() {},
     speak(utterance) {
       spoken.push({ text: utterance.text, lang: utterance.lang, voice: utterance.voice?.name || null });
+      this.speaking = true;
+      setTimeout(() => {
+        utterance.onstart?.();
+        setTimeout(() => {
+          this.speaking = false;
+          utterance.onend?.();
+        }, 2);
+      }, 0);
     }
   };
 
@@ -95,7 +83,6 @@ function makeAudioContext({ streamSucceeds }) {
 
   const context = {
     console,
-    Audio: FakeAudio,
     SpeechSynthesisUtterance: FakeUtterance,
     CustomEvent: FakeCustomEvent,
     DOMException,
@@ -107,7 +94,6 @@ function makeAudioContext({ streamSucceeds }) {
     String,
     Number,
     Math,
-    encodeURIComponent,
     setTimeout,
     clearTimeout,
     setInterval,
@@ -119,8 +105,6 @@ function makeAudioContext({ streamSucceeds }) {
     document: {
       dispatchEvent(event) { speechEvents.push(event); },
       addEventListener() {},
-      getElementById() { return null; },
-      querySelector() { return null; },
       hidden: false
     },
     window: {
@@ -131,41 +115,42 @@ function makeAudioContext({ streamSucceeds }) {
   context.window.window = context.window;
   vm.createContext(context);
   vm.runInContext(fs.readFileSync(path.join(__dirname, '..', 'sentence-audio-v4.js'), 'utf8'), context);
-  return { context, speechEvents, spoken, audioPlayCalls: () => audioPlayCalls };
+  return { context, speechEvents, spoken };
 }
 
-async function testDirectPersianStreamWithoutPersianVoice() {
-  const harness = makeAudioContext({ streamSucceeds: true });
+async function testPersianDeviceVoiceForUnbundledPhrase() {
+  const harness = makeAudioContext({ hasPersianVoice: true });
   const ok = await harness.context.window.speakPractice([
-    { text: 'فرودگاه دور است.', phoneticHint: 'Forudgâh dur ast.' }
+    { text: 'این یک عبارت آزمایشی است.', phoneticHint: 'In yek ebârat-e âzmâyeshi ast.' }
   ]);
-  if (!ok) throw new Error('The genuine Persian stream did not complete in the mock.');
-  if (harness.audioPlayCalls() < 1) throw new Error('The Persian stream was not started on the original tap.');
-  if (harness.spoken.length) throw new Error('A non-Persian device voice was used instead of the Persian stream.');
+  if (!ok) throw new Error('A listed Persian system voice did not complete.');
+  if (harness.spoken.length !== 1) throw new Error('The Persian system voice was not used exactly once.');
+  if (harness.spoken[0].voice !== 'Persian' || harness.spoken[0].lang !== 'fa-IR') {
+    throw new Error('An unlisted or non-Persian voice was used.');
+  }
   const complete = harness.speechEvents.find(event => event.type === 'farsi:speech-complete');
-  if (complete?.detail?.method !== 'persian-stream') {
-    throw new Error('The audio engine did not report genuine Persian stream playback.');
+  if (complete?.detail?.method !== 'persian-device') {
+    throw new Error('The audio engine did not report Persian system-voice playback.');
   }
 }
 
-async function testStreamFailureNeverUsesDefaultVoice() {
-  const harness = makeAudioContext({ streamSucceeds: false });
+async function testMissingPersianVoiceFailsHonestly() {
+  const harness = makeAudioContext({ hasPersianVoice: false });
   const ok = await harness.context.window.speakPractice([
-    { text: 'فرودگاه دور است.', phoneticHint: 'Forudgâh dur ast.' }
+    { text: 'این یک عبارت آزمایشی است.', phoneticHint: 'In yek ebârat-e âzmâyeshi ast.' }
   ]);
-  if (ok) throw new Error('Failed Persian streams were incorrectly reported as successful.');
-  if (harness.audioPlayCalls() < 1) throw new Error('The Persian stream was never attempted.');
-  if (harness.spoken.length) throw new Error('A default device voice was used after Persian stream failure.');
+  if (ok) throw new Error('Missing Persian system speech was incorrectly reported as successful.');
+  if (harness.spoken.length) throw new Error('A default English voice was used as a Persian fallback.');
   const failure = harness.speechEvents.find(event => event.type === 'farsi:speech-error');
-  if (failure?.detail?.method !== 'persian-stream') {
-    throw new Error('Persian stream failure was not reported honestly.');
+  if (failure?.detail?.method !== 'persian-device') {
+    throw new Error('Missing Persian system speech was not reported honestly.');
   }
 }
 
 (async () => {
   await testGuidedRecovery();
-  await testDirectPersianStreamWithoutPersianVoice();
-  await testStreamFailureNeverUsesDefaultVoice();
+  await testPersianDeviceVoiceForUnbundledPhrase();
+  await testMissingPersianVoiceFailsHonestly();
 
   const audio = fs.readFileSync(path.join(__dirname, '..', 'sentence-audio-v4.js'), 'utf8');
   for (const forbidden of [
@@ -174,15 +159,15 @@ async function testStreamFailureNeverUsesDefaultVoice() {
     'playPhonetic',
     'pronunciation guide',
     'persian-device-unlisted',
-    "voice?.lang || 'fa-IR'"
+    "voice?.lang || 'fa-IR'",
+    'translate_tts',
+    'translate.google',
+    'persian-stream'
   ]) {
     if (audio.includes(forbidden)) throw new Error(`Unsafe sentence fallback remains: ${forbidden}`);
   }
-  if (!audio.includes('Start the genuine Persian stream immediately')) {
-    throw new Error('Sentence audio no longer starts the genuine Persian stream during the tap.');
-  }
-  if (!audio.includes('practiceSentence(currentWord())')) {
-    throw new Error('Today’s Persian sentence is not preloaded before Step 2.');
+  if (!audio.includes('A genuine Persian system voice is unavailable')) {
+    throw new Error('Sentence audio does not fail safely when no Persian system voice exists.');
   }
 
   const recovery = fs.readFileSync(path.join(__dirname, '..', 'guided-sentence-recovery.js'), 'utf8');
@@ -190,7 +175,7 @@ async function testStreamFailureNeverUsesDefaultVoice() {
     throw new Error('Sentence recovery is missing a genuine-Persian retry or escape path.');
   }
 
-  console.log('Genuine Persian sentence audio recovery passed.');
+  console.log('Bundled sentence audio and Persian system-voice recovery passed.');
 })().catch(error => {
   console.error(error);
   process.exitCode = 1;
