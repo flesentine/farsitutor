@@ -4,13 +4,18 @@ on:
   push:
     branches:
       - agent/ios-xcode-project
+  pull_request:
+    branches:
+      - agent/capacitor-ios-bootstrap
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 permissions:
   contents: write
+  pull-requests: read
 
 concurrency:
-  group: ios-project-${{ github.ref }}
+  group: ios-project-${{ github.event.pull_request.head.ref || github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -18,12 +23,15 @@ jobs:
     if: github.actor != 'github-actions[bot]'
     runs-on: macos-15
     timeout-minutes: 45
+    env:
+      HEAD_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -122,4 +130,4 @@ jobs:
             exit 0
           fi
           git commit -m 'Generate verified iOS Xcode project'
-          git push origin HEAD:${GITHUB_REF_NAME}
+          git push origin HEAD:${HEAD_BRANCH}
