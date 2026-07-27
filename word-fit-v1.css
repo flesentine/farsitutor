@@ -1,0 +1,82 @@
+/* Mobile saved-word fit: protect Persian text and keep secondary actions compact. */
+.deck-item-compact .deck-main {
+  min-width: 0;
+}
+
+.deck-item-compact .deck-main strong {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.deck-item-compact .deck-fa {
+  min-width: 0;
+  max-width: 100%;
+  flex: 1 1 auto;
+  overflow: hidden;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .deck-item-compact {
+    grid-template-columns: 104px minmax(0, 1fr) auto !important;
+    gap: 8px;
+    padding: 12px !important;
+  }
+
+  .deck-word {
+    width: 104px;
+    max-width: 104px;
+    min-width: 0;
+    gap: 6px;
+    overflow: hidden;
+  }
+
+  .deck-item-compact .deck-fa {
+    font-size: clamp(25px, 7vw, 30px);
+  }
+
+  .deck-item-compact .deck-main span {
+    line-height: 1.25;
+  }
+
+  .deck-item-compact .deck-actions {
+    gap: 5px;
+  }
+
+  .deck-actions .deck-review {
+    width: 40px !important;
+    min-width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+  }
+
+  .deck-actions .deck-review span {
+    display: none;
+  }
+
+  .deck-more summary {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 390px) {
+  .deck-item-compact {
+    grid-template-columns: 96px minmax(0, 1fr) auto !important;
+    gap: 7px;
+  }
+
+  .deck-word {
+    width: 96px;
+    max-width: 96px;
+  }
+
+  .deck-item-compact .deck-fa {
+    font-size: clamp(24px, 6.8vw, 28px);
+  }
+}
