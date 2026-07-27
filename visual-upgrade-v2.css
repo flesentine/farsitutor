@@ -1,0 +1,418 @@
+/* Mobile visual polish: typography, compact metadata, achievements, and swipe actions. */
+[lang="fa"],
+.deck-fa,
+.guided-fa,
+.guided-letter,
+.script-letter,
+.review-answer-farsi,
+.farsi-word {
+  font-family: "Geeza Pro", "Noto Naskh Arabic", "Noto Sans Arabic", Tahoma, Arial, sans-serif;
+  font-kerning: normal;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.empty-state {
+  text-align: center;
+}
+
+.empty-illustration {
+  display: block;
+  width: min(174px, 64%);
+  height: auto;
+  margin: -10px auto 8px;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.achievement-section {
+  margin: 4px 0 14px;
+  padding: 13px 13px 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, .72);
+  box-shadow: 0 8px 24px rgba(39, 33, 83, .055);
+}
+
+.achievement-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.achievement-heading .eyebrow {
+  margin: 0 0 2px;
+  font-size: 9px;
+}
+
+.achievement-heading h3 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.achievement-heading > .muted {
+  flex: 0 0 auto;
+  font-size: 11px;
+}
+
+.achievement-strip {
+  display: flex;
+  gap: 9px;
+  margin: 0 -3px;
+  padding: 2px 3px 3px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+.achievement-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.achievement-item {
+  position: relative;
+  width: 82px;
+  flex: 0 0 82px;
+  scroll-snap-align: start;
+  text-align: center;
+}
+
+.achievement-art {
+  position: relative;
+  width: 62px;
+  height: 62px;
+  margin: 0 auto 4px;
+}
+
+.achievement-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.achievement-item.locked .achievement-art img {
+  opacity: .38;
+  filter: grayscale(.75) saturate(.45);
+}
+
+.achievement-lock {
+  position: absolute;
+  right: -1px;
+  bottom: 0;
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--muted);
+  box-shadow: 0 4px 10px rgba(39, 33, 83, .14);
+}
+
+.achievement-lock .ui-svg {
+  width: 12px;
+  height: 12px;
+}
+
+.achievement-item strong,
+.achievement-item > span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.achievement-item strong {
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.achievement-item > span {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.deck-list {
+  gap: 8px;
+}
+
+.deck-swipe {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 19px;
+  background: var(--danger);
+}
+
+.deck-swipe-delete {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: inline-flex;
+  width: 82px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  border: 0;
+  border-radius: 0 19px 19px 0;
+  background: var(--danger);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.deck-swipe-delete .ui-svg {
+  width: 21px;
+  height: 21px;
+}
+
+.deck-swipe-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  transform: translateX(0);
+  transition: transform .2s cubic-bezier(.2, .8, .2, 1);
+  touch-action: pan-y;
+  will-change: transform;
+}
+
+.deck-swipe.is-open .deck-swipe-content {
+  transform: translateX(-82px);
+}
+
+.deck-swipe.is-dragging .deck-swipe-content {
+  transition: none;
+}
+
+.deck-item-compact {
+  grid-template-columns: minmax(80px, auto) minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: 12px 14px;
+}
+
+.deck-word,
+.deck-main {
+  min-width: 0;
+}
+
+.deck-word {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.deck-item-compact .deck-fa {
+  max-width: 100%;
+  overflow: hidden;
+  font-size: clamp(25px, 4vw, 33px);
+  font-weight: 600;
+  line-height: 1.12;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.deck-item-compact .deck-main strong {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.deck-meta-row {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
+  margin-top: 5px;
+}
+
+.word-status-chip {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 7px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 750;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.word-status-chip .status-dot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  margin: 0;
+}
+
+.word-status-chip.status-learning {
+  background: var(--learning-soft);
+  color: var(--learning);
+}
+
+.word-status-chip.status-strong {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.word-status-chip.status-missed {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.deck-next {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.deck-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.deck-audio,
+.deck-actions .deck-review {
+  display: inline-grid;
+  width: 40px !important;
+  min-width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  place-items: center;
+  border: 0;
+  border-radius: 12px;
+  background: var(--primary-faint) !important;
+  color: var(--primary-dark);
+}
+
+.deck-audio .ui-svg,
+.deck-review .ui-svg {
+  width: 20px;
+  height: 20px;
+}
+
+.filter-row {
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+}
+
+.filter-row .filter {
+  scroll-snap-align: start;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --mobile-nav-height: 68px;
+  }
+
+  .app-shell {
+    padding-bottom: calc(var(--mobile-nav-height) + var(--mobile-nav-offset) * 2 + var(--mobile-safe-bottom) + 22px);
+  }
+
+  .tabbar {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    height: var(--mobile-nav-height);
+    padding: 6px;
+    border-radius: 22px;
+  }
+
+  .tab {
+    min-height: 54px;
+    border-radius: 16px;
+  }
+
+  .empty-state {
+    padding: 24px 18px 28px;
+  }
+
+  .empty-illustration {
+    width: min(152px, 58%);
+    margin-top: -8px;
+  }
+
+  .achievement-section {
+    margin-top: 2px;
+    padding: 11px 11px 10px;
+  }
+
+  .deck-item-compact {
+    grid-template-columns: 96px minmax(0, 1fr) auto !important;
+    gap: 8px;
+    padding: 10px 11px !important;
+  }
+
+  .deck-item-compact .deck-fa {
+    font-size: clamp(25px, 7.2vw, 31px);
+  }
+
+  .deck-actions .deck-review span {
+    display: none;
+  }
+}
+
+@media (max-width: 390px) {
+  .deck-item-compact {
+    grid-template-columns: 88px minmax(0, 1fr) auto !important;
+    gap: 7px;
+    padding: 9px 10px !important;
+  }
+
+  .deck-item-compact .deck-fa {
+    font-size: clamp(23px, 6.8vw, 28px);
+  }
+
+  .deck-audio,
+  .deck-actions .deck-review {
+    width: 38px !important;
+    min-width: 38px !important;
+    height: 38px !important;
+  }
+
+  .achievement-item {
+    width: 76px;
+    flex-basis: 76px;
+  }
+
+  .achievement-art {
+    width: 58px;
+    height: 58px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck-swipe-content {
+    transition: none;
+  }
+}
