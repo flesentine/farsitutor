@@ -74,7 +74,7 @@ async function cancelDailyReminder() {
 
 async function scheduleDailyReminder(options: Record<string, unknown> = {}) {
   const granted = await notificationPermission();
-  if (!granted) return { supported: true, granted: false, scheduled: false };
+  if (!granted) return { supported: false, granted: false, scheduled: false, reason: 'permission-denied' };
 
   const hour = Math.min(23, Math.max(0, Number(options.hour) || 19));
   const minute = Math.min(59, Math.max(0, Number(options.minute) || 0));
