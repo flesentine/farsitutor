@@ -12,6 +12,10 @@ function clearLearningData() {
   window.location.reload();
 }
 
+async function askConfirmation(options) {
+  return Boolean(await window.FarsiConfirm?.ask?.(options));
+}
+
 function bindEvents() {
   bindVerbPanel('todayVerbPanel');
   bindVerbPanel('reviewVerbPanel');
@@ -61,7 +65,7 @@ function bindEvents() {
     }
   });
 
-  $('deckList').addEventListener('click', event => {
+  $('deckList').addEventListener('click', async event => {
     const button = event.target.closest('button');
     if (!button) return;
     if (button.dataset.speak !== undefined) speak(getWord(Number(button.dataset.speak)).fa, button);
@@ -72,20 +76,28 @@ function bindEvents() {
     if (button.dataset.remove !== undefined) {
       const index = Number(button.dataset.remove);
       const word = getWord(index);
-      if (word && confirm(`Remove “${word.fa}” from your flashcards?`)) {
-        delete state.cards[index];
-        saveState();
-        sanitizeReviewQueue();
-        renderAll();
-        if ($('reviewView').classList.contains('active')) renderReviewCard();
-      }
+      if (!word) return;
+      const confirmed = await askConfirmation({
+        title: 'Remove saved word?',
+        message: `“${word.fa}” will be removed from My Words and its review history will be deleted.`,
+        confirmLabel: 'Remove word'
+      });
+      if (!confirmed) return;
+      delete state.cards[index];
+      saveState();
+      sanitizeReviewQueue();
+      renderAll();
+      if ($('reviewView').classList.contains('active')) renderReviewCard();
     }
   });
 
-  $('resetBtn').addEventListener('click', () => {
-    if (confirm('Reset all saved words, lesson progress, script progress, and review history?')) {
-      clearLearningData();
-    }
+  $('resetBtn').addEventListener('click', async () => {
+    const confirmed = await askConfirmation({
+      title: 'Reset all learning progress?',
+      message: 'This permanently removes saved words, lessons, letter practice, review history, streaks, and settings from this device.',
+      confirmLabel: 'Reset progress'
+    });
+    if (confirmed) clearLearningData();
   });
 
   const installButton = $('installBtn');
