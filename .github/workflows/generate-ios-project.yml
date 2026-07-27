@@ -16,7 +16,7 @@ permissions:
 
 concurrency:
   group: ios-project-${{ github.event.pull_request.head.ref || github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   generate-ios:
@@ -30,7 +30,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
           ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
 
       - name: Set up Node.js
@@ -39,17 +39,30 @@ jobs:
           node-version: 22
 
       - name: Install pinned dependencies
-        run: npm install --no-audit --no-fund
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-audit --no-fund > npm-install.log 2>&1 || {
+            tail -n 120 npm-install.log
+            exit 1
+          }
+          tail -n 20 npm-install.log
 
       - name: Generate or synchronize the iOS project
         shell: bash
         run: |
           set -euo pipefail
           if [[ -d ios/App/App.xcodeproj ]]; then
-            npm run cap:sync:ios
+            COMMAND=(npm run cap:sync:ios)
           else
-            npm run cap:add:ios
+            COMMAND=(npm run cap:add:ios)
           fi
+          "${COMMAND[@]}" > ios-generation.log 2>&1 || {
+            echo '--- iOS generation failure ---'
+            tail -n 160 ios-generation.log
+            exit 1
+          }
+          tail -n 40 ios-generation.log
 
       - name: Validate generated project structure
         shell: bash
@@ -63,11 +76,17 @@ jobs:
           grep -q 'image="LaunchMark"' ios/App/App/Base.lproj/LaunchScreen.storyboard
 
       - name: Resolve Swift packages
-        run: >-
-          xcodebuild
-          -project ios/App/App.xcodeproj
-          -scheme App
-          -resolvePackageDependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -project ios/App/App.xcodeproj \
+            -scheme App \
+            -resolvePackageDependencies > swift-resolution.log 2>&1 || {
+              tail -n 160 swift-resolution.log
+              exit 1
+            }
+          tail -n 40 swift-resolution.log
 
       - name: Build for generic iPhone Simulator
         shell: bash
@@ -80,7 +99,12 @@ jobs:
             -sdk iphonesimulator \
             -destination 'generic/platform=iOS Simulator' \
             CODE_SIGNING_ALLOWED=NO \
-            build | tee xcodebuild.log
+            build > xcodebuild.log 2>&1 || {
+              echo '--- Xcode simulator build failure ---'
+              tail -n 200 xcodebuild.log
+              exit 1
+            }
+          tail -n 50 xcodebuild.log
 
       - name: Record verified toolchain
         shell: bash
