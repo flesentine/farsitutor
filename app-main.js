@@ -8,12 +8,7 @@ const platformRuntime = window.FarsiPlatform || {
 };
 
 function clearLearningData() {
-  const keys = [];
-  for (let index = 0; index < localStorage.length; index += 1) {
-    const key = localStorage.key(index);
-    if (key?.startsWith('farsi-')) keys.push(key);
-  }
-  keys.forEach(key => localStorage.removeItem(key));
+  window.FarsiStorage.clearLearningData();
   window.location.reload();
 }
 

@@ -12,9 +12,9 @@ const $ = (id) => document.getElementById(id);
 const todayKey = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
 const now = () => Date.now();
 function defaultState(){return{cards:{},history:{},totalGood:0,totalBad:0,lastOpen:null}}
-function loadState(){try{return{...defaultState(),...JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}}catch{return defaultState()}}
+function loadState(){const saved=window.FarsiStorage?.readJSON(STORAGE_KEY,{})??{};return saved&&typeof saved==='object'&&!Array.isArray(saved)?{...defaultState(),...saved}:defaultState()}
 let state=loadState();
-function saveState(){state.lastOpen=todayKey();localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
+function saveState(){state.lastOpen=todayKey();window.FarsiStorage.writeJSON(STORAGE_KEY,state)}
 function dayNumber(){const s=typeof CURRICULUM_START!=='undefined'?CURRICULUM_START:'2024-01-01';const[y,m,d]=s.split('-').map(Number);const start=Date.UTC(y,m-1,d),n=new Date();return Math.max(0,Math.floor((Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())-start)/DAY_MS))}
 function todaysWordIndex(){const order=typeof DAILY_ORDER!=='undefined'&&DAILY_ORDER.length?DAILY_ORDER:WORDS.map((_,i)=>i);return order[((dayNumber()%order.length)+order.length)%order.length]}
 function getWord(index){return WORDS[index]}
