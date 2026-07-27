@@ -8,6 +8,12 @@ class MemoryStorage {
   setItem(key, value) { this.values.set(key, String(value)); }
 }
 
+class FakeMutationObserver {
+  constructor(callback) { this.callback = callback; }
+  observe() {}
+  disconnect() {}
+}
+
 async function testGuidedRecovery() {
   const today = '2026-07-13';
   const storage = new MemoryStorage({
@@ -23,6 +29,7 @@ async function testGuidedRecovery() {
     console,
     JSON,
     Set,
+    MutationObserver: FakeMutationObserver,
     localStorage: storage,
     todayKey: () => today,
     document: {
