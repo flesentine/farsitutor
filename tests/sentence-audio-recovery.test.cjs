@@ -32,8 +32,11 @@ async function testGuidedRecovery() {
     MutationObserver: FakeMutationObserver,
     localStorage: storage,
     todayKey: () => today,
+    currentWord: () => null,
     document: {
+      documentElement: {},
       addEventListener() {},
+      getElementById() { return null; },
       createElement() { return { className: '', innerHTML: '', appendChild() {} }; }
     },
     window: {
