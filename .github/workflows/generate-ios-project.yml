@@ -1,0 +1,125 @@
+name: Generate and verify iOS project
+
+on:
+  push:
+    branches:
+      - agent/ios-xcode-project
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ios-project-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  generate-ios:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: macos-15
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install pinned dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Generate or synchronize the iOS project
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -d ios/App/App.xcodeproj ]]; then
+            npm run cap:sync:ios
+          else
+            npm run cap:add:ios
+          fi
+
+      - name: Validate generated project structure
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f ios/App/App.xcodeproj/project.pbxproj
+          test -f ios/App/App/PrivacyInfo.xcprivacy
+          test -f ios/App/CapApp-SPM/Package.swift
+          grep -q 'PrivacyInfo.xcprivacy in Resources' ios/App/App.xcodeproj/project.pbxproj
+          grep -q 'PRODUCT_BUNDLE_IDENTIFIER = com.farsidaily.app;' ios/App/App.xcodeproj/project.pbxproj
+          grep -q 'image="LaunchMark"' ios/App/App/Base.lproj/LaunchScreen.storyboard
+
+      - name: Resolve Swift packages
+        run: >-
+          xcodebuild
+          -project ios/App/App.xcodeproj
+          -scheme App
+          -resolvePackageDependencies
+
+      - name: Build for generic iPhone Simulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -project ios/App/App.xcodeproj \
+            -scheme App \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO \
+            build | tee xcodebuild.log
+
+      - name: Record verified toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          XCODE_VERSION="$(xcodebuild -version | paste -sd ' ' -)"
+          SDK_VERSION="$(xcrun --sdk iphonesimulator --show-sdk-version)"
+          CAPACITOR_VERSION="$(node -p "require('./node_modules/@capacitor/core/package.json').version")"
+          cat > ios/BUILD_VERIFICATION.md <<EOF
+          # iOS build verification
+
+          - Source commit: ${GITHUB_SHA}
+          - Capacitor: ${CAPACITOR_VERSION}
+          - ${XCODE_VERSION}
+          - iPhone Simulator SDK: ${SDK_VERSION}
+          - Simulator build: passed
+          - Build destination: generic iPhone Simulator
+          - Code signing: disabled for simulator verification
+          - Device signing: automatic; set APPLE_DEVELOPMENT_TEAM before running the configurator when a team ID is available
+
+          The generated project was compiled on GitHub's macOS runner with Swift Package Manager dependencies resolved from the pinned npm packages.
+          EOF
+
+      - name: Run repository safeguards
+        run: |
+          node tests/capacitor-bootstrap.test.cjs
+          node tests/app-store-assets.test.cjs
+          node tests/ios-xcode-project.test.cjs
+
+      - name: Upload Xcode build log
+        uses: actions/upload-artifact@v4
+        with:
+          name: farsidaily-xcodebuild-log
+          path: xcodebuild.log
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Commit generated native source project
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add package-lock.json ios
+          if git diff --cached --quiet; then
+            echo 'Generated iOS project is already current.'
+            exit 0
+          fi
+          git commit -m 'Generate verified iOS Xcode project'
+          git push origin HEAD:${GITHUB_REF_NAME}
