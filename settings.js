@@ -73,7 +73,7 @@
     const reminderHelp = document.getElementById('reminderHelp');
     if (reminderHelp) {
       reminderHelp.textContent = nativeReminderAvailable
-        ? 'Uses an on-device notification. The native notification adapter is connected during the Xcode step.'
+        ? 'Uses an on-device notification. Permission is requested when you turn this on.'
         : 'Daily reminders become available in the iPhone app.';
     }
 
@@ -155,7 +155,7 @@
       checkbox.checked = false;
       document.getElementById('reminderTime').disabled = true;
       save();
-      setStatus('Daily reminders will be activated during the Xcode notification step.', true);
+      setStatus('Daily reminders are unavailable or notification permission was not granted.', true);
       return;
     }
     save();
@@ -169,7 +169,7 @@
     if (settings.reminderEnabled) {
       const result = await syncReminder();
       if (result.supported === false) {
-        setStatus('The reminder time is saved, but native notifications are not connected yet.', true);
+        setStatus('The reminder time is saved, but notifications are unavailable in this build.', true);
       }
     }
     save();
