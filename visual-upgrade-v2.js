@@ -273,10 +273,15 @@
     openRow = shouldOpen ? row : (openRow === row ? null : openRow);
   }
 
-  function removeSavedWord(index) {
+  async function removeSavedWord(index) {
     const word = getWord(index);
     if (!word || !state.cards[index]) return;
-    if (!confirm(`Remove “${word.fa}” from My Words?`)) return;
+    const confirmed = await window.FarsiConfirm?.ask?.({
+      title: 'Remove saved word?',
+      message: `“${word.fa}” will be removed from My Words and its review history will be deleted.`,
+      confirmLabel: 'Remove word'
+    });
+    if (!confirmed) return;
     delete state.cards[index];
     saveState();
     if (typeof sanitizeReviewQueue === 'function') sanitizeReviewQueue();
