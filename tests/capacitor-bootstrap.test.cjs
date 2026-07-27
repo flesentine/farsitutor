@@ -27,6 +27,9 @@ if (packageJson.devDependencies.esbuild !== '0.28.1') throw new Error('esbuild i
 for (const script of ['build:native', 'cap:add:ios', 'cap:sync:ios', 'cap:open:ios', 'ios:configure']) {
   if (!packageJson.scripts[script]) throw new Error(`Missing npm script ${script}.`);
 }
+if (!packageJson.scripts['cap:add:ios'].includes('--packagemanager SPM')) {
+  throw new Error('First-time iOS generation is not pinned to Swift Package Manager.');
+}
 
 for (const token of [
   "appId: 'com.farsidaily.app'",
@@ -79,8 +82,12 @@ for (const token of [
   'AppIcon.appiconset',
   'LaunchBackground.colorset',
   'LaunchMark.imageset',
-  'PrivacyInfo.xcprivacy',
-  '<key>UILaunchScreen</key>'
+  'LaunchScreen.storyboard',
+  'image="LaunchMark"',
+  'name="LaunchBackground"',
+  'PrivacyInfo.xcprivacy in Resources',
+  'APPLE_DEVELOPMENT_TEAM',
+  '<string>Farsi Daily</string>'
 ]) {
   if (!configure.includes(token)) throw new Error(`iOS configuration is missing ${token}.`);
 }
