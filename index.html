@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="layout-polish-v1.css?v=1">
   <link rel="stylesheet" href="generated-art-v1.css?v=1">
   <link rel="stylesheet" href="word-fit-v1.css?v=1">
+  <link rel="stylesheet" href="settings.css?v=1">
   <title>Farsi Daily</title>
 </head>
 <body>
@@ -32,7 +33,10 @@
       <div class="brand-mark" aria-hidden="true">ف</div>
       <div><h1>Farsi Daily</h1><p>Speak Farsi first. Learn the Persian script step by step.</p></div>
     </div>
-    <button id="installBtn" class="ghost-btn hidden" type="button">Install app</button>
+    <div class="topbar-actions">
+      <button id="installBtn" class="ghost-btn hidden" type="button">Install app</button>
+      <button id="settingsBtn" class="ghost-btn" type="button" aria-label="Open settings">Settings</button>
+    </div>
   </header>
 
   <main>
@@ -155,9 +159,75 @@
       <div id="deckList" class="deck-list"></div>
       <div id="deckEmpty" class="empty-state hidden"><div class="empty-icon">ف</div><h3>No saved words yet</h3><p>Words you save for review will appear here.</p></div>
     </section>
+
+    <section id="settingsView" class="view settings-view" aria-labelledby="settingsHeading">
+      <div class="settings-heading">
+        <div><p class="eyebrow">APP SETTINGS</p><h2 id="settingsHeading" tabindex="-1">Settings</h2><p>Control pronunciation, reminders, privacy, and learning data.</p></div>
+        <button id="settingsBackBtn" class="ghost-btn" type="button">Back</button>
+      </div>
+
+      <div class="settings-stack">
+        <section class="settings-card" aria-labelledby="preferencesHeading">
+          <h3 id="preferencesHeading">Preferences</h3>
+          <p>These preferences stay on this device.</p>
+          <label class="setting-row" for="audioSpeedSelect">
+            <span class="setting-copy"><strong>Pronunciation speed</strong><span>Applies when an audio button does not request a specific practice speed.</span></span>
+            <select id="audioSpeedSelect" class="setting-control">
+              <option value="normal">Normal</option>
+              <option value="slow">Slower</option>
+            </select>
+          </label>
+          <label class="setting-row" for="reminderEnabled">
+            <span class="setting-copy"><strong>Daily lesson reminder</strong><span id="reminderHelp">Daily reminders become available in the iPhone app.</span></span>
+            <input id="reminderEnabled" class="setting-check" type="checkbox">
+          </label>
+          <label class="setting-row" for="reminderTime">
+            <span class="setting-copy"><strong>Reminder time</strong><span>The notification stays on the device.</span></span>
+            <input id="reminderTime" class="setting-time" type="time" value="19:00">
+          </label>
+        </section>
+
+        <section id="privacySettingsCard" class="settings-card" aria-labelledby="privacyHeading">
+          <h3 id="privacyHeading">Privacy</h3>
+          <p>No account, advertising, behavioral tracking, or analytics are included. Learning progress is stored on this device.</p>
+          <ul class="settings-list">
+            <li>Saved words and lesson history are used only for learning and review.</li>
+            <li>The current web build may use a remote pronunciation fallback when bundled and device audio are unavailable.</li>
+            <li>You can erase all learning data from this screen.</li>
+          </ul>
+          <div class="settings-actions"><a class="settings-link" href="privacy.html" target="_blank" rel="noopener">Read full Privacy Policy</a></div>
+        </section>
+
+        <section class="settings-card" aria-labelledby="supportHeading">
+          <h3 id="supportHeading">Support</h3>
+          <p>Use the support page for audio and progress troubleshooting. Copying app details gives a problem report useful technical context without including lesson answers.</p>
+          <div class="settings-actions">
+            <a class="settings-link" href="support.html" target="_blank" rel="noopener">Open Support</a>
+            <button id="copyDiagnosticsBtn" class="secondary-btn" type="button">Copy app details</button>
+          </div>
+        </section>
+
+        <section class="settings-card" aria-labelledby="aboutHeading">
+          <h3 id="aboutHeading">About Farsi Daily</h3>
+          <p>Learn one useful Persian word and one Persian-script lesson each day, then remember them with short reviews.</p>
+          <div class="settings-meta">
+            <div><small>Version</small><strong id="appVersionValue">1.0.0-pre-release</strong></div>
+            <div><small>Platform</small><strong id="appPlatformValue">web</strong></div>
+          </div>
+          <p>The frequency-informed curriculum incorporates data from the Apache-2.0 licensed <strong>m3hrdadfi/persian-words-frequency</strong> project and applies additional learner-focused ordering and cleanup.</p>
+        </section>
+
+        <section class="settings-card danger-card" aria-labelledby="dataHeading">
+          <h3 id="dataHeading">Learning data</h3>
+          <p>Resetting removes saved words, lesson progress, script progress, review history, streak information, and settings from this device.</p>
+          <button id="resetBtn" class="danger-btn" type="button">Reset all learning progress</button>
+        </section>
+      </div>
+      <p id="settingsStatus" class="settings-status" role="status" aria-live="polite"></p>
+    </section>
   </main>
 
-  <footer><p>Your Farsi progress is stored only in this browser.</p><button id="resetBtn" class="text-btn" type="button">Reset progress</button></footer>
+  <footer><p>Your Farsi progress is stored privately on this device.</p><button id="privacyFooterBtn" class="text-btn" type="button">Privacy</button></footer>
 </div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
@@ -172,7 +242,8 @@
 <script src="script-quiz-utils.js?v=1" defer></script>
 <script src="app-ui.js?v=2" defer></script>
 <script src="app-main.js?v=3" defer></script>
-<script src="speech-fix.js?v=8" defer></script>
+<script src="settings.js?v=1" defer></script>
+<script src="speech-fix.js?v=9" defer></script>
 <script src="learning-upgrade.js?v=3" defer></script>
 <script src="guided-learning.js?v=3" defer></script>
 <script src="sentence-audio-manifest.js?v=1" defer></script>
