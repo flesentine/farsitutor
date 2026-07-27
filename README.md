@@ -28,16 +28,17 @@ Each table includes all six persons and pronunciation buttons. Compound verbs su
 - Today’s word is automatically added to the flashcard deck
 - Missed cards return during the same session and are due again sooner
 - Correct cards progress through 1, 3, 7, 14, 30, 60, and 120-day intervals
-- Progress is stored in the browser with `localStorage`
+- Progress is stored on the device through the shared `FarsiStorage` adapter
 
 ## Pronunciation
 
-The app tries pronunciation in this order:
+The app uses pronunciation in this order:
 
-1. Bundled Persian MP3
-2. Streamed Persian speech
-3. A Persian system voice
-4. A phonetic English-voice fallback
+1. Bundled Persian MP3 for all 1,000 curriculum headwords
+2. Bundled Persian MP3 for all 1,000 scheduled curriculum sentences
+3. A genuine Persian system voice for an uncommon phrase that has no bundled recording
+
+The runtime does not send pronunciation text to Google Translate or another remote text-to-speech service, and it does not use an English phonetic voice as a Persian fallback.
 
 ## Run locally
 
@@ -50,5 +51,5 @@ Then open `http://localhost:8080`.
 ## Data and generated assets
 
 - The checked-in curriculum is split across `words-part-*.js`; `words-order.js` contains the one-word-per-day order.
-- `tools/generate_audio.py` creates missing Persian pronunciation clips in stable storage order.
-- The audio workflow can add pronunciation files for newly added words.
+- `tools/generate_audio.py` creates missing Persian headword pronunciation clips in stable storage order.
+- The sentence-audio workflow keeps the 1,000 scheduled Persian sentence recordings synchronized with curriculum text and hashes.
