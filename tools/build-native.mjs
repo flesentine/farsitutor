@@ -41,7 +41,7 @@ if (!appScripts.includes('app-main.js?v=3') || appScripts.length < 10) {
 
 const nativeBootstrap = [
   `<script>window.__FARSI_NATIVE_APP_SCRIPTS__=${JSON.stringify(appScripts)};<\/script>`,
-  '<script src="native-bridge.js" defer><\/script>'
+  '<script type="module" src="native-bridge.js"><\/script>'
 ].join('\n');
 const storageTag = '<script src="storage.js?v=1" defer></script>';
 if (!index.includes(storageTag)) throw new Error('Could not find the storage bootstrap script.');
@@ -52,7 +52,7 @@ await build({
   entryPoints: [path.join(ROOT, 'native', 'native-bridge.ts')],
   outfile: path.join(OUT, 'native-bridge.js'),
   bundle: true,
-  format: 'iife',
+  format: 'esm',
   platform: 'browser',
   target: ['safari16'],
   minify: false,
@@ -63,7 +63,8 @@ await build({
 await writeFile(path.join(OUT, 'native-build-manifest.json'), JSON.stringify({
   earlyScripts: [...EARLY_SCRIPTS],
   deferredAppScripts: appScripts,
-  nativeEntry: 'native-bridge.js'
+  nativeEntry: 'native-bridge.js',
+  startupGate: 'top-level-await'
 }, null, 2));
 
 console.log(`Prepared ${OUT} with ${appScripts.length} app scripts gated behind native storage hydration.`);
