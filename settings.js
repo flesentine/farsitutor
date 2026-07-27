@@ -102,13 +102,21 @@
   };
   window.FarsiSettings = Object.freeze(api);
 
-  const baseSpeakPractice = window.speakPractice;
-  if (typeof baseSpeakPractice === 'function') {
-    window.speakPractice = function speakPracticeWithPreference(items, button = null, options = {}) {
+  function installAudioPreference() {
+    const baseSpeakPractice = window.speakPractice;
+    if (typeof baseSpeakPractice !== 'function' || baseSpeakPractice.settingsPreferenceWrapped) return false;
+    const wrapped = function speakPracticeWithPreference(items, button = null, options = {}) {
       const explicitSpeed = Object.prototype.hasOwnProperty.call(options, 'speed');
       const effectiveOptions = explicitSpeed ? options : { ...options, speed: settings.audioSpeed };
       return baseSpeakPractice(items, button, effectiveOptions);
     };
+    wrapped.settingsPreferenceWrapped = true;
+    window.speakPractice = wrapped;
+    return true;
+  }
+
+  if (!installAudioPreference()) {
+    document.addEventListener('DOMContentLoaded', installAudioPreference, { once: true });
   }
 
   const baseShowView = showView;
