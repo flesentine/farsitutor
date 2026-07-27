@@ -7,6 +7,17 @@ const platformRuntime = window.FarsiPlatform || {
   }
 };
 
+function loadConfirmationDialog() {
+  if (window.FarsiConfirm || document.querySelector('script[data-confirmation-dialog]')) return;
+  const script = document.createElement('script');
+  script.src = './confirmation-dialog.js?v=1';
+  script.async = false;
+  script.dataset.confirmationDialog = 'true';
+  document.head.appendChild(script);
+}
+
+loadConfirmationDialog();
+
 function clearLearningData() {
   window.FarsiStorage.clearLearningData();
   window.location.reload();
