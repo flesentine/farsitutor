@@ -1,4 +1,4 @@
-const CACHE = 'farsi-daily-cache-v45';
+const CACHE = 'farsi-daily-cache-v46';
 const ASSETS = [
   './', './index.html', './privacy.html', './support.html', './styles.css', './settings.css?v=1',
   './confirmation-dialog.css?v=1', './iphone-hardening.css?v=1', './legal.css?v=1', './verb-upgrade.css', './learning-upgrade.css',
@@ -16,7 +16,9 @@ const ASSETS = [
   './script-review-v2.js?v=4', './guided-integrity-v3.js?v=1', './guided-today-v5.js?v=1',
   './guided-script-inline.js?v=1', './guided-sentence-recovery.js?v=3', './runtime-integrity-v3.js?v=1',
   './copy-polish-v1.js?v=1', './layout-polish-v1.js?v=1', './visual-upgrade-v2.js?v=1',
-  './manifest.json', './icon.svg?v=2', './lesson-complete-badge.svg?v=1',
+  './manifest.json', './icon.svg?v=2', './assets/icons/apple-touch-icon-180.png',
+  './assets/icons/farsi-daily-192.png', './assets/icons/farsi-daily-512.png', './assets/icons/farsi-daily-maskable-512.png',
+  './lesson-complete-badge.svg?v=1',
   './assets/empty-no-words.svg?v=1', './assets/empty-caught-up.svg?v=1',
   './assets/badge-first-lesson.svg?v=1', './assets/badge-streak-7.svg?v=1',
   './assets/badge-25-words.svg?v=1', './assets/badge-alphabet.svg?v=1'
