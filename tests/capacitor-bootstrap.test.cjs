@@ -24,8 +24,12 @@ for (const [name, version] of Object.entries({
 }
 if (packageJson.devDependencies['@capacitor/cli'] !== '8.4.2') throw new Error('Capacitor CLI is not pinned.');
 if (packageJson.devDependencies.esbuild !== '0.28.1') throw new Error('esbuild is not pinned.');
+if (packageJson.devDependencies.typescript !== '6.0.3') throw new Error('TypeScript is not pinned for capacitor.config.ts.');
 for (const script of ['build:native', 'cap:add:ios', 'cap:sync:ios', 'cap:open:ios', 'ios:configure']) {
   if (!packageJson.scripts[script]) throw new Error(`Missing npm script ${script}.`);
+}
+if (!packageJson.scripts['cap:add:ios'].includes('--packagemanager SPM')) {
+  throw new Error('First-time iOS generation is not pinned to Swift Package Manager.');
 }
 
 for (const token of [
@@ -79,8 +83,12 @@ for (const token of [
   'AppIcon.appiconset',
   'LaunchBackground.colorset',
   'LaunchMark.imageset',
-  'PrivacyInfo.xcprivacy',
-  '<key>UILaunchScreen</key>'
+  'LaunchScreen.storyboard',
+  'image="LaunchMark"',
+  'name="LaunchBackground"',
+  'PrivacyInfo.xcprivacy in Resources',
+  'APPLE_DEVELOPMENT_TEAM',
+  '<string>Farsi Daily</string>'
 ]) {
   if (!configure.includes(token)) throw new Error(`iOS configuration is missing ${token}.`);
 }

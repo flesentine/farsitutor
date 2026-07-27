@@ -1,4 +1,4 @@
-import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { access, cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
@@ -13,6 +13,15 @@ const ROOT_EXCLUDES = new Set(['package.json', 'package-lock.json']);
 const ASSET_DIRECTORIES = ['assets', 'audio', 'sentence-audio'];
 const EARLY_SCRIPTS = new Set(['platform.js?v=1', 'storage.js?v=1']);
 
+async function exists(target) {
+  try {
+    await access(target);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
 
@@ -22,8 +31,18 @@ for (const entry of await readdir(ROOT, { withFileTypes: true })) {
   await cp(path.join(ROOT, entry.name), path.join(OUT, entry.name));
 }
 
+const copiedAssetDirectories = [];
 for (const directory of ASSET_DIRECTORIES) {
-  await cp(path.join(ROOT, directory), path.join(OUT, directory), { recursive: true });
+  const source = path.join(ROOT, directory);
+  if (!(await exists(source))) continue;
+  await cp(source, path.join(OUT, directory), { recursive: true });
+  copiedAssetDirectories.push(directory);
+}
+
+for (const requiredDirectory of ['assets', 'audio']) {
+  if (!copiedAssetDirectories.includes(requiredDirectory)) {
+    throw new Error(`Native build is missing required asset directory: ${requiredDirectory}`);
+  }
 }
 
 const indexPath = path.join(OUT, 'index.html');
@@ -63,6 +82,7 @@ await build({
 await writeFile(path.join(OUT, 'native-build-manifest.json'), JSON.stringify({
   earlyScripts: [...EARLY_SCRIPTS],
   deferredAppScripts: appScripts,
+  copiedAssetDirectories,
   nativeEntry: 'native-bridge.js',
   startupGate: 'top-level-await'
 }, null, 2));
