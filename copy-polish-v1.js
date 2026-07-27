@@ -152,14 +152,6 @@
     };
   }
 
-  const reset = document.getElementById('resetBtn');
-  reset?.addEventListener('click', event => {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    const message = 'Reset all progress? This will remove your saved words, lessons, letter progress, review history, and settings from this device.';
-    if (window.confirm(message)) clearLearningData();
-  }, true);
-
   let scheduled = false;
   const observer = new MutationObserver(() => {
     if (scheduled) return;
