@@ -7,13 +7,25 @@ const platformRuntime = window.FarsiPlatform || {
   }
 };
 
+let confirmationReady = null;
 function loadConfirmationDialog() {
-  if (window.FarsiConfirm || document.querySelector('script[data-confirmation-dialog]')) return;
-  const script = document.createElement('script');
-  script.src = './confirmation-dialog.js?v=1';
-  script.async = false;
-  script.dataset.confirmationDialog = 'true';
-  document.head.appendChild(script);
+  if (window.FarsiConfirm) return Promise.resolve(window.FarsiConfirm);
+  if (confirmationReady) return confirmationReady;
+
+  confirmationReady = new Promise(resolve => {
+    let script = document.querySelector('script[data-confirmation-dialog]');
+    const finish = () => resolve(window.FarsiConfirm || null);
+    if (!script) {
+      script = document.createElement('script');
+      script.src = './confirmation-dialog.js?v=1';
+      script.async = false;
+      script.dataset.confirmationDialog = 'true';
+      document.head.appendChild(script);
+    }
+    script.addEventListener('load', finish, { once: true });
+    script.addEventListener('error', () => resolve(null), { once: true });
+  });
+  return confirmationReady;
 }
 
 loadConfirmationDialog();
@@ -24,6 +36,7 @@ function clearLearningData() {
 }
 
 async function askConfirmation(options) {
+  await loadConfirmationDialog();
   return Boolean(await window.FarsiConfirm?.ask?.(options));
 }
 
