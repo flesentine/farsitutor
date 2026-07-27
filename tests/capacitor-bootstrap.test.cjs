@@ -46,10 +46,12 @@ for (const token of [
   'FarsiStorage?.registerAdapter',
   'LocalNotifications.checkPermissions()',
   'LocalNotifications.requestPermissions()',
+  "reason: 'permission-denied'",
   'schedule: { on: { hour, minute, second: 0 } }',
   'DAILY_REMINDER_ID',
   'Share.canShare()',
-  'await startAppScripts()'
+  'await startAppScripts()',
+  'await bootstrap();'
 ]) {
   if (!bridge.includes(token)) throw new Error(`Native bridge is missing ${token}.`);
 }
@@ -64,6 +66,9 @@ for (const token of [
   "from 'esbuild'",
   "EARLY_SCRIPTS = new Set(['platform.js?v=1', 'storage.js?v=1'])",
   '__FARSI_NATIVE_APP_SCRIPTS__',
+  'type="module"',
+  "format: 'esm'",
+  "startupGate: 'top-level-await'",
   'native-bridge.js',
   'deferredAppScripts'
 ]) {
