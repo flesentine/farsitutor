@@ -1,0 +1,10 @@
+<!-- Add this dictionary to the iOS target Info.plist, or configure the same values in Xcode's Launch Screen target settings. -->
+<key>UILaunchScreen</key>
+<dict>
+    <key>UIColorName</key>
+    <string>LaunchBackground</string>
+    <key>UIImageName</key>
+    <string>LaunchMark</string>
+    <key>UIImageRespectsSafeAreaInsets</key>
+    <true/>
+</dict>

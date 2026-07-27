@@ -1,0 +1,67 @@
+{
+  "generated": "2026-07-27",
+  "brand": {
+    "primary": "#5B4BDB",
+    "dark": "#4638BD",
+    "background": "#F7F7FC",
+    "accent": "#61C7A8"
+  },
+  "assets": [
+    {
+      "path": "app-store-assets/Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png",
+      "width": 1024,
+      "height": 1024,
+      "mode": "P",
+      "sha256": "db4ec3a7757e66b48268634bb52751a2126596ab6d43ed6670242e868aa7eea3"
+    },
+    {
+      "path": "app-store-assets/Assets.xcassets/LaunchMark.imageset/LaunchMark.png",
+      "width": 160,
+      "height": 160,
+      "mode": "P",
+      "sha256": "823bcade4c46a218f7b54079fc4dbeccd2501ad0f0358b037984768730334789"
+    },
+    {
+      "path": "app-store-assets/Assets.xcassets/LaunchMark.imageset/LaunchMark@2x.png",
+      "width": 320,
+      "height": 320,
+      "mode": "P",
+      "sha256": "6799598fc17fd35c4772b398d491134ca37f32c6ed907800d702c8ce95eb047b"
+    },
+    {
+      "path": "app-store-assets/Assets.xcassets/LaunchMark.imageset/LaunchMark@3x.png",
+      "width": 480,
+      "height": 480,
+      "mode": "P",
+      "sha256": "2ba63fda6c3f09d3a914a3e2ae822f19cabda7f960abe86a36527bab6a5b0081"
+    },
+    {
+      "path": "assets/icons/apple-touch-icon-180.png",
+      "width": 180,
+      "height": 180,
+      "mode": "P",
+      "sha256": "8a0ddbda9acdbc88c6fdcd1269677687f59750c91146cb6069139ddfdee0f05a"
+    },
+    {
+      "path": "assets/icons/farsi-daily-192.png",
+      "width": 192,
+      "height": 192,
+      "mode": "P",
+      "sha256": "efd74c4084687778ba44f6a3231f61e911b4c8d263b758522996f8998510c850"
+    },
+    {
+      "path": "assets/icons/farsi-daily-512.png",
+      "width": 512,
+      "height": 512,
+      "mode": "P",
+      "sha256": "edd60e34f8458e7d88d8de5dca575e52064f23b0baec044010c84cbfb0487e85"
+    },
+    {
+      "path": "assets/icons/farsi-daily-maskable-512.png",
+      "width": 512,
+      "height": 512,
+      "mode": "P",
+      "sha256": "dd0a35fd39eddd5425736bc2af22b2411a8e0b4b5159dbcc4bff8d45e06ee711"
+    }
+  ]
+}
