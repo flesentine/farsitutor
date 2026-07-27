@@ -102,6 +102,15 @@
   };
   window.FarsiSettings = Object.freeze(api);
 
+  const baseSpeakPractice = window.speakPractice;
+  if (typeof baseSpeakPractice === 'function') {
+    window.speakPractice = function speakPracticeWithPreference(items, button = null, options = {}) {
+      const explicitSpeed = Object.prototype.hasOwnProperty.call(options, 'speed');
+      const effectiveOptions = explicitSpeed ? options : { ...options, speed: settings.audioSpeed };
+      return baseSpeakPractice(items, button, effectiveOptions);
+    };
+  }
+
   const baseShowView = showView;
   showView = function showViewWithSettings(name) {
     if (name !== 'settings') previousLearningView = name;
@@ -137,6 +146,7 @@
       settings.reminderEnabled = false;
       checkbox.checked = false;
       document.getElementById('reminderTime').disabled = true;
+      save();
       setStatus('Daily reminders will be activated during the Xcode notification step.', true);
       return;
     }
@@ -167,7 +177,7 @@
     const details = [
       `Farsi Daily ${APP_VERSION}`,
       `Platform: ${window.FarsiPlatform?.platform || 'web'}`,
-      `Saved words: ${Object.keys(window.state?.cards || state?.cards || {}).length}`,
+      `Saved words: ${Object.keys(state?.cards || {}).length}`,
       `Learning storage keys: ${window.FarsiStorage?.keys('farsi-').length || 0}`,
       `User agent: ${navigator.userAgent}`
     ].join('\n');
